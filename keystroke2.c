@@ -1,4 +1,5 @@
 #include "cube3D.h"
+#include <math.h>
 
 void	key_left(t_image_mlx *img)
 {
