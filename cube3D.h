@@ -2,6 +2,10 @@
 # define CUBE3D_H
 # include "MLX42/include/MLX42/MLX42.h"
 # include "libft/libft.h"
+# include "get_next_line/get_next_line.h"
+# include <fcntl.h>
+# include <errno.h>
+# include <stdio.h>
 # define PI 3.1415926535
 
 
@@ -42,6 +46,19 @@ typedef struct s_image_mlx
 	t_player	player;
 }	t_image_mlx;
 
+typedef struct s_input
+{
+	char			*file_content;
+	char			**map_points;
+	int32_t			c_color;
+	int32_t			f_color;
+	mlx_texture_t	*NO_tex;
+	mlx_texture_t	*SO_tex;
+	mlx_texture_t	*WE_tex;
+	mlx_texture_t	*EA_tex;
+	bool			compleet;
+}	t_input;
+
 void	draw_line(t_player *player);
 void	draw_lineray(t_player *player, t_rays ray);
 void	draw_rays_2D (t_player *player);
@@ -53,4 +70,16 @@ void	key_d(t_image_mlx *img);
 void	key_left(t_image_mlx *img);
 void	key_right(t_image_mlx *img);
 
+
+
+/*-----------parsing functions-------------*/
+
+void	ac_error(int ac);
+void	mallocerr(void);
+int		color_atoi(char *str);
+void	cleardarray(char **array);
+char	**ft_space_split(char *str);
+int		open_file(char *name);
+t_input *parse(int ac, char **av);
+void    ac_error(int ac);
 #endif
