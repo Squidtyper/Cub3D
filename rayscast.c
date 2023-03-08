@@ -1,7 +1,6 @@
 #include "cube3D.h"
 #include <math.h>
 #include <stdio.h>
-#include "libft/libft.h"
 #define RAY_NUM 1
 
 static void find_wall_map(t_rays *rays)

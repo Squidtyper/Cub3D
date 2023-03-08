@@ -1,7 +1,8 @@
 #ifndef CUBE3D_H
 # define CUBE3D_H
 # include "MLX42/include/MLX42/MLX42.h"
-# include "libft/libft.h"
+# include <stddef.h>
+// # include "libft/libft.h"
 # define PI 3.1415926535
 # define P2 PI/2
 # define P3 3*PI/2
