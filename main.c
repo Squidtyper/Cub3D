@@ -11,7 +11,6 @@
 #define HEIGHT 1024
 #define WIDTH 512
 
-
 uint32_t	mappa [] =
 {
 	1,1,1,1,1,1,1,1,
@@ -80,25 +79,28 @@ void set_player(t_image_mlx	*img)
 }
 
 
-void draw_player(t_player *player)
+void draw_player(t_image_mlx *img)
 {
 	int y = 0;
 	int x = 0;
 
 
+	mlx_delete_image(img->mlx, img->player.img);
+	img->player.img = mlx_new_image(img->mlx, HEIGHT, WIDTH);
 	while (y < 8)
 	{
 		while (x < 8)
 		{
-			mlx_put_pixel(player->img, round(player->x) + x, round(player->y) + y, 0xFF5733FF);
+			mlx_put_pixel(img->player.img, round(img->player.x - 4) + x, round(img->player.y - 4) + y, 0xFF5733FF);
 			x++;
 		}
 		x = 0;
 		y++;
 	}
-	x = player->delta_x;
-	draw_line(player);
-	draw_rays_2D(player);
+	x = img->player.delta_x;
+	draw_line(&(img->player));
+	draw_rays_2D(&(img->player));
+	mlx_image_to_window(img->mlx, img->player.img, 0, 0);
 }
 
 
@@ -121,7 +123,7 @@ void hook(void* param)
 		key_left(img);
 	if (mlx_is_key_down(img->mlx, MLX_KEY_RIGHT))
 		key_right(img);
-	draw_player(&(img->player));
+	draw_player(img);
 }
 
 int32_t	main( void )
@@ -136,7 +138,7 @@ int32_t	main( void )
 	img.player.img = mlx_new_image(img.mlx, HEIGHT, WIDTH);
 	mlx_image_to_window(img.mlx, img.map, 0, 0);
 	set_player(&img);
-	draw_player(&(img.player));
+	draw_player(&img);
 	mlx_image_to_window(img.mlx, img.player.img, 0, 0);
 	mlx_loop_hook(img.mlx, &hook, &img);
 	mlx_loop(img.mlx);
