@@ -95,6 +95,7 @@ void	draw_rays_2D (t_player *player)
 	t_ray_end_point rays;
 	double	ray_angle;
 	int i;
+	double dist;
 
 	i = 0;
 	ray_angle = player->angle - DR * 30;
@@ -108,10 +109,17 @@ void	draw_rays_2D (t_player *player)
 		find_vertical_wall(player, &rays, ray_angle);
 		if (dist_pg_rayend(player->x, player->y, rays.ver_x, rays.ver_y)
 		< dist_pg_rayend(player->x, player->y, rays.hor_x, rays.hor_y))
-			draw_lineray(player, rays.ver_x, rays.ver_y);
+		{
+				draw_lineray(player, rays.ver_x, rays.ver_y);
+				dist = dist_pg_rayend(player->x, player->y, rays.ver_x, rays.ver_y);
+		}
 		else
+		{
 			draw_lineray(player, rays.hor_x, rays.hor_y);
+			dist = dist_pg_rayend(player->x, player->y, rays.hor_x, rays.hor_y);
+		}
 		i++;
+		scene3d(dist, i, player->angle - ray_angle, player);
 		ray_angle += DR;
 	}
 }

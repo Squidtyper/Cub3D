@@ -14,7 +14,8 @@ FILES = main.c \
 dda.c \
 rayscast.c\
 keystroke.c \
-keystroke2.c
+keystroke2.c \
+scene.c
 
 OBJ = ${FILES:%.c=%.o}
 

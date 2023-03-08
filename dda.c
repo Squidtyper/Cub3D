@@ -70,3 +70,27 @@ void draw_lineray(t_player *player, double end_x, double end_y)
 	}
 }
 
+void	draw3d(t_player *player, double x, double y, double end_x, double end_y)
+{
+	double	x_increas = x - end_x;
+	double	y_increas = y - end_y  ;
+	double	print_x = x;
+	double	print_y = y;
+
+	int		step = calculate_step(y_increas, x_increas);
+	if (step == 0)
+		return ;
+	new_increase(&y_increas, &x_increas, step);
+	int i = 0;
+	while (step--)
+	{
+		print_x -= x_increas;
+		print_y -= y_increas;
+		while (i < 8 )
+		{
+			mlx_put_pixel(player->img, round(print_x + i), round(print_y), 0x85b6c1FF);
+			i++;
+		}
+		i = 0;
+	}
+}

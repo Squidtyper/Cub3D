@@ -56,6 +56,8 @@ typedef struct s_image_mlx
 void	draw_line(t_player *player);
 void	draw_lineray(t_player *player, double end_x, double end_y);
 void	draw_rays_2D (t_player *player);
+void	draw3d(t_player *player, double x, double y, double end_x, double end_y);
+void	scene3d(double dist, int r, double cos_a, t_player *player);
 
 void	key_w(t_image_mlx *img);
 void	key_s(t_image_mlx *img);
