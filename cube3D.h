@@ -6,6 +6,7 @@
 # define PI 3.1415926535
 # define P2 PI/2
 # define P3 3*PI/2
+# define DR 0.0174533 //one degree in radians
 
 extern uint32_t	mappa [];
 
@@ -20,7 +21,6 @@ typedef struct s_rays
 	int dof;
 	double x;
 	double y;
-	double angle;
 	double a_tan;
 	double x_offset;
 	double y_offset;

@@ -1,7 +1,7 @@
 #include "cube3D.h"
 #include <math.h>
 #include <stdio.h>
-#define RAY_NUM 1
+#define RAY_NUM 60
 
 static void find_wall_map(t_rays *rays)
 {
@@ -21,31 +21,30 @@ static void find_wall_map(t_rays *rays)
 	}
 }
 
-static void	find_horizontal_wall(t_player *player, t_ray_end_point *rays)
+static void	find_horizontal_wall(t_player *player, t_ray_end_point *rays, double angle)
 {
 	t_rays ray;
 
 	ray.dof = 0;
-	ray.angle = player->angle;
-	ray.a_tan = -1/tan (ray.angle);
-	if (ray.angle > PI) // looking up
+	ray.a_tan = -1 / tan (angle);
+	if (angle > PI) // looking up
 	{	
 		ray.y = (((int)player->y >> 6) << 6) - 0.0001;
 		ray.x = (player->y - ray.y) * ray.a_tan + player->x;
 		ray.y_offset = -64;
 		ray.x_offset = -ray.y_offset * ray.a_tan;
 	}
-	if (ray.angle < PI) // looking down
+	if (angle < PI) // looking down
 	{	
 		ray.y = (((int)player->y >> 6) << 6) + 64;
 		ray.x = (player->y - ray.y) * ray.a_tan + player->x;
 		ray.y_offset = 64;
 		ray.x_offset = -ray.y_offset * ray.a_tan;
 	}
-	if (ray.angle == 0 || ray.angle == PI) // looking stright left right
+	if (angle == 0 || angle == PI) // looking stright left right
 	{	
 		ray.y = player->y;
-		ray.x =  player->x;
+		ray.x = player->x;
 		ray.dof = 8;
 	}
 	find_wall_map(&ray);
@@ -53,28 +52,27 @@ static void	find_horizontal_wall(t_player *player, t_ray_end_point *rays)
 	rays->hor_y = ray.y;
 }
 
-static void	find_vertical_wall(t_player *player, t_ray_end_point *rays)
+static void	find_vertical_wall(t_player *player, t_ray_end_point *rays, double angle)
 {
 	t_rays ray;
 
-	ray.angle = player->angle;
-	ray.a_tan = -tan(ray.angle);
+	ray.a_tan = -tan(angle);
 	ray.dof = 0;
-	if (ray.angle > P2 && ray.angle < P3)// looking left
+	if (angle > P2 && angle < P3)// looking left
 	{
 		ray.x = (((int)player->x >> 6) << 6) - 0.0001;
 		ray.y = (player->x - ray.x) * ray.a_tan + player->y;
 		ray.x_offset = -64;
 		ray.y_offset = -ray.x_offset * ray.a_tan;
 	}
-	if (ray.angle < P2 || ray.angle > P3) // looking right
+	if (angle < P2 || angle > P3) // looking right
 	{	
 		ray.x = (((int)player->x >> 6) << 6) + 64;
 		ray.y = (player->x - ray.x) *ray.a_tan + player->y;
 		ray.x_offset = 64;
 		ray.y_offset = -ray.x_offset * ray.a_tan;
 	}
-	if (ray.angle == 0 || ray.angle == PI) // looking straight up or down
+	if (angle == 0 || angle == PI) // looking straight up or down
 	{	
 		ray.y = player->y;
 		ray.x =  player->x;
@@ -95,18 +93,25 @@ double	dist_pg_rayend(double ax, double ay, double bx, double by)
 void	draw_rays_2D (t_player *player) 
 {
 	t_ray_end_point rays;
+	double	ray_angle;
 	int i;
 
 	i = 0;
+	ray_angle = player->angle - DR * 30;
 	while (i < RAY_NUM)
 	{
-		find_horizontal_wall(player, &rays);
-		find_vertical_wall(player, &rays);
+		if (ray_angle < 0)
+			ray_angle += 2*PI;
+		if (ray_angle > 2*PI)
+			ray_angle -= 2*PI;
+		find_horizontal_wall(player, &rays, ray_angle);
+		find_vertical_wall(player, &rays, ray_angle);
 		if (dist_pg_rayend(player->x, player->y, rays.ver_x, rays.ver_y)
 		< dist_pg_rayend(player->x, player->y, rays.hor_x, rays.hor_y))
 			draw_lineray(player, rays.ver_x, rays.ver_y);
 		else
 			draw_lineray(player, rays.hor_x, rays.hor_y);
 		i++;
+		ray_angle += DR;
 	}
 }
