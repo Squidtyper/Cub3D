@@ -46,14 +46,14 @@ void draw_line(t_player *player)
 }
 
 
-void draw_lineray(t_player *player, t_rays ray)
+void draw_lineray(t_player *player, double end_x, double end_y)
 {
-	double	y_increas = player->y - ray.y;
-	double	x_increas = player->x - ray.x;
+	double	x_increas = (player->x + player->delta_x) - end_x;
+	double	y_increas = (player->y + player->delta_y) - end_y;
 	double	print_x = player->x;
 	double	print_y =player->y;
 
-	printf("rays %f %f ;\n player %f %f ;\n ", ray.y, ray.x, player->y, player->x);
+	//printf("rays %f %f ;\n player %f %f ;\n ", ray.y, ray.x, player->y, player->x);
 	//if ()
 	int		step = calculate_step(y_increas, x_increas);
 	if (step == 0)
@@ -63,8 +63,8 @@ void draw_lineray(t_player *player, t_rays ray)
 	//printf("start %f %f ;\n %f  %f \n", print_x, print_y, x_increas, y_increas );
 	while (step--)
 	{
-		print_x += x_increas;
-		print_y += y_increas;
+		print_x -= x_increas;
+		print_y -= y_increas;
 		//printf("start %f %f ;\n %f  %f \n", print_x, print_y, x_increas, y_increas );
 		mlx_put_pixel(player->img, round(print_x), round(print_y), 0x85b6c1FF);
 	}
