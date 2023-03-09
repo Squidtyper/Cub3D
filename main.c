@@ -43,7 +43,6 @@ void draw_square(mlx_image_t *map, uint32_t x_start, uint32_t x_end,  uint32_t y
 		x_i = x_start + 1;
 		y_start++;
 	}
-
 }
 
 void	draw_map(mlx_image_t	*map)

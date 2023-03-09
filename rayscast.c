@@ -2,7 +2,40 @@
 #include <math.h>
 #include <stdio.h>
 #define RAY_NUM 60
+#define HORIZONTAL 1
+#define VERTICAL 0
 
+
+// find ipotenuse with pitagora teorem
+// this function find the lenght of the ray
+static double	dist_pg_rayend(double ax, double ay, double bx, double by)
+{
+	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
+}
+
+static void set_ray(t_player *player, t_ray_end *rays, t_rays *ray, int pos)
+{
+	double dist;
+
+	dist = dist_pg_rayend(player->x, player->y, ray->x, ray->y);
+	if (pos == HORIZONTAL)
+	{
+		rays->hor_x = ray->x;
+		rays->hor_y = ray->y;
+		rays->dist = dist;
+		rays->pos = pos;
+	}
+	else
+	{
+		rays->ver_x = ray->x;
+		rays->ver_y = ray->y;
+		if (rays->dist > dist)
+		{
+			rays->dist = dist;
+			rays->pos = pos;
+		}
+	}
+}
 /*
 	you cannot a see a verical wall if you look up/down
 	and you cannot see a horizontal wall if you look left/right
@@ -42,7 +75,7 @@ static void find_wall_map(t_rays *rays)
 	angle == 0 || angle == PI left/right no possible horizontal walls
 */
 
-static void	find_horizontal_wall(t_player *player, t_ray_end_point *rays, double angle)
+static void	find_horizontal_wall(t_player *player, t_ray_end *rays, double angle)
 {
 	t_rays ray;
 
@@ -65,8 +98,7 @@ static void	find_horizontal_wall(t_player *player, t_ray_end_point *rays, double
 	if (angle == 0 || angle == PI)
 		set_no_wall(&ray, player);
 	find_wall_map(&ray);
-	rays->hor_x = ray.x;
-	rays->hor_y = ray.y;
+	set_ray(player, rays, &ray, HORIZONTAL);
 }
 
 /*
@@ -78,7 +110,7 @@ static void	find_horizontal_wall(t_player *player, t_ray_end_point *rays, double
 	angle < P2 || angle > P3 looking right
 	angle == 0 || angle == PI up/down no possible vertical walls
 */
-static void	find_vertical_wall(t_player *player, t_ray_end_point *rays, double angle)
+static void	find_vertical_wall(t_player *player, t_ray_end *rays, double angle)
 {
 	t_rays ray;
 
@@ -101,23 +133,37 @@ static void	find_vertical_wall(t_player *player, t_ray_end_point *rays, double a
 	if (angle == 0 || angle == PI) // looking straight up or down
 		set_no_wall(&ray, player);
 	find_wall_map(&ray);
-	rays->ver_x = ray.x;
-	rays->ver_y = ray.y;
+	set_ray(player, rays, &ray, VERTICAL);
+
 }
 
-// find ipotenuse with pitagora teorem
-// this function find the lenght of the ray
-double	dist_pg_rayend(double ax, double ay, double bx, double by)
+void set_print(t_print_info *info,t_player *player, t_ray_end *ray)
 {
-	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
+	info->img = player->img;
+	info->start_x = player->x;
+	info->start_y = player->y;
+	if (ray->pos == VERTICAL)
+	{
+		info->end_x = ray->ver_x;
+		info->end_y = ray->ver_y;
+		info->color = 0x85b6c1FF;
+	}
+	else
+	{
+		info->end_x = ray->hor_x;
+		info->end_y =  ray->hor_y;
+		info->color = 0x911ef6FF;
+	}
+
+
 }
 
 void	draw_rays_2D(t_player *player) 
 {
-	t_ray_end_point rays;
+	t_ray_end rays;
+	t_print_info info;
 	double	ray_angle;
 	int i;
-	double dist;
 
 	i = 0;
 	ray_angle = player->angle - DR * 30;
@@ -129,19 +175,10 @@ void	draw_rays_2D(t_player *player)
 			ray_angle -= 2*PI;
 		find_horizontal_wall(player, &rays, ray_angle);
 		find_vertical_wall(player, &rays, ray_angle);
-		if (dist_pg_rayend(player->x, player->y, rays.ver_x, rays.ver_y)
-		< dist_pg_rayend(player->x, player->y, rays.hor_x, rays.hor_y))
-		{
-				draw_lineray(player, rays.ver_x, rays.ver_y);
-				dist = dist_pg_rayend(player->x, player->y, rays.ver_x, rays.ver_y);
-		}
-		else
-		{
-			draw_lineray(player, rays.hor_x, rays.hor_y);
-			dist = dist_pg_rayend(player->x, player->y, rays.hor_x, rays.hor_y);
-		}
+		set_print(&info, player, &rays);
+		draw_lineray(&info);
+		scene3d(&rays, i, player->angle - ray_angle, player);
 		i++;
-		scene3d(dist, i, player->angle - ray_angle, player);
 		ray_angle += DR;
 	}
 }

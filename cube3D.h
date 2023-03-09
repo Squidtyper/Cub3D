@@ -27,13 +27,15 @@ typedef struct s_rays
 } t_rays;
 
 
-typedef struct s_ray_end_point
+typedef struct s_ray_end
 {
-	double hor_x;
-	double hor_y;
-	double ver_x;
-	double ver_y;
-} t_ray_end_point;
+	double	hor_x;
+	double	hor_y;
+	double	ver_x;
+	double	ver_y;
+	double	dist;
+	int		pos;
+} t_ray_end;
 
 typedef struct s_player
 {
@@ -64,10 +66,10 @@ typedef struct s_image_mlx
 }	t_image_mlx;
 
 void	draw_line(t_player *player);
-void	draw_lineray(t_player *player, double end_x, double end_y);
+void	draw_lineray(t_print_info *info);
 void	draw_rays_2D (t_player *player);
-void	draw3d(t_player *player, double x, double y, double end_x, double end_y);
-void	scene3d(double dist, int ray, double angle, t_player *player);
+void	draw3d(t_print_info *info);
+void	scene3d(t_ray_end *rays, int ray, double angle, t_player *player);
 
 void	key_w(t_image_mlx *img);
 void	key_s(t_image_mlx *img);

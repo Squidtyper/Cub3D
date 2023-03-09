@@ -42,44 +42,47 @@ void draw_line(t_player *player)
 	}
 }
 
-
-void draw_lineray(t_player *player, double end_x, double end_y)
+void draw_lineray(t_print_info *info)
 {
-	double	x_increas = player->x - end_x;
-	double	y_increas = player->y - end_y;
-	double	print_x = player->x;
-	double	print_y =player->y;
-	int		step = calculate_step(y_increas, x_increas);
+	double	x_increas;
+	double	y_increas;
+	int		step;
+
+	x_increas = info->start_x - info->end_x;
+	y_increas = info->start_y - info->end_y;
+	step = calculate_step(y_increas, x_increas);
 	if (step == 0)
 		return ;
 	new_increase(&y_increas, &x_increas, step);
 	while (step--)
 	{
-		print_x -= x_increas;
-		print_y -= y_increas;
-		mlx_put_pixel(player->img, round(print_x), round(print_y), 0x85b6c1FF);
+		info->start_x -= x_increas;
+		info->start_y -= y_increas;
+		mlx_put_pixel(info->img, round(info->start_x), round(info->start_y), info->color);
 	}
 }
 
-void	draw3d(t_player *player, double x, double y, double end_x, double end_y)
+void	draw3d(t_print_info *info)
 {
-	double	x_increas = x - end_x;
-	double	y_increas = y - end_y;
-	double	print_x = x;
-	double	print_y = y;
+	double	x_increas;
+	double	y_increas;
+	int		step;
+	int		i;
 
-	int		step = calculate_step(y_increas, x_increas);
+	x_increas = info->start_x - info->end_x;
+	y_increas = info->start_y - info->end_y;
+	step = calculate_step(y_increas, x_increas);
 	if (step == 0)
 		return ;
 	new_increase(&y_increas, &x_increas, step);
-	int i = 0;
+	i = 0;
 	while (step--)
 	{
-		print_x -= x_increas;
-		print_y -= y_increas;
+		info->start_x -= x_increas;
+		info->start_y -= y_increas;
 		while (i < LINE_THICKNESS)
 		{
-			mlx_put_pixel(player->img, round(print_x + i), round(print_y), 0x85b6c1FF);
+			mlx_put_pixel(info->img, round(info->start_x + i), round(info->start_y), info->color);
 			i++;
 		}
 		i = 0;
