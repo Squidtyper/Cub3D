@@ -49,14 +49,24 @@ typedef struct s_image_mlx
 typedef struct s_input
 {
 	char			*file_content;
+	char			**lines;
 	char			**map_points;
+	unsigned int	map_width;
+	unsigned int	map_height;
 	int32_t			c_color;
+	bool			c_found;
 	int32_t			f_color;
+	bool			f_found;
 	mlx_texture_t	*NO_tex;
+	bool			NO_found;
 	mlx_texture_t	*SO_tex;
+	bool			SO_found;
 	mlx_texture_t	*WE_tex;
+	bool			WE_found;
 	mlx_texture_t	*EA_tex;
-	bool			compleet;
+	bool			EA_found;
+	float			a_player;
+	bool			p_found;
 }	t_input;
 
 void	draw_line(t_player *player);
@@ -78,8 +88,11 @@ void	ac_error(int ac);
 void	mallocerr(void);
 int		color_atoi(char *str);
 void	cleardarray(char **array);
+char	*join_free(char *str1, char *str2);
 char	**ft_space_split(char *str);
 int		open_file(char *name);
 t_input *parse(int ac, char **av);
 void    ac_error(int ac);
+void	find_color(t_input *input);
+void	find_texture(t_input *input);
 #endif
