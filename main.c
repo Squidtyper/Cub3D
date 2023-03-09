@@ -70,8 +70,8 @@ void	draw_map(mlx_image_t	*map)
 
 void set_player(t_image_mlx	*img)
 {
-	img->player.angle = 0;
-	img->player.x = 300;
+	img->player.angle = 0; //the angle is gonna change base on the map
+	img->player.x = 300; //the player position too
 	img->player.y = 300;
 	img->player.delta_x = cos(img->player.angle) * 5;
 	img->player.delta_y = sin(img->player.angle) * 5;
@@ -83,7 +83,6 @@ void draw_player(t_image_mlx *img)
 {
 	int y = 0;
 	int x = 0;
-
 
 	mlx_delete_image(img->mlx, img->player.img);
 	img->player.img = mlx_new_image(img->mlx, HEIGHT, WIDTH);
@@ -98,8 +97,8 @@ void draw_player(t_image_mlx *img)
 		y++;
 	}
 	x = img->player.delta_x;
-	draw_line(&(img->player));
 	draw_rays_2D(&(img->player));
+	draw_line(&(img->player));
 	mlx_image_to_window(img->mlx, img->player.img, 0, 0);
 }
 

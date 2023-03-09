@@ -3,6 +3,17 @@
 #include <stdio.h>
 #define RAY_NUM 60
 
+/*
+	you cannot a see a verical wall if you look up/down
+	and you cannot see a horizontal wall if you look left/right
+*/
+static void set_no_wall(t_rays *rays,t_player *player)
+{
+		rays->y = player->y;
+		rays->x = player->x;
+		rays->dof = 8;
+}
+
 static void find_wall_map(t_rays *rays)
 {
 	while (rays->dof < 8)
@@ -21,37 +32,52 @@ static void find_wall_map(t_rays *rays)
 	}
 }
 
+/*
+	This function check if in front of you 
+	(dependig in witch direction are you looking, up down left or right ) 
+	there is a horizonal wall
+	dof inticate how far a player can see
+	angle > PI looking up
+	angle < PI looking down
+	angle == 0 || angle == PI left/right no possible horizontal walls
+*/
+
 static void	find_horizontal_wall(t_player *player, t_ray_end_point *rays, double angle)
 {
 	t_rays ray;
 
 	ray.dof = 0;
 	ray.a_tan = -1 / tan (angle);
-	if (angle > PI) // looking up
+	if (angle > PI)
 	{	
 		ray.y = (((int)player->y >> 6) << 6) - 0.0001;
 		ray.x = (player->y - ray.y) * ray.a_tan + player->x;
 		ray.y_offset = -64;
 		ray.x_offset = -ray.y_offset * ray.a_tan;
 	}
-	if (angle < PI) // looking down
+	if (angle < PI)
 	{	
 		ray.y = (((int)player->y >> 6) << 6) + 64;
 		ray.x = (player->y - ray.y) * ray.a_tan + player->x;
 		ray.y_offset = 64;
 		ray.x_offset = -ray.y_offset * ray.a_tan;
 	}
-	if (angle == 0 || angle == PI) // looking stright left right
-	{	
-		ray.y = player->y;
-		ray.x = player->x;
-		ray.dof = 8;
-	}
+	if (angle == 0 || angle == PI)
+		set_no_wall(&ray, player);
 	find_wall_map(&ray);
 	rays->hor_x = ray.x;
 	rays->hor_y = ray.y;
 }
 
+/*
+	This function check if in front of you 
+	(dependig in witch direction are you looking, up down left or right ) 
+	there is a vertical wall
+	dof inticate how far a player can see
+	angle > P2 && angle < P3 looking left
+	angle < P2 || angle > P3 looking right
+	angle == 0 || angle == PI up/down no possible vertical walls
+*/
 static void	find_vertical_wall(t_player *player, t_ray_end_point *rays, double angle)
 {
 	t_rays ray;
@@ -73,24 +99,20 @@ static void	find_vertical_wall(t_player *player, t_ray_end_point *rays, double a
 		ray.y_offset = -ray.x_offset * ray.a_tan;
 	}
 	if (angle == 0 || angle == PI) // looking straight up or down
-	{	
-		ray.y = player->y;
-		ray.x =  player->x;
-		ray.dof = 8;
-	}
+		set_no_wall(&ray, player);
 	find_wall_map(&ray);
 	rays->ver_x = ray.x;
 	rays->ver_y = ray.y;
 }
 
-//find ipotenuse with pitagora teorem
-//this function find the lenght of the ray
+// find ipotenuse with pitagora teorem
+// this function find the lenght of the ray
 double	dist_pg_rayend(double ax, double ay, double bx, double by)
 {
-	return (sqrt((bx-ax)*(bx-ax) + (by-ay)*(by-ay)));
+	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
 }
 
-void	draw_rays_2D (t_player *player) 
+void	draw_rays_2D(t_player *player) 
 {
 	t_ray_end_point rays;
 	double	ray_angle;

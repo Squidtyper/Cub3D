@@ -45,6 +45,16 @@ typedef struct s_player
 	double angle;
 }	t_player;
 
+typedef struct s_print_info
+{
+	mlx_image_t	*img;
+	double start_x;
+	double start_y;
+	double end_x;
+	double end_y;
+	uint32_t color;
+}	t_print_info;
+
 
 typedef struct s_image_mlx
 {
@@ -57,7 +67,7 @@ void	draw_line(t_player *player);
 void	draw_lineray(t_player *player, double end_x, double end_y);
 void	draw_rays_2D (t_player *player);
 void	draw3d(t_player *player, double x, double y, double end_x, double end_y);
-void	scene3d(double dist, int r, double cos_a, t_player *player);
+void	scene3d(double dist, int ray, double angle, t_player *player);
 
 void	key_w(t_image_mlx *img);
 void	key_s(t_image_mlx *img);
