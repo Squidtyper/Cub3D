@@ -102,27 +102,7 @@ void draw_player(t_image_mlx *img)
 }
 
 
-void hook(void* param)
-{
-	t_image_mlx	*img;
-	img = param;
 
-	if (mlx_is_key_down(img->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(img->mlx);
-	if (mlx_is_key_down(img->mlx, MLX_KEY_W))
-		key_w(img);
-	if (mlx_is_key_down(img->mlx, MLX_KEY_S))
-		key_s(img);
-	if (mlx_is_key_down(img->mlx, MLX_KEY_A))
-		key_a(img);
-	if (mlx_is_key_down(img->mlx, MLX_KEY_D))
-		key_d(img);
-	if (mlx_is_key_down(img->mlx, MLX_KEY_LEFT))
-		key_left(img);
-	if (mlx_is_key_down(img->mlx, MLX_KEY_RIGHT))
-		key_right(img);
-	draw_player(img);
-}
 
 int32_t	main( void )
 {
