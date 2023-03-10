@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 14:35:51 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/09 17:30:54 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/10 20:18:18 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,36 @@
 
 void    test_inputs(t_input *input)
 {
-	int i;
-	int j;
+	unsigned int i;
+	unsigned int j;
 
 	i = 0;
-	while(input->map_points[i])
+	while(i < input->map_height)
 	{
 		j = 0;
-		while (input->map_points[i][j])
+		while (j < input->map_width)
 		{
 			printf("%c ", input->map_points[i][j]);
 			j++;
 		}
+		printf("\n");
 		i++;
 	}
+	printf("map width: %d, map height: %d\n", input->map_width, input->map_height);
 	if (input->NO_tex)
-		printf("NO_tex successfully imported");
+		printf("NO_tex successfully imported\n");
 	else
-		printf("NO_tex import is unsuccessful");
+		printf("NO_tex import is unsuccessful\n");
 	if (input->SO_tex)
-		printf("SO_tex successfully imported");
+		printf("SO_tex successfully imported\n");
 	else
-		printf("SO_tex import is unsuccessful");
+		printf("SO_tex import is unsuccessful\n");
 	if (input->WE_tex)
-		printf("WE_tex successfully imported");
+		printf("WE_tex successfully imported\n");
 	else
-		printf("WE_tex import is unsuccessful");
+		printf("WE_tex import is unsuccessful\n");
 	if (input->EA_tex)
-		printf("EA_tex successfully imported");
+		printf("EA_tex successfully imported\n");
 	else
-		printf("EA_tex import is unsuccessful");
+		printf("EA_tex import is unsuccessful\n");
 }

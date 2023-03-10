@@ -66,6 +66,8 @@ typedef struct s_input
 	mlx_texture_t	*EA_tex;
 	bool			EA_found;
 	float			a_player;
+	int				player_x;
+	int				player_y;
 	bool			p_found;
 }	t_input;
 
@@ -84,15 +86,22 @@ void	key_right(t_image_mlx *img);
 
 /*-----------parsing functions-------------*/
 
-void	ac_error(int ac);
-void	mallocerr(void);
-int		color_atoi(char *str);
-void	cleardarray(char **array);
-char	*join_free(char *str1, char *str2);
-char	**ft_space_split(char *str);
-int		open_file(char *name);
-t_input *parse(int ac, char **av);
-void    ac_error(int ac);
-void	find_color(t_input *input);
-void	find_texture(t_input *input);
+void			ac_error(int ac);
+void			mallocerr(void);
+int				color_atoi(char *str);
+void			cleardarray(char **array);
+char			*join_free(char *str1, char *str2);
+char			**ft_space_split(char *str);
+int				open_file(char *name);
+t_input 		*parse(int ac, char **av);
+void    		ac_error(int ac);
+void			find_color(t_input *input);
+void			find_texture(t_input *input);
+void			get_player(t_input *input);
+int				valid_map_line(char *str);
+char			**convert_map(t_list *map, t_input *input);
+void			fill_map_line(char *to_fill, char *content, unsigned int len);
+void			find_texture(t_input *input);
+mlx_texture_t	*open_texture(char *path);
+void			test_inputs(t_input *input);
 #endif
