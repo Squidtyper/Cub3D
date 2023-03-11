@@ -25,8 +25,8 @@ void	new_increase(double *y, double *x, int step)
 
 void draw_line(t_player *player)
 {
-	double	y_increas = player->delta_y * 4;
-	double	x_increas = player->delta_x * 4;
+	double	y_increas = player->y + player->delta_y * 5;
+	double	x_increas = player->x + player->delta_x * 5;
 	double	print_x = player->x;
 	double	print_y = player->y;
 	int		step = calculate_step(y_increas, x_increas);
