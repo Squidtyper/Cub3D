@@ -46,7 +46,11 @@ static void set_no_wall(t_rays *rays,t_player *player)
 		rays->x = player->x;
 		rays->dof = 8;
 }
-
+/* becase we chose the sixe of a each square to be 64 
+   so the distance of each square is 64 but in the map the distance is 1 (position in the array)
+   we bitshift of 6 (\64)
+   then y and x become simply like our i and j in the previus map loop
+*/
 static void find_wall_map(t_rays *rays)
 {
 	while (rays->dof < 8)
@@ -75,6 +79,10 @@ static void find_wall_map(t_rays *rays)
 	angle == 0 || angle == PI left/right no possible horizontal walls
 */
 
+
+/* in the corrent code to have the precision of 64 (the sixe of the block) we bitshift right of 6 and then back of 6
+ we want to stop in the moment than we hit the starting line of the wall not reach for example the middle;
+*/
 static void	find_horizontal_wall(t_player *player, t_ray_end *rays, double angle)
 {
 	t_rays ray;
