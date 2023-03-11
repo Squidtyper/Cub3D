@@ -67,6 +67,10 @@ void	draw_map(mlx_image_t	*map)
 	}
 }
 
+/*  to set the delta (that is where the player is looking) we need sine and cosine:
+    sine gives us the adjacent side (y)  
+    cosine give us the opposite side (x)
+*/
 void set_player(t_image_mlx	*img)
 {
 	img->player.angle = 0; //the angle is gonna change base on the map
