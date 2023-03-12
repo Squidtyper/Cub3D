@@ -74,14 +74,18 @@ static void find_wall_map(t_rays *rays)
 	(dependig in witch direction are you looking, up down left or right ) 
 	there is a horizonal wall
 	dof inticate how far a player can see
-	angle > PI looking up
-	angle < PI looking down
+	angle > PI looking down
+	angle < PI looking up
 	angle == 0 || angle == PI left/right no possible horizontal walls
-*/
-
-
-/* in the corrent code to have the precision of 64 (the sixe of the block) we bitshift right of 6 and then back of 6
- we want to stop in the moment than we hit the starting line of the wall not reach for example the middle;
+	the a_tan it's needed to find the position of the x end point of the ray (because it can touch every point of the wall)
+        _____     _____
+        ^            ^
+        |            |
+	in the corrent code to have the precision of 64 (the sixe of the block) we bitshift right of 6 and then back of 6
+	we want to stop in the moment than we hit the starting line of the wall not reach for example the middle;
+          ^
+        __|__ 
+          |
 */
 static void	find_horizontal_wall(t_player *player, t_ray_end *rays, double angle)
 {
@@ -89,7 +93,7 @@ static void	find_horizontal_wall(t_player *player, t_ray_end *rays, double angle
 
 	ray.dof = 0;
 	ray.a_tan = -1 / tan (angle);
-	if (angle > PI)
+	if (angle > PI
 	{	
 		ray.y = (((int)player->y >> 6) << 6) - 0.0001;
 		ray.x = (player->y - ray.y) * ray.a_tan + player->x;
@@ -117,6 +121,14 @@ static void	find_horizontal_wall(t_player *player, t_ray_end *rays, double angle
 	angle > P2 && angle < P3 looking left
 	angle < P2 || angle > P3 looking right
 	angle == 0 || angle == PI up/down no possible vertical walls
+	the a_tan it's needed to find the position of the y end point of the ray (because it can touch every point of the wall)
+        ->    |       |   
+              |    -> | 
+            
+	in the corrent code to have the precision of 64 (the sixe of the block) we bitshift right of 6 and then back of 6
+	we want to stop in the moment than we hit the starting line of the wall not reach for example the middle;
+         -|->
+          |
 */
 static void	find_vertical_wall(t_player *player, t_ray_end *rays, double angle)
 {
@@ -124,21 +136,21 @@ static void	find_vertical_wall(t_player *player, t_ray_end *rays, double angle)
 
 	ray.a_tan = -tan(angle);
 	ray.dof = 0;
-	if (angle > P2 && angle < P3)// looking left
+	if (angle > P2 && angle < P3)
 	{
 		ray.x = (((int)player->x >> 6) << 6) - 0.0001;
 		ray.y = (player->x - ray.x) * ray.a_tan + player->y;
 		ray.x_offset = -64;
 		ray.y_offset = -ray.x_offset * ray.a_tan;
 	}
-	if (angle < P2 || angle > P3) // looking right
+	if (angle < P2 || angle > P3)
 	{	
 		ray.x = (((int)player->x >> 6) << 6) + 64;
 		ray.y = (player->x - ray.x) *ray.a_tan + player->y;
 		ray.x_offset = 64;
 		ray.y_offset = -ray.x_offset * ray.a_tan;
 	}
-	if (angle == 0 || angle == PI) // looking straight up or down
+	if (angle == 0 || angle == PI)
 		set_no_wall(&ray, player);
 	find_wall_map(&ray);
 	set_ray(player, rays, &ray, VERTICAL);
