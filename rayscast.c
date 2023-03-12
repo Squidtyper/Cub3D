@@ -7,8 +7,8 @@
 
 
 /*
-    find ipotenuse with pitagora teorem
-    this function find the lenght of the ray
+    find hypotenuse with pitagora theorem
+    this function finds the length of the ray
 */
 static double	dist_pg_rayend(double ax, double ay, double bx, double by)
 {
@@ -48,12 +48,13 @@ static void set_no_wall(t_rays *rays,t_player *player)
 		rays->x = player->x;
 		rays->dof = 8;
 }
+
 /*
-    becase we chose the sixe of a each square to be 64 
-    so the distance of each square is 64 but in the map 
+    because we chose the size of each squares to be 64 
+    so the distance of each square is 64 but ion the map 
     the distance is 1 (position in the array)
     we bitshift of 6 (\64)
-    then y and x become simply like our i and j in the previus map loop
+    then y and x become simply like our i and j in the previous map loop
 */
 static void find_wall_map(t_rays *rays)
 {
@@ -74,21 +75,21 @@ static void find_wall_map(t_rays *rays)
 }
 
 /*
-    This function check if in front of you 
-    (dependig in witch direction are you looking, up down left or right ) 
-    there is a horizonal wall
-    dof inticate how far a player can see
+    This function checks if in front of you 
+    (depending on which direction are you looking, up down left or right ) 
+    there is a horizontal wall
+    dof indicate how far a player can see
     angle > PI looking down
     angle < PI looking up
     angle == 0 || angle == PI left/right no possible horizontal walls
-    the a_tan it's needed to find the position of the x end point of
+    the a_tan it's needed to find the position of the x endpoint of
     the ray (because it can touch every point of the wall)
         _____     _____
         ^            ^
         |            |
-    in the corrent code to have the precision of 64 (the sixe of the block)
+    in the current code to have the precision of 64 (the size of the block)
     we bitshift right of 6 and then back of 6
-    we want to stop in the moment than we hit the starting line of the wall 
+    we want to stop the moment that we hit the starting line of the wall 
     not reach for example the middle;
           ^
         __|__ 
@@ -121,21 +122,21 @@ static void	find_horizontal_wall(t_player *player, t_ray_end *rays, double angle
 }
 
 /*
-    This function check if in front of you
-    (dependig in witch direction are you looking, up down left or right ) 
+    This function checks if in front of you
+    (depending on which direction are you looking, up down left or right ) 
     there is a vertical wall
-    dof inticate how far a player can see
+    dof indicates how far a player can see
     angle > P2 && angle < P3 looking left
     angle < P2 || angle > P3 looking right
     angle == 0 || angle == PI up/down no possible vertical walls
-    the a_tan it's needed to find the position of the y end point of the
+    the a_tan it's needed to find the position of the y endpoint of the
     ray (because it can touch every point of the wall)
         ->    |       |   
               |    -> | 
 
-    in the corrent code to have the precision of 64 (the sixe of the block)
+    in the current code to have the precision of 64 (the size of the block)
     we bitshift right of 6 and then back of 6
-    we want to stop in the moment than we hit the starting line of the wall
+    we want to stop the moment that we hit the starting line of the wall
     not reach for example the middle;
          -|->
           |
