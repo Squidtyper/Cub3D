@@ -1,58 +1,215 @@
-#include "cube3D.h"
+#include "execution.h"
 #include <math.h>
 #include <stdio.h>
-#include "libft/libft.h"
+#define RAY_NUM 60
+#define HORIZONTAL 1
+#define VERTICAL 0
 
 
-void	draw_rays_2D (t_player *player) 
+/*
+    find hypotenuse with pitagora theorem
+    this function finds the length of the ray
+*/
+static double	dist_pg_rayend(double ax, double ay, double bx, double by)
 {
-	t_rays rays;
-	double a_tan;
+	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
+}
 
-	rays.angle = player->angle;
-	a_tan = -1 /tan (rays.angle);
-	rays.i_ray = 0;
+static void set_ray(t_player *player, t_ray_end *rays, t_rays *ray, int pos)
+{
+	double dist;
 
-	//orizontal
-	while (rays.i_ray < 1)
+	dist = dist_pg_rayend(player->x, player->y, ray->x, ray->y);
+	if (pos == HORIZONTAL)
 	{
-		rays.dof = 0;
-		if (rays.angle > PI) // looking up
-		{	
-			rays.y = (((int)player->y >> 6) << 6) -0.0001;
-			rays.x = (player->y - rays.y) *a_tan + player->x;
-			rays.y_offset = -64;
-			rays.x_offset = -rays.y_offset * a_tan;
-		}
-		if (rays.angle < PI) // looking down
-		{	
-			rays.y = (((int)player->y >> 6) <<6) +64;
-			rays.x = (player->y - rays.y) *a_tan + player->x;
-			rays.y_offset = 64;
-			rays.x_offset = -rays.y_offset * a_tan;
-		}
-		if (rays.angle ==0 || rays.angle == PI) // looking stright left right
-		{	
-			rays.y = player->y;
-			rays.x =  player->x;
-			rays.dof = 8;
-		}
-		while (rays.dof < 8)
+		rays->hor_x = ray->x;
+		rays->hor_y = ray->y;
+		rays->dist = dist;
+		rays->pos = pos;
+	}
+	else
+	{
+		rays->ver_x = ray->x;
+		rays->ver_y = ray->y;
+		if (rays->dist > dist)
 		{
-			rays.map_x = (int)(rays.x) >> 6;
-			rays.map_y = (int)(rays.x) >> 6;
-			rays.map_pos = rays.map_y * 8 + rays.map_x;
-			if( rays.map_pos < 8 * 8 && mappa[rays.map_pos] == 1) //hit wall
-				rays.dof = 8;
-			else
-			{
-				rays.y += rays.y_offset;
-				rays.x += rays.x_offset;
-				rays.dof++;
-			}
+			rays->dist = dist;
+			rays->pos = pos;
 		}
-		draw_lineray(player, rays);
-		rays.i_ray++;
+	}
+}
+/*
+	you cannot a see a verical wall if you look up/down
+	and you cannot see a horizontal wall if you look left/right
+*/
+static void set_no_wall(t_rays *rays,t_player *player)
+{
+		rays->y = player->y;
+		rays->x = player->x;
+		rays->dof = 8;
+}
+
+/*
+    because we chose the size of each squares to be 64 
+    so the distance of each square is 64 but ion the map 
+    the distance is 1 (position in the array)
+    we bitshift of 6 (\64)
+    then y and x become simply like our i and j in the previous map loop
+*/
+static void find_wall_map(t_rays *rays)
+{
+	while (rays->dof < 8)
+	{
+		rays->map_x = (int)(rays->x) >> 6;
+		rays->map_y = (int)(rays->y) >> 6;
+		rays->map_pos = rays->map_y * 8 + rays->map_x;
+		if (rays->map_pos > 0 && rays->map_pos < 8 * 8 && mappa[rays->map_pos] == 1) //hit wall
+			rays->dof = 8;
+		else
+		{
+			rays->y += rays->y_offset;
+			rays->x += rays->x_offset;
+			rays->dof++;
+		}
 	}
 }
 
+/*
+    This function checks if in front of you 
+    (depending on which direction are you looking, up down left or right ) 
+    there is a horizontal wall
+    dof indicate how far a player can see
+    angle > PI looking down
+    angle < PI looking up
+    angle == 0 || angle == PI left/right no possible horizontal walls
+    the a_tan it's needed to find the position of the x endpoint of
+    the ray (because it can touch every point of the wall)
+        _____     _____
+        ^            ^
+        |            |
+    in the current code to have the precision of 64 (the size of the block)
+    we bitshift right of 6 and then back of 6
+    we want to stop the moment that we hit the starting line of the wall 
+    not reach for example the middle;
+          ^
+        __|__ 
+          |
+*/
+static void	find_horizontal_wall(t_player *player, t_ray_end *rays, double angle)
+{
+	t_rays ray;
+
+	ray.dof = 0;
+	ray.a_tan = -1 / tan (angle);
+	if (angle > PI)
+	{	
+		ray.y = (((int)player->y >> 6) << 6) - 0.0001;
+		ray.x = (player->y - ray.y) * ray.a_tan + player->x;
+		ray.y_offset = -64;
+		ray.x_offset = -ray.y_offset * ray.a_tan;
+	}
+	if (angle < PI)
+	{	
+		ray.y = (((int)player->y >> 6) << 6) + 64;
+		ray.x = (player->y - ray.y) * ray.a_tan + player->x;
+		ray.y_offset = 64;
+		ray.x_offset = -ray.y_offset * ray.a_tan;
+	}
+	if (angle == 0 || angle == PI)
+		set_no_wall(&ray, player);
+	find_wall_map(&ray);
+	set_ray(player, rays, &ray, HORIZONTAL);
+}
+
+/*
+    This function checks if in front of you
+    (depending on which direction are you looking, up down left or right ) 
+    there is a vertical wall
+    dof indicates how far a player can see
+    angle > P2 && angle < P3 looking left
+    angle < P2 || angle > P3 looking right
+    angle == 0 || angle == PI up/down no possible vertical walls
+    the a_tan it's needed to find the position of the y endpoint of the
+    ray (because it can touch every point of the wall)
+        ->    |       |   
+              |    -> | 
+
+    in the current code to have the precision of 64 (the size of the block)
+    we bitshift right of 6 and then back of 6
+    we want to stop the moment that we hit the starting line of the wall
+    not reach for example the middle;
+         -|->
+          |
+*/
+static void	find_vertical_wall(t_player *player, t_ray_end *rays, double angle)
+{
+	t_rays ray;
+
+	ray.a_tan = -tan(angle);
+	ray.dof = 0;
+	if (angle > P2 && angle < P3)
+	{
+		ray.x = (((int)player->x >> 6) << 6) - 0.0001;
+		ray.y = (player->x - ray.x) * ray.a_tan + player->y;
+		ray.x_offset = -64;
+		ray.y_offset = -ray.x_offset * ray.a_tan;
+	}
+	if (angle < P2 || angle > P3)
+	{	
+		ray.x = (((int)player->x >> 6) << 6) + 64;
+		ray.y = (player->x - ray.x) *ray.a_tan + player->y;
+		ray.x_offset = 64;
+		ray.y_offset = -ray.x_offset * ray.a_tan;
+	}
+	if (angle == 0 || angle == PI)
+		set_no_wall(&ray, player);
+	find_wall_map(&ray);
+	set_ray(player, rays, &ray, VERTICAL);
+
+}
+
+void set_print(t_print_info *info,t_player *player, t_ray_end *ray)
+{
+	info->img = player->img;
+	info->start_x = player->x;
+	info->start_y = player->y;
+	if (ray->pos == VERTICAL)
+	{
+		info->end_x = ray->ver_x;
+		info->end_y = ray->ver_y;
+		info->color = 0x85b6c1FF;
+	}
+	else
+	{
+		info->end_x = ray->hor_x;
+		info->end_y =  ray->hor_y;
+		info->color = 0x911ef6FF;
+	}
+
+
+}
+
+void	draw_rays_2D(t_player *player) 
+{
+	t_ray_end rays;
+	t_print_info info;
+	double	ray_angle;
+	int i;
+
+	i = 0;
+	ray_angle = player->angle - DR * 30;
+	while (i < RAY_NUM)
+	{
+		if (ray_angle < 0)
+			ray_angle += 2*PI;
+		if (ray_angle > 2*PI)
+			ray_angle -= 2*PI;
+		find_horizontal_wall(player, &rays, ray_angle);
+		find_vertical_wall(player, &rays, ray_angle);
+		set_print(&info, player, &rays);
+		draw_lineray(&info);
+		scene3d(&rays, i, player->angle - ray_angle, player);
+		i++;
+		ray_angle += DR;
+	}
+}
