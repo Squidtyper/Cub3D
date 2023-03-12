@@ -7,6 +7,9 @@
 # include <errno.h>
 # include <stdio.h>
 # define PI 3.1415926535
+# define P2 PI/2
+# define P3 3*PI/2
+# define DR 0.0174533 //one degree in radians
 
 
 extern uint32_t	mappa [];
@@ -38,13 +41,38 @@ typedef struct s_player
 	double angle;
 }	t_player;
 
-
-typedef struct s_image_mlx
+typedef struct s_wall_coll
 {
-	mlx_t		*mlx;
-	mlx_image_t	*map;
-	t_player	player;
-}	t_image_mlx;
+	int	x_offset;
+	int y_offset;
+	int ipx;
+	int ipx_add_xo;
+	int ipx_sub_xo;
+	int ipy;
+	int ipy_add_yo;
+	int ipy_sub_yo;
+}	t_wall_coll;
+
+typedef struct s_ray_end
+{
+	double	hor_x;
+	double	hor_y;
+	double	ver_x;
+	double	ver_y;
+	double	dist;
+	int		pos;
+} t_ray_end;
+
+typedef struct s_print_info
+{
+	mlx_image_t	*img;
+	double start_x;
+	double start_y;
+	double end_x;
+	double end_y;
+	uint32_t color;
+}	t_print_info;
+
 
 typedef struct s_input
 {
@@ -71,14 +99,28 @@ typedef struct s_input
 	bool			p_found;
 }	t_input;
 
-void	draw_line(t_player *player);
-void	draw_lineray(t_player *player, t_rays ray);
-void	draw_rays_2D (t_player *player);
 
-void	key_w(t_image_mlx *img);
-void	key_s(t_image_mlx *img);
-void	key_a(t_image_mlx *img);
-void	key_d(t_image_mlx *img);
+typedef struct s_image_mlx
+{
+	mlx_t		*mlx;
+	mlx_image_t	*map;
+	t_player	player;
+	t_input		*map_input;
+}	t_image_mlx;
+
+
+void	draw_player(t_image_mlx *img);
+void	draw_line(t_player *player);
+void	draw_lineray(t_print_info *info);
+void	draw_rays_2D (t_player *player);
+void	draw3d(t_print_info *info);
+void	scene3d(t_ray_end *rays, int ray, double angle, t_player *player);
+
+void	hook(void* param);
+void	key_w(t_image_mlx *img, t_wall_coll *set);
+void	key_s(t_image_mlx *img, t_wall_coll *set);
+void	key_a(t_image_mlx *img, t_wall_coll *set);
+void	key_d(t_image_mlx *img, t_wall_coll *set);
 void	key_left(t_image_mlx *img);
 void	key_right(t_image_mlx *img);
 
