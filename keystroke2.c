@@ -3,7 +3,7 @@
 
 /* degree start from 0 and raech 360
    we automatically know that after 360 it's just 0 again (not 361), and vice versa lass than 0 it's 360 (not -1)
-   so when we look left and right we have to keep this in consideration
+   so when we look left and right we have to keep this in consideration, we multiplly by 5 because the valeu are very small
 */
 
 void	key_left(t_image_mlx *img)
