@@ -6,7 +6,7 @@
 #    By: lizhang <lizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/03/05 15:23:40 by lizhang       #+#    #+#                  #
-#    Updated: 2023/03/12 16:24:47 by dmonfrin      ########   odam.nl          #
+#    Updated: 2023/03/12 17:04:23 by dmonfrin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ INCLUDE		= -I include \
 			-ICub3D.h -Ilglfw -Ilibft -IMLX42/include
 ##USER		= lizhang
 
-SRC			= main.c keystroke.c keystroke2.c dda.c rayscast.c \
+SRC			= main.c keystroke.c keystroke2.c dda.c rayscast.c draw_map.c\
 			scene.c read_input.c error_messages.c\
 			ft_space_split.c parse_utils.c import_textures.c get_player.c \
 			get_map.c test_inputs.c \

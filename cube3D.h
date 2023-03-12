@@ -10,12 +10,14 @@
 # define P2 PI/2
 # define P3 3*PI/2
 # define DR 0.0174533 //one degree in radians
+#define HEIGHT_WIDTH 1024
 
 
-extern uint32_t	mappa [];
 
-extern size_t map_x;
-extern size_t map_y;
+//extern uint32_t	mappa [];
+
+//extern size_t map_x;
+//extern size_t map_y;
 
 typedef struct s_rays
 {
@@ -106,6 +108,9 @@ typedef struct s_image_mlx
 	mlx_image_t	*map;
 	t_player	player;
 	t_input		*map_input;
+	double		pad_x;
+	double		pad_y;
+	double		blk_size;
 }	t_image_mlx;
 
 
@@ -123,6 +128,7 @@ void	key_a(t_image_mlx *img, t_wall_coll *set);
 void	key_d(t_image_mlx *img, t_wall_coll *set);
 void	key_left(t_image_mlx *img);
 void	key_right(t_image_mlx *img);
+void	draw_map(t_image_mlx *img)
 
 
 
