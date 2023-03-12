@@ -3,11 +3,13 @@
 #include <stdio.h>
 
 /*
-	to dray the scene we use vertical line
-	line_h is the leght of the line that give the illusion of the distance
-	line offset is just a padding of the line to have them 
-	at the center of the screen
-	to avoid fisheye effect (that happen because different lenft of the ray)  we need to moltiply the distance of the ray with the cosine of the distance of the player angle and the ray angle
+    to dray the scene we use vertical line
+    line_h is the leght of the line that give the illusion of the distance
+    line offset is just a padding of the line to have them 
+    at the center of the scree.
+    To avoid fisheye effect (that happen because different lenft of the ray) 
+    we need to moltiply the distance of the ray with the cosine of the 
+    distance of the player angle and the ray angle
 */
 void scene3d(t_ray_end *rays, int ray, double angle, t_player *player )
 {
