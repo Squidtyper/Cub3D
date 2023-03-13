@@ -1,4 +1,4 @@
-#include "execution.h"
+#include "cube3D.h"
 #include <math.h>
 #include <stdio.h>
 #define LINE_THICKNESS 8
@@ -23,25 +23,6 @@ void	new_increase(double *y, double *x, int step)
 	*x /= step;
 }
 
-void draw_line(t_player *player)
-{
-	double	y_increas = player->delta_y * 5;
-	double	x_increas = player->delta_x * 5;
-	double	print_x = player->x;
-	double	print_y = player->y;
-	int		step = calculate_step(y_increas, x_increas);
-	if (step == 0)
-		return ;
-	new_increase(&y_increas, &x_increas, step);
-	while (step--)
-	{
-		print_x += x_increas;
-		print_y += y_increas;
-		mlx_put_pixel(player->img, round(print_x), round(print_y), 0xFFeb34db);
-
-	}
-}
-
 void draw_lineray(t_print_info *info)
 {
 	double	x_increas;
@@ -58,6 +39,7 @@ void draw_lineray(t_print_info *info)
 	{
 		info->start_x -= x_increas;
 		info->start_y -= y_increas;
+		printf("%f, %f \n",round(info->start_x), round(info->start_y));
 		mlx_put_pixel(info->img, round(info->start_x), round(info->start_y), info->color);
 	}
 }
@@ -86,5 +68,32 @@ void	draw3d(t_print_info *info)
 			i++;
 		}
 		i = 0;
+	}
+}
+
+void	draw_player_direction(t_image_mlx *img)
+{
+	double	y_increas;
+	double	x_increas;
+	double	print_x;
+	double	print_y;
+	int		step;
+
+	if (img->pad_x == HEIGHT_WIDTH)
+		return ;
+	print_x = img->player.x;
+	print_y = img->player.y;
+	x_increas = img->player.delta_x * 1;
+	y_increas = img->player.delta_y * 1;
+	step = calculate_step(y_increas, x_increas);
+	if (step == 0)
+		return ;
+	new_increase(&y_increas, &x_increas, step);
+	while (step--)
+	{
+		print_x += x_increas;
+		print_y += y_increas;
+		mlx_put_pixel(img->player.img, round(print_x),
+			round(print_y), 0xFFeb34db);
 	}
 }

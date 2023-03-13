@@ -1,4 +1,4 @@
-#include "execution.h"
+#include "cube3D.h"
 #include <math.h>
 
 /*
@@ -39,12 +39,12 @@ void	wall_collision(t_image_mlx	*img, t_wall_coll *set)
 		set->y_offset = -20;
 	else
 		set->y_offset = 20;
-	set->ipx = img->player.x /64.0;
-	set->ipx_add_xo= (img->player.x + set->x_offset) /64.0;
-	set->ipx_sub_xo = (img->player.x - set->x_offset) /64.0;
-	set->ipy = img->player.y /64.0;
-	set->ipy_add_yo= (img->player.y + set->y_offset) /64.0;
-	set->ipy_sub_yo = (img->player.y - set->y_offset) /64.0;
+	set->ipx = img->player.x /img->blk_size;
+	set->ipx_add_xo= (img->player.x + set->x_offset) /img->blk_size;
+	set->ipx_sub_xo = (img->player.x - set->x_offset) /img->blk_size;
+	set->ipy = img->player.y /img->blk_size;
+	set->ipy_add_yo= (img->player.y + set->y_offset) /img->blk_size;
+	set->ipy_sub_yo = (img->player.y - set->y_offset) /img->blk_size;
 }
 
 void hook(void* param)
@@ -68,5 +68,5 @@ void hook(void* param)
 		key_left(img);
 	if (mlx_is_key_down(img->mlx, MLX_KEY_RIGHT))
 		key_right(img);
-	draw_player(img);
+	draw_cube3d(img);
 }

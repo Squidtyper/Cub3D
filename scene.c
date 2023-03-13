@@ -1,4 +1,4 @@
-#include "execution.h"
+#include "cube3D.h"
 #include <math.h>
 #include <stdio.h>
 
@@ -12,7 +12,7 @@
     distance of the player angle and the ray angle
     all the numeric values are going to be change based on the size of the screen
 */
-void scene3d(t_ray_end *rays, int ray, double angle, t_player *player )
+void scene3d(t_ray_end *rays, int ray, double angle, t_image_mlx *img)
 {
 	double line_h;
 	double line_offset;
@@ -23,19 +23,20 @@ void scene3d(t_ray_end *rays, int ray, double angle, t_player *player )
 	if (angle > 2 * PI)
 		angle -= 2 * PI;
 	rays->dist = rays->dist * cos(angle);
-	line_h = (map_x * map_y * 320) / rays->dist;
+	line_h = (img->map_input->map_width * img->map_input->map_height * 320) / rays->dist;
+	//line_h = (8 * 8 * 320) / rays->dist;
 	if (line_h > 320)
 		line_h = 320;
 	line_offset = 160 - line_h / 2;
-	info.start_x = ray * map_x + 530;
-	info.end_x = ray * map_y + 530;
+	info.start_x = ray * img->map_input->map_width + 530;
+	info.end_x = ray * img->map_input->map_height + 530;
 	info.start_y = line_offset;
 	info.end_y = line_h+line_offset;
-	info.img = player->img;
+	img->cube = mlx_new_image(img->mlx, HEIGHT_WIDTH, HEIGHT_WIDTH);
+	info.img = img->cube;
 	if (rays->pos)
 		info.color = 0x911ef6FF;
 	else
 		info.color = 0x85b6c1FF;
 	draw3d(&info);
-
 }

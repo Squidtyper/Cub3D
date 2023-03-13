@@ -10,25 +10,15 @@
 # define P2 PI/2
 # define P3 3*PI/2
 # define DR 0.0174533 //one degree in radians
-#define HEIGHT_WIDTH 1024
+# define HEIGHT_WIDTH 1024
 
-
-
-//extern uint32_t	mappa [];
-
-//extern size_t map_x;
-//extern size_t map_y;
 
 typedef struct s_rays
 {
-	int map_x;
-	int map_y;
-	int map_pos;
 	int dof;
-	int i_ray;
 	double x;
 	double y;
-	double angle;
+	double a_tan;
 	double x_offset;
 	double y_offset;
 } t_rays;
@@ -106,6 +96,7 @@ typedef struct s_image_mlx
 {
 	mlx_t		*mlx;
 	mlx_image_t	*map;
+	mlx_image_t	*cube;
 	t_player	player;
 	t_input		*map_input;
 	double		pad_x;
@@ -114,12 +105,16 @@ typedef struct s_image_mlx
 }	t_image_mlx;
 
 
-void	draw_player(t_image_mlx *img);
-void	draw_line(t_player *player);
+void	draw_cube3d(t_image_mlx *img);
 void	draw_lineray(t_print_info *info);
-void	draw_rays_2D (t_player *player);
+void	draw_rays_2D (t_image_mlx *img);
+void	draw_map(t_image_mlx *img);
 void	draw3d(t_print_info *info);
-void	scene3d(t_ray_end *rays, int ray, double angle, t_player *player);
+void	draw_player_direction(t_image_mlx *img);
+void	scene3d(t_ray_end *rays, int ray, double angle, t_image_mlx *img);
+void	set_print(t_print_info *info, t_image_mlx *img, t_ray_end *ray);
+void	set_no_wall(t_rays *rays, t_player *player);
+double	dist_pg_rayend(double ax, double ay, double bx, double by);
 
 void	hook(void* param);
 void	key_w(t_image_mlx *img, t_wall_coll *set);
@@ -128,7 +123,7 @@ void	key_a(t_image_mlx *img, t_wall_coll *set);
 void	key_d(t_image_mlx *img, t_wall_coll *set);
 void	key_left(t_image_mlx *img);
 void	key_right(t_image_mlx *img);
-void	draw_map(t_image_mlx *img)
+
 
 
 

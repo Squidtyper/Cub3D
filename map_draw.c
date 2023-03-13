@@ -18,50 +18,50 @@ void	draw_square(t_print_info *info)
 
 void	calculate_map_size(t_image_mlx *img)
 {
-	
-
-	img->blk_size = HEIGHT_WIDTH / 8;
-	while (img->blk_size * img->map_input->map_width > HEIGHT_WIDTH / 8)
+	img->blk_size = HEIGHT_WIDTH / 6;
+	while (img->blk_size * img->map_input->map_width > HEIGHT_WIDTH / 6)
 		img->blk_size--;
-	while (img->blk_size * img->map_input->map_height > HEIGHT_WIDTH / 8)
+	while (img->blk_size * img->map_input->map_height > HEIGHT_WIDTH / 6)
 		img->blk_size--;
-	if (blk_size < 0)
+	img->pad_x = HEIGHT_WIDTH - img->map_input->map_width * img->blk_size;
+	img->pad_y = HEIGHT_WIDTH - img->map_input->map_height * img->blk_size;
+	if (img->blk_size < 16)
 	{	
-		blk_size = 8;
+		img->blk_size = 16;
 		img->pad_x = HEIGHT_WIDTH;
-		img->pad_x = HEIGHT_WIDTH;
-
+		img->pad_y = HEIGHT_WIDTH;
 	}
-
-	img->pad_x = HEIGHT_WIDTH / 8 - img->map_input->map_width * img->blk_size;
-	
-	
+	//img->blk_size = 64;
+	//img->pad_x = 0;
+	//img->pad_y = 0;
 }
 
 void	set_info(t_print_info *info, t_image_mlx *img, int y, int x)
 {
-	info->start_y = y * img->blk_size + img->pad_y;
-	info->start_x = x * img->blk_size + img->pad_x;
-	info->end_y = (y + 1) * img->blk_size + img->pad_y;
-	info->end_x = (x + 1) * img->blk_size + img->pad_x;
+	info->start_y = y * img->blk_size;
+	info->start_x = x * img->blk_size;
+	info->end_y = (y + 1) * img->blk_size;
+	info->end_x = (x + 1) * img->blk_size;
 	info->img = img->map;
 }
 
 void	draw_map(t_image_mlx *img)
 {
-	int				y;
-	int				x;
-	uint32_t		color;
+	unsigned int	y;
+	unsigned int	x;
 	t_print_info	info;
 
 	calculate_map_size(img);
+	img->map = mlx_new_image(img->mlx, img->blk_size * img->map_input->map_width, img->blk_size * img->map_input->map_height);
+	if(img->pad_x == HEIGHT_WIDTH)
+		return ;
 	y = 0;
-	x = 0;
 	while (y < img->map_input->map_height)
 	{
+		x = 0;
 		while (x < img->map_input->map_width)
 		{
-			if(img->map_input->map_points[y][x]  == "1")
+			if(img->map_input->map_points[y][x]  == '1')
 				info.color = 0xFFFFFFFF;
 			else
 				info.color =  0x000000FF;
@@ -69,7 +69,6 @@ void	draw_map(t_image_mlx *img)
 			draw_square(&info);
 			x++;
 		}
-		x = 0;
 		y++;
 	}
 }

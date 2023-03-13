@@ -1,23 +1,25 @@
-#include "execution.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   rayscast.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/03/13 12:52:09 by dmonfrin      #+#    #+#                 */
+/*   Updated: 2023/03/13 18:45:06 by dmonfrin      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cube3D.h"
 #include <math.h>
 #include <stdio.h>
 #define RAY_NUM 60
 #define HORIZONTAL 1
 #define VERTICAL 0
 
-
-/*
-    find hypotenuse with pitagora theorem
-    this function finds the length of the ray
-*/
-static double	dist_pg_rayend(double ax, double ay, double bx, double by)
+static void	set_ray(t_player *player, t_ray_end *rays, t_rays *ray, int pos)
 {
-	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
-}
-
-static void set_ray(t_player *player, t_ray_end *rays, t_rays *ray, int pos)
-{
-	double dist;
+	double	dist;
 
 	dist = dist_pg_rayend(player->x, player->y, ray->x, ray->y);
 	if (pos == HORIZONTAL)
@@ -38,32 +40,27 @@ static void set_ray(t_player *player, t_ray_end *rays, t_rays *ray, int pos)
 		}
 	}
 }
-/*
-	you cannot a see a verical wall if you look up/down
-	and you cannot see a horizontal wall if you look left/right
-*/
-static void set_no_wall(t_rays *rays,t_player *player)
-{
-		rays->y = player->y;
-		rays->x = player->x;
-		rays->dof = 8;
-}
 
 /*
-    because we chose the size of each squares to be 64 
-    so the distance of each square is 64 but ion the map 
+    because we chose the block size
+    so the distance of each square is block_size but on the map 
     the distance is 1 (position in the array)
-    we bitshift of 6 (\64)
-    then y and x become simply like our i and j in the previous map loop
+    we devide by blk_size
+    then y and x become simply like our height and width in the previous map loop
 */
-static void find_wall_map(t_rays *rays)
+static void	find_wall_map(t_rays *rays, t_image_mlx *img)
 {
+	int	x;
+	int	y;
+
 	while (rays->dof < 8)
 	{
-		rays->map_x = (int)(rays->x) >> 6;
-		rays->map_y = (int)(rays->y) >> 6;
-		rays->map_pos = rays->map_y * 8 + rays->map_x;
-		if (rays->map_pos > 0 && rays->map_pos < 8 * 8 && mappa[rays->map_pos] == 1) //hit wall
+		x = (int)(rays->x) / img->blk_size;
+		y = (int)(rays->y) / img->blk_size;
+		if ((y >= 0 && x >= 0)
+			&& (y < (int)img->map_input->map_height && x
+				< (int)img->map_input->map_width)
+			&& img->map_input->map_points[y][x] == '1')
 			rays->dof = 8;
 		else
 		{
@@ -95,30 +92,31 @@ static void find_wall_map(t_rays *rays)
         __|__ 
           |
 */
-static void	find_horizontal_wall(t_player *player, t_ray_end *rays, double angle)
+static void	find_horizontal_wall(t_image_mlx *img, t_ray_end *rays,
+	double angle)
 {
-	t_rays ray;
+	t_rays	ray;
 
 	ray.dof = 0;
 	ray.a_tan = -1 / tan (angle);
 	if (angle > PI)
-	{	
-		ray.y = (((int)player->y >> 6) << 6) - 0.0001;
-		ray.x = (player->y - ray.y) * ray.a_tan + player->x;
-		ray.y_offset = -64;
+	{
+		ray.y = ((int)(img->player.y / img->blk_size) * img->blk_size) - 0.0001;
+		ray.x = (img->player.y - ray.y) * ray.a_tan + img->player.x;
+		ray.y_offset = -img->blk_size;
 		ray.x_offset = -ray.y_offset * ray.a_tan;
 	}
 	if (angle < PI)
 	{	
-		ray.y = (((int)player->y >> 6) << 6) + 64;
-		ray.x = (player->y - ray.y) * ray.a_tan + player->x;
-		ray.y_offset = 64;
+		ray.y = ((int)(img->player.y / img->blk_size) * img->blk_size) + img->blk_size;
+		ray.x = (img->player.y - ray.y) * ray.a_tan + img->player.x;
+		ray.y_offset = img->blk_size;
 		ray.x_offset = -ray.y_offset * ray.a_tan;
 	}
 	if (angle == 0 || angle == PI)
-		set_no_wall(&ray, player);
-	find_wall_map(&ray);
-	set_ray(player, rays, &ray, HORIZONTAL);
+		set_no_wall(&ray, &(img->player));
+	find_wall_map(&ray, img);
+	set_ray( &(img->player), rays, &ray, HORIZONTAL);
 }
 
 /*
@@ -141,55 +139,34 @@ static void	find_horizontal_wall(t_player *player, t_ray_end *rays, double angle
          -|->
           |
 */
-static void	find_vertical_wall(t_player *player, t_ray_end *rays, double angle)
+static void	find_vertical_wall(t_image_mlx *img, t_ray_end *rays, double angle)
 {
 	t_rays ray;
-
+	
 	ray.a_tan = -tan(angle);
 	ray.dof = 0;
 	if (angle > P2 && angle < P3)
 	{
-		ray.x = (((int)player->x >> 6) << 6) - 0.0001;
-		ray.y = (player->x - ray.x) * ray.a_tan + player->y;
-		ray.x_offset = -64;
+		ray.x = ((int)(img->player.x / img->blk_size) * img->blk_size) - 0.0001;
+		ray.y = (img->player.x - ray.x) * ray.a_tan + img->player.y;
+		ray.x_offset = -img->blk_size;
 		ray.y_offset = -ray.x_offset * ray.a_tan;
 	}
 	if (angle < P2 || angle > P3)
 	{	
-		ray.x = (((int)player->x >> 6) << 6) + 64;
-		ray.y = (player->x - ray.x) *ray.a_tan + player->y;
-		ray.x_offset = 64;
+		ray.x = (((int)(img->player.x / img->blk_size)) * img->blk_size) + img->blk_size;
+		ray.y = (img->player.x - ray.x) *ray.a_tan + img->player.y;
+		ray.x_offset = img->blk_size;
 		ray.y_offset = -ray.x_offset * ray.a_tan;
 	}
 	if (angle == 0 || angle == PI)
-		set_no_wall(&ray, player);
-	find_wall_map(&ray);
-	set_ray(player, rays, &ray, VERTICAL);
+		set_no_wall(&ray, &(img->player));
+	find_wall_map(&ray, img);
+	set_ray(&(img->player), rays, &ray, VERTICAL);
 
 }
 
-void set_print(t_print_info *info,t_player *player, t_ray_end *ray)
-{
-	info->img = player->img;
-	info->start_x = player->x;
-	info->start_y = player->y;
-	if (ray->pos == VERTICAL)
-	{
-		info->end_x = ray->ver_x;
-		info->end_y = ray->ver_y;
-		info->color = 0x85b6c1FF;
-	}
-	else
-	{
-		info->end_x = ray->hor_x;
-		info->end_y =  ray->hor_y;
-		info->color = 0x911ef6FF;
-	}
-
-
-}
-
-void	draw_rays_2D(t_player *player) 
+void	draw_rays_2D(t_image_mlx *img) 
 {
 	t_ray_end rays;
 	t_print_info info;
@@ -197,18 +174,19 @@ void	draw_rays_2D(t_player *player)
 	int i;
 
 	i = 0;
-	ray_angle = player->angle - DR * 30;
+	ray_angle = img->player.angle - DR * 30;
 	while (i < RAY_NUM)
 	{
 		if (ray_angle < 0)
-			ray_angle += 2*PI;
-		if (ray_angle > 2*PI)
-			ray_angle -= 2*PI;
-		find_horizontal_wall(player, &rays, ray_angle);
-		find_vertical_wall(player, &rays, ray_angle);
-		set_print(&info, player, &rays);
-		draw_lineray(&info);
-		scene3d(&rays, i, player->angle - ray_angle, player);
+			ray_angle += 2 * PI;
+		if (ray_angle > 2 * PI)
+			ray_angle -= 2 * PI;
+		find_horizontal_wall(img, &rays, ray_angle);
+		find_vertical_wall(img, &rays, ray_angle);
+		set_print(&info, img, &rays);
+		if (img->pad_x < HEIGHT_WIDTH)
+			draw_lineray(&info);
+		//scene3d(&rays, i, img->player.angle - ray_angle, img);
 		i++;
 		ray_angle += DR;
 	}
