@@ -3,6 +3,32 @@
 #include <stdio.h>
 #define PI 3.1415926535
 
+void	draw3d(t_print_info *info)
+{
+	double	x_increas;
+	double	y_increas;
+	int		step;
+	int		i;
+
+	x_increas = info->start_x - info->end_x;
+	y_increas = info->start_y - info->end_y;
+	step = calculate_step(y_increas, x_increas);
+	if (step == 0)
+		return ;
+	new_increase(&y_increas, &x_increas, step);
+	i = 0;
+	while (step--)
+	{
+		info->start_x -= x_increas;
+		info->start_y -= y_increas;
+		while (i < 9)
+		{
+			mlx_put_pixel(info->img, round(info->start_x + i), round(info->start_y), info->color);
+			i++;
+		}
+		i = 0;
+	}
+}
 /*
     To draw the scene we use vertical lines
     line_h is the length of the line that gives the illusion of the distance
