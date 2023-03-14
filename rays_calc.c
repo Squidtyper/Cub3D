@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 16:32:33 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/14 18:04:17 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/14 18:05:52 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ void	draw_rays_view(t_image_mlx *img)
 		set_print(&info, img, &rays);
 		if (img->pad_x < HEIGHT_WIDTH)
 			draw_lineray(&info, img);
-		//scene3d(&rays, i, img->player.angle - ray_angle, img);
+		scene3d(&rays, i, img->player.angle - ray_angle, img);
 		i++;
 		ray_angle += 0.0174533 / 2;
 	}

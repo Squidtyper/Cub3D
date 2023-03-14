@@ -64,7 +64,7 @@ void scene3d(t_ray_end *rays, int ray, double angle, t_image_mlx *img)
 		info.color = 0x911ef6FF;
 	else
 		info.color = 0x85b6c1FF;
-	draw(img->player.img, line_h, ray* ray * 8.52, line_offset,0x85b6c1FF );
+	draw(img->player.img, line_h, ray * 8.52, line_offset,0x85b6c1FF );
 	//draw3d(&info);
 }
 
