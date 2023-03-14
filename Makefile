@@ -6,7 +6,7 @@
 #    By: lizhang <lizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/03/05 15:23:40 by lizhang       #+#    #+#                  #
-#    Updated: 2023/03/14 11:23:51 by dmonfrin      ########   odam.nl          #
+#    Updated: 2023/03/14 16:27:00 by dmonfrin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,8 @@ INCLUDE		= -I include \
 			-ICub3D.h -Ilibft -IMLX42/include
 
 
-SRC			= main.c keystroke.c keystroke2.c dda.c rayscast.c map_draw.c\
-			scene.c read_input.c error_messages.c ray_utility.c cube3d_draw.c\
+SRC			= main.c keystroke.c keystroke_calc.c dda.c rays_calc.c draw_map.c\
+			draw_scene.c read_input.c error_messages.c rays_utils.c draw_main.c\
 			ft_space_split.c parse_utils.c import_textures.c get_player.c \
 			get_map.c test_inputs.c \
 				$(addprefix get_next_line/, get_next_line.c get_next_line_utils.c)

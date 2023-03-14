@@ -1,5 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   keystroke_calc.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/03/14 16:17:27 by dmonfrin      #+#    #+#                 */
+/*   Updated: 2023/03/14 17:11:41 by dmonfrin      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube3D.h"
 #include <math.h>
+#define PI 3.1415926535
 
 /*
     degree start from 0 and reach 360
@@ -27,10 +40,8 @@ void	key_right(t_image_mlx *img)
 	img->player.delta_x = cos(img->player.angle) * 5;
 }
 
-
 void	wall_collision(t_image_mlx	*img, t_wall_coll *set)
 {
-
 	if (img->player.delta_x < 0)
 		set->x_offset = -(img->blk_size / 3);
 	else
@@ -39,22 +50,22 @@ void	wall_collision(t_image_mlx	*img, t_wall_coll *set)
 		set->y_offset = -(img->blk_size / 3);
 	else
 		set->y_offset = (img->blk_size / 3);
-	set->ipx = img->player.x /img->blk_size;
-	set->ipx_add_xo = (img->player.x + set->x_offset) /img->blk_size;
-	set->ipx_add_yo = (img->player.x + set->y_offset) /img->blk_size;
-	set->ipx_sub_xo = (img->player.x - set->x_offset) /img->blk_size;
-	set->ipx_sub_yo = (img->player.x - set->y_offset) /img->blk_size;
-	set->ipy = img->player.y /img->blk_size;
-	set->ipy_add_yo= (img->player.y + set->y_offset) /img->blk_size;
-	set->ipy_sub_yo = (img->player.y - set->y_offset) /img->blk_size;
-	set->ipy_add_xo= (img->player.y + set->x_offset) /img->blk_size;
-	set->ipy_sub_xo = (img->player.y - set->x_offset) /img->blk_size;
+	set->ipx = img->player.x / img->blk_size;
+	set->ipx_add_xo = (img->player.x + set->x_offset) / img->blk_size;
+	set->ipx_add_yo = (img->player.x + set->y_offset) / img->blk_size;
+	set->ipx_sub_xo = (img->player.x - set->x_offset) / img->blk_size;
+	set->ipx_sub_yo = (img->player.x - set->y_offset) / img->blk_size;
+	set->ipy = img->player.y / img->blk_size;
+	set->ipy_add_yo = (img->player.y + set->y_offset) / img->blk_size;
+	set->ipy_sub_yo = (img->player.y - set->y_offset) / img->blk_size;
+	set->ipy_add_xo = (img->player.y + set->x_offset) / img->blk_size;
+	set->ipy_sub_xo = (img->player.y - set->x_offset) / img->blk_size;
 }
 
-void hook(void* param)
+void	hook(void *param)
 {
 	t_image_mlx	*img;
-	t_wall_coll set;
+	t_wall_coll	set;
 
 	img = param;
 	wall_collision(img, &set);

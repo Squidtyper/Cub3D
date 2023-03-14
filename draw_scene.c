@@ -1,7 +1,7 @@
 #include "cube3D.h"
 #include <math.h>
 #include <stdio.h>
-
+#define PI 3.1415926535
 
 /*
     To draw the scene we use vertical lines
