@@ -6,7 +6,7 @@
 /*   By: hwang <hwang@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/13 17:48:30 by hwang         #+#    #+#                 */
-/*   Updated: 2023/03/06 18:08:14 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/14 19:08:22 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	count_words(char *str)
 {
-	int		count;
+	int	count;
 
 	count = 0;
 	while (*str)

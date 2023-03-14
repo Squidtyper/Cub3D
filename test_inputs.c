@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 14:35:51 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/10 20:18:18 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/14 17:51:12 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void    test_inputs(t_input *input)
 		i++;
 	}
 	printf("map width: %d, map height: %d\n", input->map_width, input->map_height);
+	printf("ceiling color: 0x%llX, floor color: 0x%llX\n", input->c_color, input->f_color);
 	if (input->NO_tex)
 		printf("NO_tex successfully imported\n");
 	else

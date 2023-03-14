@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/10 18:11:40 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/10 19:31:48 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/14 19:42:32 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,25 @@ float	get_angle(char c)
 		return (3.142);
 	if (c == 'W')
 		return (4.712);
-    return (0);
+	return (0);
+}
+
+void	fill_input(int x, int y, t_input *input, char c)
+{
+	if (input->p_found == true)
+		player_error('D');
+	input->a_player = get_angle(c);
+	input->player_x = x;
+	input->player_y = y;
+	input->p_found = true;
+	input->map_points[y][x] = '0';
 }
 
 void	get_player(t_input *input)
 {
 	unsigned int	i;
 	unsigned int	j;
-	char	c;
+	char			c;
 
 	i = 0;
 	if (!input->map_points)
@@ -50,17 +61,10 @@ void	get_player(t_input *input)
 		{
 			c = input->map_points[i][j];
 			if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
-			{
-				if (input->p_found == true)
-					player_error('D');
-				input->a_player = get_angle(c);
-                input->player_x = j;
-                input->player_y = i;
-				input->p_found = true;
-			}
+				fill_input(j, i, input, c);
 			j++;
 		}
-        i++;
+		i++;
 	}
 	if (input->p_found == false)
 	{

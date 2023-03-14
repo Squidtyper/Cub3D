@@ -73,17 +73,16 @@ typedef struct s_print_info
 	uint32_t color;
 }	t_print_info;
 
-
 typedef struct s_input
 {
-	char			*file_content;
-	char			**lines;
-	char			**map_points;
+	char			*file_content;	//not so important
+	char			**lines;		//not so important
+	char			**map_points;	//I changed the player to 0 after getting the player
 	unsigned int	map_width;
 	unsigned int	map_height;
-	int32_t			c_color;
+	long long		c_color;		//this has changed
 	bool			c_found;
-	int32_t			f_color;
+	long long		f_color;		//this has changed		
 	bool			f_found;
 	mlx_texture_t	*NO_tex;
 	bool			NO_found;
@@ -93,9 +92,9 @@ typedef struct s_input
 	bool			WE_found;
 	mlx_texture_t	*EA_tex;
 	bool			EA_found;
-	float			a_player;
-	int				player_x;
-	int				player_y;
+	float			a_player;		//angle of player in radians
+	int				player_x;		//location player
+	int				player_y;		//location player
 	bool			p_found;
 }	t_input;
 
@@ -124,8 +123,6 @@ void	key_d(t_image_mlx *img, t_wall_coll *set);
 void	key_left(t_image_mlx *img);
 void	key_right(t_image_mlx *img);
 
-
-
 /*-----------parsing functions-------------*/
 
 void			ac_error(int ac);
@@ -137,13 +134,17 @@ char			**ft_space_split(char *str);
 int				open_file(char *name);
 t_input 		*parse(int ac, char **av);
 void    		ac_error(int ac);
+void			parse_color(char **words, t_input *input);
+void			color_double(bool testvalue);
 void			find_color(t_input *input);
+int				only_digits(char *str);
 void			find_texture(t_input *input);
 void			get_player(t_input *input);
 int				valid_map_line(char *str);
 char			**convert_map(t_list *map, t_input *input);
-void			fill_map_line(char *to_fill, char *content, unsigned int len);
+char			*fill_map_line(char *content, unsigned int len);
 void			find_texture(t_input *input);
 mlx_texture_t	*open_texture(char *path);
+void			boundary_test(char **m_p, unsigned int height, unsigned int width);
 void			test_inputs(t_input *input);
 #endif

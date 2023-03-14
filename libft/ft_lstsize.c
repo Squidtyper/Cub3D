@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/25 22:09:04 by lizhang       #+#    #+#                 */
-/*   Updated: 2021/07/04 16:04:37 by liwenzhan     ########   odam.nl         */
+/*   Updated: 2023/03/14 19:06:27 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 int	ft_lstsize(t_list *lst)
 {
-	int	size;
+	int		size;
+	t_list	*buf;
 
 	size = 0;
-	while (lst)
+	buf = lst;
+	while (buf)
 	{
 		size++;
-		lst = lst->next;
+		buf = buf->next;
 	}
 	return (size);
 }
