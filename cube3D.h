@@ -147,4 +147,5 @@ void			find_texture(t_input *input);
 mlx_texture_t	*open_texture(char *path);
 void			boundary_test(char **m_p, unsigned int height, unsigned int width);
 void			test_inputs(t_input *input);
+void			clean_input(t_input *input);
 #endif
