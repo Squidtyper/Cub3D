@@ -6,14 +6,14 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/13 12:52:09 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/14 11:21:43 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/14 13:02:08 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3D.h"
 #include <math.h>
 #include <stdio.h>
-#define RAY_NUM 60
+#define RAY_NUM 60 * 2
 #define HORIZONTAL 1
 #define VERTICAL 0
 
@@ -189,6 +189,6 @@ void	draw_rays_2D(t_image_mlx *img)
 			draw_lineray(&info, img);
 		scene3d(&rays, i, img->player.angle - ray_angle, img);
 		i++;
-		ray_angle += DR;
+		ray_angle += DR / 2;
 	}
 }

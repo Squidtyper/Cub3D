@@ -1,0 +1,13 @@
+R 800 400
+NO ./textures/sponge.png
+SO ./textures/sponge.png
+WE ./textures/sponge.png
+EA ./textures/sponge.png
+S ./textures/sponge.png
+F 220,100,0
+C 225,30,0
+1111111111
+1100001011
+1000000101
+10001000N1
+1111111111

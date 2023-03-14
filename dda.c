@@ -1,7 +1,7 @@
 #include "cube3D.h"
 #include <math.h>
 #include <stdio.h>
-#define LINE_THICKNESS 8
+#define LINE_THICKNESS 9
 
 
 int	calculate_step(double y, double x)
