@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdio.h>
 
+
 /*
     To draw the scene we use vertical lines
     line_h is the length of the line that gives the illusion of the distance
@@ -32,8 +33,7 @@ void scene3d(t_ray_end *rays, int ray, double angle, t_image_mlx *img)
 	info.end_x = ray * img->map_input->map_height + 530;
 	info.start_y = line_offset;
 	info.end_y = line_h+line_offset;
-	img->cube = mlx_new_image(img->mlx, HEIGHT_WIDTH, HEIGHT_WIDTH);
-	info.img = img->cube;
+	info.img = img->player.img;
 	if (rays->pos)
 		info.color = 0x911ef6FF;
 	else

@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/13 12:42:01 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/13 18:39:39 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/14 11:26:16 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	draw_player(t_image_mlx *img)
 		x = 0;
 		while (x < size)
 		{
-			mlx_put_pixel(img->player.img, round(img->player.x - size / 2) + x,
-				round(img->player.y - size / 2) + y, 0xFF5733FF);
+			mlx_put_pixel(img->player.img, round(img->player.x - size / 2) + x + img->pad_x,
+				round(img->player.y - size / 2) + y + img->pad_y, 0xFF5733FF);
 			x++;
 		}
 		y++;
@@ -41,10 +41,9 @@ void	draw_player(t_image_mlx *img)
 void	draw_cube3d(t_image_mlx *img)
 {
 	mlx_delete_image(img->mlx, img->player.img);
-	img->player.img = mlx_new_image(img->mlx, img->blk_size * img->map_input->map_width, img->blk_size * img->map_input->map_height);
+	img->player.img  = mlx_new_image(img->mlx, HEIGHT_WIDTH, HEIGHT_WIDTH);
 	draw_player(img);
 	draw_rays_2D(img);
 	draw_player_direction(img);
-	//mlx_image_to_window(img->mlx, img->cube, 0, 0);
-	mlx_image_to_window(img->mlx, img->player.img, img->pad_x, img->pad_y);
+	mlx_image_to_window(img->mlx, img->player.img, 0, 0);
 }

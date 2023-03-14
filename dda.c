@@ -23,7 +23,7 @@ void	new_increase(double *y, double *x, int step)
 	*x /= step;
 }
 
-void draw_lineray(t_print_info *info)
+void draw_lineray(t_print_info *info, t_image_mlx *img)
 {
 	double	x_increas;
 	double	y_increas;
@@ -39,8 +39,7 @@ void draw_lineray(t_print_info *info)
 	{
 		info->start_x -= x_increas;
 		info->start_y -= y_increas;
-		printf("%f, %f \n",round(info->start_x), round(info->start_y));
-		mlx_put_pixel(info->img, round(info->start_x), round(info->start_y), info->color);
+		mlx_put_pixel(info->img, round(info->start_x) + img->pad_x, round(info->start_y) + img->pad_y, info->color);
 	}
 }
 
@@ -93,7 +92,7 @@ void	draw_player_direction(t_image_mlx *img)
 	{
 		print_x += x_increas;
 		print_y += y_increas;
-		mlx_put_pixel(img->player.img, round(print_x),
-			round(print_y), 0xFFeb34db);
+		mlx_put_pixel(img->player.img, round(print_x) + img->pad_x,
+			round(print_y) + img->pad_y, 0xFFeb34db);
 	}
 }

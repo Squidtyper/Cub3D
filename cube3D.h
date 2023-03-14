@@ -96,7 +96,6 @@ typedef struct s_image_mlx
 {
 	mlx_t		*mlx;
 	mlx_image_t	*map;
-	mlx_image_t	*cube;
 	t_player	player;
 	t_input		*map_input;
 	double		pad_x;
@@ -106,7 +105,7 @@ typedef struct s_image_mlx
 
 
 void	draw_cube3d(t_image_mlx *img);
-void	draw_lineray(t_print_info *info);
+void	draw_lineray(t_print_info *info, t_image_mlx *img);
 void	draw_rays_2D (t_image_mlx *img);
 void	draw_map(t_image_mlx *img);
 void	draw3d(t_print_info *info);
@@ -115,6 +114,7 @@ void	scene3d(t_ray_end *rays, int ray, double angle, t_image_mlx *img);
 void	set_print(t_print_info *info, t_image_mlx *img, t_ray_end *ray);
 void	set_no_wall(t_rays *rays, t_player *player);
 double	dist_pg_rayend(double ax, double ay, double bx, double by);
+void	draw_background(t_image_mlx *img);
 
 void	hook(void* param);
 void	key_w(t_image_mlx *img, t_wall_coll *set);

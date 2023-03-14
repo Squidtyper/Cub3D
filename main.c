@@ -33,7 +33,7 @@ int32_t	main(int ac, char **av)
 	if (!img.mlx)
 		exit(EXIT_FAILURE);
 	draw_map(&img);
-	mlx_image_to_window(img.mlx, img.map, img.pad_x, img.pad_y);
+	mlx_image_to_window(img.mlx, img.map, 0, 0);
 	set_player(&img);
 	img.player.img = mlx_new_image(img.mlx, HEIGHT_WIDTH, HEIGHT_WIDTH);
 	draw_cube3d(&img);

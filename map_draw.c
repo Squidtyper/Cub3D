@@ -1,5 +1,28 @@
 #include "cube3D.h"
 
+
+void	draw_background(t_image_mlx *img)
+{
+	int	y;
+	int	x;
+	int32_t	color;
+
+	y = 0;
+	color = img->map_input->c_color;
+	while (y < HEIGHT_WIDTH)
+	{
+		if (y > HEIGHT_WIDTH / 2)
+			color = img->map_input->f_color;
+		x = 0;
+		while (x < HEIGHT_WIDTH)
+		{
+			mlx_put_pixel(img->map, x, y, color);
+			x++;
+		}
+		y++;
+	}
+}
+
 void	draw_square(t_print_info *info)
 {
 	uint32_t	x_i;
@@ -31,17 +54,14 @@ void	calculate_map_size(t_image_mlx *img)
 		img->pad_x = HEIGHT_WIDTH;
 		img->pad_y = HEIGHT_WIDTH;
 	}
-	//img->blk_size = 64;
-	//img->pad_x = 0;
-	//img->pad_y = 0;
 }
 
 void	set_info(t_print_info *info, t_image_mlx *img, int y, int x)
 {
-	info->start_y = y * img->blk_size;
-	info->start_x = x * img->blk_size;
-	info->end_y = (y + 1) * img->blk_size;
-	info->end_x = (x + 1) * img->blk_size;
+	info->start_y = y * img->blk_size + img->pad_y;
+	info->start_x = x * img->blk_size + img->pad_x;
+	info->end_y = (y + 1) * img->blk_size + img->pad_y;
+	info->end_x = (x + 1) * img->blk_size + img->pad_x;
 	info->img = img->map;
 }
 
@@ -52,7 +72,8 @@ void	draw_map(t_image_mlx *img)
 	t_print_info	info;
 
 	calculate_map_size(img);
-	img->map = mlx_new_image(img->mlx, img->blk_size * img->map_input->map_width, img->blk_size * img->map_input->map_height);
+	img->map = mlx_new_image(img->mlx,HEIGHT_WIDTH, HEIGHT_WIDTH);
+	draw_background(img);
 	if(img->pad_x == HEIGHT_WIDTH)
 		return ;
 	y = 0;

@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/13 12:52:09 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/13 18:45:06 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/14 11:21:43 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static void	find_wall_map(t_rays *rays, t_image_mlx *img)
 			rays->dof = 8;
 		else
 		{
+			
 			rays->y += rays->y_offset;
 			rays->x += rays->x_offset;
 			rays->dof++;
@@ -185,8 +186,8 @@ void	draw_rays_2D(t_image_mlx *img)
 		find_vertical_wall(img, &rays, ray_angle);
 		set_print(&info, img, &rays);
 		if (img->pad_x < HEIGHT_WIDTH)
-			draw_lineray(&info);
-		//scene3d(&rays, i, img->player.angle - ray_angle, img);
+			draw_lineray(&info, img);
+		scene3d(&rays, i, img->player.angle - ray_angle, img);
 		i++;
 		ray_angle += DR;
 	}
