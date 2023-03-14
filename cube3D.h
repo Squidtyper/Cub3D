@@ -40,9 +40,13 @@ typedef struct s_wall_coll
 	int ipx;
 	int ipx_add_xo;
 	int ipx_sub_xo;
+	int ipx_add_yo;
+	int ipx_sub_yo;
 	int ipy;
 	int ipy_add_yo;
 	int ipy_sub_yo;
+	int ipy_add_xo;
+	int ipy_sub_xo;
 }	t_wall_coll;
 
 typedef struct s_ray_end
@@ -63,7 +67,10 @@ typedef struct s_print_info
 	double end_x;
 	double end_y;
 	uint32_t color;
+	mlx_texture_t	*texture;
 }	t_print_info;
+
+
 
 
 typedef struct s_input

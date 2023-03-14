@@ -70,6 +70,56 @@ void	draw3d(t_print_info *info)
 	}
 }
 
+// uint8_t set_color(t_print_info *info, int i, int ***x_y)
+// {
+// 	double x;
+// 	double y;
+// 	double x_mul;
+// 	double y_mul;
+
+// 	x = fabs(info->start_x) - fabs(info->end_x);
+// 	y = fabs(info->start_y) - fabs(info->end_y);
+// 	x_mul = x / info->texture->width;
+// 	y_mul = y / info->texture->height;
+
+
+
+// }
+
+// void	draw3d(t_print_info *info)
+// {
+// 	double	x_increas;
+// 	double	y_increas;
+// 	int		step;
+// 	int		i;
+// 	int		x_y[2];
+
+// 	x_increas = info->start_x - info->end_x;
+// 	y_increas = info->start_y - info->end_y;
+// 	step = calculate_step(y_increas, x_increas);
+// 	if (step == 0)
+// 		return ;
+// 	new_increase(&y_increas, &x_increas, step);
+// 	x_y[0] = 0;
+// 	x_y[1] = 0;
+// 	i = 0;
+// 	while (step--)
+// 	{
+// 		info->start_x -= x_increas;
+// 		info->start_y -= y_increas;
+// 		while (i < LINE_THICKNESS)
+// 		{
+// 			mlx_put_pixel(info->img, round(info->start_x + i), round(info->start_y), color(info, i , &x_y));
+// 			i++;
+// 		}
+// 		i = 0;
+
+// 	}
+// }
+
+
+
+
 void	draw_player_direction(t_image_mlx *img)
 {
 	double	y_increas;

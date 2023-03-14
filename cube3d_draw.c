@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/13 12:42:01 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/14 11:26:16 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/14 15:06:16 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	draw_player(t_image_mlx *img)
 }
 
 void	draw_cube3d(t_image_mlx *img)
-{
+{ 
 	mlx_delete_image(img->mlx, img->player.img);
 	img->player.img  = mlx_new_image(img->mlx, HEIGHT_WIDTH, HEIGHT_WIDTH);
 	draw_player(img);

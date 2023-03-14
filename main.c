@@ -16,9 +16,20 @@
 */
 void set_player(t_image_mlx	*img)
 {
-	img->player.angle = 0; 
-	img->player.x = img->map_input->player_x * img->blk_size + img->blk_size / 2; 
-	img->player.y = img->map_input->player_y * img->blk_size + img->blk_size / 2;
+	t_input *p;
+
+	p = img->map_input;
+	if (p->map_points[p->player_y][p->player_x] == 'N')
+		img->player.angle = P3;
+	else if (p->map_points[p->player_y][p->player_x] == 'S')
+		img->player.angle = P2;
+	else if (p->map_points[p->player_y][p->player_x] == 'W')
+		img->player.angle = PI;
+	else
+		img->player.angle = 0;
+	p->map_points[p->player_y][p->player_x] = '0';
+	img->player.x = p->player_x * img->blk_size + img->blk_size / 2; 
+	img->player.y = p->player_y * img->blk_size + img->blk_size / 2;
 	img->player.delta_x = cos(img->player.angle) * 5;
 	img->player.delta_y = sin(img->player.angle) * 5;
 }

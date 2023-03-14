@@ -32,19 +32,23 @@ void	wall_collision(t_image_mlx	*img, t_wall_coll *set)
 {
 
 	if (img->player.delta_x < 0)
-		set->x_offset = -20;
+		set->x_offset = -(img->blk_size / 3);
 	else
-		set->x_offset = 20;
+		set->x_offset = (img->blk_size / 3);
 	if (img->player.delta_y < 0)
-		set->y_offset = -20;
+		set->y_offset = -(img->blk_size / 3);
 	else
-		set->y_offset = 20;
+		set->y_offset = (img->blk_size / 3);
 	set->ipx = img->player.x /img->blk_size;
-	set->ipx_add_xo= (img->player.x + set->x_offset) /img->blk_size;
+	set->ipx_add_xo = (img->player.x + set->x_offset) /img->blk_size;
+	set->ipx_add_yo = (img->player.x + set->y_offset) /img->blk_size;
 	set->ipx_sub_xo = (img->player.x - set->x_offset) /img->blk_size;
+	set->ipx_sub_yo = (img->player.x - set->y_offset) /img->blk_size;
 	set->ipy = img->player.y /img->blk_size;
 	set->ipy_add_yo= (img->player.y + set->y_offset) /img->blk_size;
 	set->ipy_sub_yo = (img->player.y - set->y_offset) /img->blk_size;
+	set->ipy_add_xo= (img->player.y + set->x_offset) /img->blk_size;
+	set->ipy_sub_xo = (img->player.y - set->x_offset) /img->blk_size;
 }
 
 void hook(void* param)
