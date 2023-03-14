@@ -6,20 +6,20 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 16:31:10 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/14 17:11:08 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/14 18:02:17 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3D.h"
 #include <math.h>
-#define VERTICAL 0
+#define PI 3.1415926535
 
 void	set_print(t_print_info *info, t_image_mlx *img, t_ray_end *ray)
 {
 	info->img = img->player.img;
 	info->start_x = img->player.x;
 	info->start_y = img->player.y;
-	if (ray->pos == VERTICAL)
+	if (ray->pos == VERTICAL_LEFT || ray->pos == VERTICAL_RIGHT)
 	{
 		info->end_x = ray->ver_x;
 		info->end_y = ray->ver_y;
@@ -53,16 +53,16 @@ double	dist_pg_rayend(double ax, double ay, double bx, double by)
 	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
 }
 
-t_drc	set_direction(t_drc pos, double angle, double pi)
+t_drc	set_direction(t_drc pos, double angle)
 {
 	if (pos == HORIZONTAL)
 	{
-		if (angle > pi)
+		if (angle > PI)
 			return (HORIZONTAL_DOWN);
 		else
 			return (HORIZONTAL_UP);
 	}
-	if (angle < pi / 2 || angle > 3 * pi / 2)
+	if (angle < PI / 2 || angle > 3 * PI / 2)
 		return (VERTICAL_LEFT);
 	return (VERTICAL_RIGHT);
 }

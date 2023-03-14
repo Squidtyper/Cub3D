@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 16:32:33 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/14 17:21:20 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/14 18:04:17 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <math.h>
 #include <stdio.h>
 #define PI 3.1415926535
+
 
 static void	set_ray(t_image_mlx *img, t_ray_end *rays, t_rays *ray, t_drc pos)
 {
@@ -25,7 +26,7 @@ static void	set_ray(t_image_mlx *img, t_ray_end *rays, t_rays *ray, t_drc pos)
 		rays->hor_x = ray->x;
 		rays->hor_y = ray->y;
 		rays->dist = dist;
-		rays->pos = set_direction(pos, img->player.angle, PI);
+		rays->pos = set_direction(pos, img->player.angle);
 	}
 	else
 	{
@@ -34,7 +35,7 @@ static void	set_ray(t_image_mlx *img, t_ray_end *rays, t_rays *ray, t_drc pos)
 		if (rays->dist > dist)
 		{
 			rays->dist = dist;
-			rays->pos = set_direction(pos, img->player.angle, PI);
+			rays->pos = set_direction(pos, img->player.angle);
 		}
 	}
 }
@@ -144,6 +145,7 @@ static void	find_vertical_wall(t_image_mlx *img, t_ray_end *rays, double angle)
 
 	ray.a_tan = -tan(angle);
 	ray.dof = 0;
+	
 	if (angle > PI / 2 && angle < 3 * PI / 2)
 	{
 		ray.x = ((int)(img->player.x / img->blk_size) * img->blk_size) - 0.0001;
@@ -173,7 +175,7 @@ void	draw_rays_view(t_image_mlx *img)
 	int				i;
 
 	i = 0;
-	ray_angle = img->player.angle - 0.0174533 * 30;
+	ray_angle = img->player.angle - (0.0174533 * 30);
 	while (i < 120)
 	{
 		if (ray_angle < 0)
@@ -185,7 +187,7 @@ void	draw_rays_view(t_image_mlx *img)
 		set_print(&info, img, &rays);
 		if (img->pad_x < HEIGHT_WIDTH)
 			draw_lineray(&info, img);
-		scene3d(&rays, i, img->player.angle - ray_angle, img);
+		//scene3d(&rays, i, img->player.angle - ray_angle, img);
 		i++;
 		ray_angle += 0.0174533 / 2;
 	}

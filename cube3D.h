@@ -122,7 +122,7 @@ void	set_print(t_print_info *info, t_image_mlx *img, t_ray_end *ray);
 void	set_no_wall(t_rays *rays, t_player *player);
 double	dist_pg_rayend(double ax, double ay, double bx, double by);
 void	draw_background(t_image_mlx *img);
-t_drc	set_direction(t_drc pos, double angle, double pi);
+t_drc	set_direction(t_drc pos, double angle);
 void	hook(void *param);
 void	key_w(t_image_mlx *img, t_wall_coll *set);
 void	key_s(t_image_mlx *img, t_wall_coll *set);

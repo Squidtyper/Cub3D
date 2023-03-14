@@ -2,33 +2,34 @@
 #include <math.h>
 #include <stdio.h>
 #define PI 3.1415926535
+void draw(mlx_image_t *img,int line_h, int s_x, int s_y, uint32_t color );
+// void	draw3d(t_print_info *info)
+// {
+// 	double	x_increas;
+// 	double	y_increas;
+// 	int		step;
+// 	int		i;
 
-void	draw3d(t_print_info *info)
-{
-	double	x_increas;
-	double	y_increas;
-	int		step;
-	int		i;
+// 	x_increas = info->start_x - info->end_x;
+// 	y_increas = info->start_y - info->end_y;
+// 	step = calculate_step(y_increas, x_increas);
+// 	if (step == 0)
+// 		return ;
+// 	new_increase(&y_increas, &x_increas, step);
+// 	i = 0;
+// 	while (step--)
+// 	{
+// 		info->start_x -= x_increas;
+// 		info->start_y -= y_increas;
+// 		while (i < 9)
+// 		{
+// 			mlx_put_pixel(info->img, round(info->start_x + i), round(info->start_y), info->color);
+// 			i++;
+// 		}
+// 		i = 0;
+// 	}
+// }
 
-	x_increas = info->start_x - info->end_x;
-	y_increas = info->start_y - info->end_y;
-	step = calculate_step(y_increas, x_increas);
-	if (step == 0)
-		return ;
-	new_increase(&y_increas, &x_increas, step);
-	i = 0;
-	while (step--)
-	{
-		info->start_x -= x_increas;
-		info->start_y -= y_increas;
-		while (i < 9)
-		{
-			mlx_put_pixel(info->img, round(info->start_x + i), round(info->start_y), info->color);
-			i++;
-		}
-		i = 0;
-	}
-}
 /*
     To draw the scene we use vertical lines
     line_h is the length of the line that gives the illusion of the distance
@@ -54,18 +55,36 @@ void scene3d(t_ray_end *rays, int ray, double angle, t_image_mlx *img)
 	if (line_h > HEIGHT_WIDTH / 1.5) 
 		line_h = HEIGHT_WIDTH / 1.5;
 	line_offset = HEIGHT_WIDTH / 2 - line_h /1.5 ;
-	//printf("%f  %f\n\n", line_h, line_offset);
 	info.start_x = ray * 8.52;
 	info.end_x = ray * 8.52;
 	info.start_y = line_offset + 30;
 	info.end_y = line_h+line_offset + 30;
 	info.img = img->player.img;
-	//printf("%f %f, %f  %f\n",info.start_x,info.end_x, info.start_y, info.end_y);
 	if (rays->pos)
 		info.color = 0x911ef6FF;
 	else
 		info.color = 0x85b6c1FF;
-	draw3d(&info);
+	draw(img->player.img, line_h, ray* ray * 8.52, line_offset,0x85b6c1FF );
+	//draw3d(&info);
+}
+
+void draw(mlx_image_t *img,int line_h, int s_x, int s_y, uint32_t color )
+{
+	int y;
+	int x;
+
+	y = 0;
+	while (y < line_h)
+	{
+		x = 0;
+		while (x < 9)
+		{
+			mlx_put_pixel(img, round(s_x) +x ,round( s_y)+y, color);
+			x++;
+		}
+		y++;
+
+	}
 }
 
 
