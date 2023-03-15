@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 16:32:33 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/14 18:05:52 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/15 11:27:14 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,8 @@ static void	find_horizontal_wall(t_image_mlx *img, t_ray_end *rays,
     (depending on which direction are you looking, up down left or right ) 
     there is a vertical wall
     dof indicates how far a player can see
-    angle > P2 && angle < P3 looking left
-    angle < P2 || angle > P3 looking right
+    angle > PI/2 && angle < 3*PI/2 looking left
+    angle < PI/2 || angle > 3*PI/2 looking right
     angle == 0 || angle == PI up/down no possible vertical walls
     the a_tan it's needed to find the position of the y endpoint of the
     ray (because it can touch every point of the wall)

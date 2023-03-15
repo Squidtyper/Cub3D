@@ -1,5 +1,10 @@
 #include "cube3D.h"
 
+uint32_t get_rgba(int r, int g, int b, int a)
+{
+    return (r << 24 | g << 16 | b << 8 | a);
+}
+
 void	draw_square(t_print_info *info)
 {
 	uint32_t	x_i;
@@ -67,4 +72,20 @@ void	draw_map(t_image_mlx *img)
 		}
 		y++;
 	}
-}
+// 	uint32_t i = 0;
+// 	uint32_t j = 0;
+// 	int color;
+// 	int calc;
+// 	while (i < img->map_input->SO_tex->height)
+// 	{
+// 		j = 0;
+// 		while ( j < img->map_input->SO_tex->width)
+// 		{ 
+// 			calc = i * img->map_input->SO_tex->bytes_per_pixel *  img->map_input->SO_tex->width + j * img->map_input->SO_tex->bytes_per_pixel;
+// 			color = get_rgba(img->map_input->SO_tex->pixels[calc], img->map_input->SO_tex->pixels[calc] + 1, img->map_input->SO_tex->pixels[calc] +2, img->map_input->SO_tex->pixels[calc] + 3 );
+// 			mlx_put_pixel(img->map, i, j, color);
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+ }
