@@ -97,8 +97,21 @@ typedef struct s_print_info
 	double			end_x;
 	double			end_y;
 	uint32_t		color;
-	mlx_texture_t	*texture;
 }	t_print_info;
+
+typedef struct s_tex_var
+{
+	double	x;
+	double	x_offsee;
+	double	y;
+	double	y_offset;
+	double	step_x;
+	double	step_y;
+	t_drc	wall;
+	double	line_h;
+	double	ray;
+}	t_tex_var;
+
 
 typedef struct s_image_mlx
 {
@@ -130,6 +143,11 @@ void	key_a(t_image_mlx *img, t_wall_coll *set);
 void	key_d(t_image_mlx *img, t_wall_coll *set);
 void	key_left(t_image_mlx *img);
 void	key_right(t_image_mlx *img);
+mlx_texture_t	*calculate_texture(t_image_mlx *img, t_tex_var *tex);
+double	calculate_x(t_image_mlx *img, mlx_texture_t *text, t_tex_var *tex);
+void	set_ray(t_ray_end *rays, t_tex_var *tex);
+uint32_t calc_color(mlx_texture_t *texture, int position);
+
 /*-----------parsing functions-------------*/
 
 mlx_texture_t*	open_texture(char *path);

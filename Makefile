@@ -6,13 +6,13 @@
 #    By: lizhang <lizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/03/05 15:23:40 by lizhang       #+#    #+#                  #
-#    Updated: 2023/03/14 16:27:00 by dmonfrin      ########   odam.nl          #
+#    Updated: 2023/03/15 18:34:56 by dmonfrin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= game
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra -D BUFFER_SIZE=1 -fsanitize=address
+CFLAGS		= -Wall -Werror -Wextra -D BUFFER_SIZE=1
 RM			= rm -f
 INCLUDE		= -I include \
 			-ICub3D.h -Ilibft -IMLX42/include
@@ -21,7 +21,7 @@ INCLUDE		= -I include \
 SRC			= main.c keystroke.c keystroke_calc.c dda.c rays_calc.c draw_map.c\
 			draw_scene.c read_input.c error_messages.c rays_utils.c draw_main.c\
 			ft_space_split.c parse_utils.c import_textures.c get_player.c \
-			get_map.c test_inputs.c \
+			get_map.c test_inputs.c scene_utils.c \
 				$(addprefix get_next_line/, get_next_line.c get_next_line_utils.c)
 
 OBJ			= $(SRC:.c=.o)
