@@ -40,7 +40,7 @@ $(NAME):	$(OBJ)
 			$(CC) -c $(CFLAGS) $(INCLUDE) -o $@ $<
 
 clean:
-			$(RM) $(OBJ) && cd libft && make clean && cd ../MLX42/build && make clean && $(RM) ../build
+			$(RM) $(OBJ) && cd libft && make clean && cd ../MLX42/build && make clean && $(RM) -r ../build
 
 fclean:		clean 
 			$(RM) $(NAME) && cd libft && make WITBON=1 fclean
