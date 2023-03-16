@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/13 12:42:01 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/16 18:42:49 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/16 19:20:32 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ static void	st_set_player(t_image_mlx *img)
 	p->map_points[p->player_y][p->player_x] = '0';
 	img->player.x = p->player_x * img->blk_size + img->blk_size / 2;
 	img->player.y = p->player_y * img->blk_size + img->blk_size / 2;
-	img->player.delta_x = cos(img->player.angle) * 5;
-	img->player.delta_y = sin(img->player.angle) * 5;
+	img->player.delta_x = cos(img->player.angle) * 3;
+	img->player.delta_y = sin(img->player.angle) * 3;
 }
 
 static void	st_draw_player(t_image_mlx *img)

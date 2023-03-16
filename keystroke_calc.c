@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 16:17:27 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/16 13:01:39 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/16 19:21:03 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static void	st_key_left(t_image_mlx *img)
 	img->player.angle -= 0.1;
 	if (img->player.angle < 0)
 		img->player.angle += 2 * PI;
-	img->player.delta_y = sin(img->player.angle) * 5;
-	img->player.delta_x = cos(img->player.angle) * 5;
+	img->player.delta_y = sin(img->player.angle) * 3;
+	img->player.delta_x = cos(img->player.angle) * 3;
 	draw_cube(img);
 }
 
@@ -36,21 +36,21 @@ static void	st_key_right(t_image_mlx *img)
 	img->player.angle += 0.1;
 	if (img->player.angle > 2 * PI)
 		img->player.angle -= 2 * PI;
-	img->player.delta_y = sin(img->player.angle) * 5;
-	img->player.delta_x = cos(img->player.angle) * 5;
+	img->player.delta_y = sin(img->player.angle) * 3;
+	img->player.delta_x = cos(img->player.angle) * 3;
 	draw_cube(img);
 }
 
 static void	st_wall_collision(t_image_mlx	*img, t_wall_coll *set)
 {
 	if (img->player.delta_x < 0)
-		set->x_offset = -(img->blk_size / 3);
+		set->x_offset = -(img->blk_size / 2);
 	else
-		set->x_offset = (img->blk_size / 3);
+		set->x_offset = (img->blk_size / 2);
 	if (img->player.delta_y < 0)
-		set->y_offset = -(img->blk_size / 3);
+		set->y_offset = -(img->blk_size / 2);
 	else
-		set->y_offset = (img->blk_size / 3);
+		set->y_offset = (img->blk_size / 2);
 	set->ipx = img->player.x / img->blk_size;
 	set->ipx_add_xo = (img->player.x + set->x_offset) / img->blk_size;
 	set->ipx_add_yo = (img->player.x + set->y_offset) / img->blk_size;

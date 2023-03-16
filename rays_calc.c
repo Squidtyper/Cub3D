@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 16:32:33 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/16 15:51:27 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/16 19:16:42 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	st_set_ray(t_image_mlx *img, t_wall_pos *w_pos, t_ray *ray,
 		w_pos->hor_x = ray->x;
 		w_pos->hor_y = ray->y;
 		w_pos->dist = dist;
-		w_pos->side = set_direction(pos, img->player.angle);
+		w_pos->side = set_direction(pos, ray->angle);
 	}
 	else
 	{
@@ -35,7 +35,7 @@ static void	st_set_ray(t_image_mlx *img, t_wall_pos *w_pos, t_ray *ray,
 		if (w_pos->dist > dist)
 		{
 			w_pos->dist = dist;
-			w_pos->side = set_direction(pos, img->player.angle);
+			w_pos->side = set_direction(pos, ray->angle);
 		}
 	}
 }
@@ -98,6 +98,7 @@ static void	st_find_horiz_wall(t_image_mlx *img, t_wall_pos *w_pos,
 
 	ray.max_pg_view = 0;
 	ray.tan = -1 / tan (angle);
+	ray.angle = angle;
 	if (angle > PI)
 	{
 		ray.y = ((int)(img->player.y / img->blk_size) * img->blk_size) - 0.0001;
@@ -146,6 +147,7 @@ static void	st_find_vert_wall(t_image_mlx *img, t_wall_pos *w_pos,
 
 	ray.max_pg_view = 0;
 	ray.tan = -tan(angle);
+	ray.angle = angle;
 	if (angle > PI / 2 && angle < 3 * PI / 2)
 	{
 		ray.x = ((int)(img->player.x / img->blk_size) * img->blk_size) - 0.0001;

@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/15 18:22:24 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/16 18:47:25 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/16 19:32:52 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	draw_scene(t_image_mlx *img, t_wall_pos *wall, int ray, double angle)
 	}
 	line_offset = HEIGHT_WIDTH / 2 - ((int)line_h >> 1);
 	texture.line_h = line_h;
-	texture.wall_side = wall->side;
 	set_right_ray(wall, &texture);
+	texture.wall_side = wall->side;
 	st_draw_wall(img, ray, line_offset + 30, &texture);
 }

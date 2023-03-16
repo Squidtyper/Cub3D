@@ -11,7 +11,7 @@
 
 NAME		= game
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra -D BUFFER_SIZE=1 -fsanitize=address
+CFLAGS		= -Wall -Werror -Wextra -D BUFFER_SIZE=1 # -fsanitize=address
 RM			= rm -f
 INCLUDE		= -I include \
 			-ICub3D.h -Ilglfw -Ilibft -IMLX42/include

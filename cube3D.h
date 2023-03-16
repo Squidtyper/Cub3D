@@ -51,6 +51,7 @@ typedef struct s_ray
 	double	x_offset;
 	double	y_offset;
 	double	tan;
+	double angle;
 }	t_ray;
 
 typedef struct s_wall_pos
