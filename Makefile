@@ -6,7 +6,7 @@
 #    By: lizhang <lizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/03/05 15:23:40 by lizhang       #+#    #+#                  #
-#    Updated: 2023/03/16 17:20:11 by dmonfrin      ########   odam.nl          #
+#    Updated: 2023/03/16 17:49:16 by lizhang       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ INCLUDE		= -I include \
 
 SRC			= main.c read_input.c error_messages.c\
 			ft_space_split.c parse_utils.c import_textures.c get_player.c \
-			get_map.c test_inputs.c parse_color.c boundary_test.c\
+			get_map.c test_inputs.c parse_color.c boundary_test.c clean_parsing.c\
 			keystroke.c keystroke_calc.c dda.c rays_calc.c draw_map.c\
 			draw_scene.c rays_utils.c scene_utils.c draw_main.c \
 				$(addprefix get_next_line/, get_next_line.c get_next_line_utils.c)

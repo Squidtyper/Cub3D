@@ -25,5 +25,6 @@ int32_t	main(int ac, char **av)
 	mlx_delete_image(img.mlx, img.map);
 	mlx_delete_image(img.mlx, img.player.img);
 	mlx_terminate(img.mlx);
+	clean_input(img.map_input);
 	return (EXIT_SUCCESS);
 }
