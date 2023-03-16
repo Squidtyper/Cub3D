@@ -6,11 +6,13 @@
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/10 18:11:40 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/14 19:42:32 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/16 18:35:09 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3D.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 void	player_error(char c)
 {
@@ -21,16 +23,16 @@ void	player_error(char c)
 	exit(1);
 }
 
-float	get_angle(char c)
+double	get_angle(char c)
 {
 	if (c == 'N')
-		return (0);
+		return (M_PI / 2);
 	if (c == 'E')
-		return (1.571);
+		return (0);
 	if (c == 'S')
-		return (3.142);
+		return (3 * M_PI/2);
 	if (c == 'W')
-		return (4.712);
+		return (M_PI);
 	return (0);
 }
 

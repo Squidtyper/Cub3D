@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/15 18:22:24 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/16 16:35:31 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/16 18:27:49 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ void	st_draw_wall(t_image_mlx *img, double start_x, double start_y,
 		color = calc_color(texture, round(tex->y) * texture->width + tex->x);
 		mlx_put_pixel(img->player.img, start_x, y + start_y, color);
 		y++;
-		tex->y += tex->step_y;
+		if (round(tex->y + tex->step_y) * texture->width + tex->x < texture->width * texture->height )
+			tex->y += tex->step_y;
+
 	}
-	printf("\n");
 }
 
 /*

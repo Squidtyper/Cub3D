@@ -27,7 +27,7 @@ typedef struct s_input
 	bool			WE_found;
 	mlx_texture_t	*EA_tex;
 	bool			EA_found;
-	float			a_player;		//angle of player in radians
+	double			a_player;		//angle of player in radians
 	int				player_x;		//location player
 	int				player_y;		//location player
 	bool			p_found;

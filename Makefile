@@ -6,7 +6,7 @@
 #    By: lizhang <lizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/03/05 15:23:40 by lizhang       #+#    #+#                  #
-#    Updated: 2023/03/16 18:14:18 by dmonfrin      ########   odam.nl          #
+
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ all:		$(NAME)
 
 $(NAME):	$(OBJ)
 				$(MAKE) WITBON=1 -C libft
+				$(RM) -rf ./MLX42/build
 				cmake -S MLX42 -B ./MLX42/build
 				cd MLX42/build && make
 				$(CC) $(CFLAGS) $(OBJ) libft/libft.a  MLX42/build/libmlx42.a -I include -lglfw \
