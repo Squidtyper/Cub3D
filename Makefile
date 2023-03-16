@@ -6,7 +6,7 @@
 #    By: lizhang <lizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/03/05 15:23:40 by lizhang       #+#    #+#                  #
-#    Updated: 2023/03/16 18:31:56 by lizhang       ########   odam.nl          #
+#    Updated: 2023/03/16 18:44:25 by lizhang       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ $(NAME):	$(OBJ)
 			$(CC) -c $(CFLAGS) $(INCLUDE) -o $@ $<
 
 clean:
-			$(RM) $(OBJ) && cd libft && make clean && cd ../MLX42/build && make clean && $(RM) -r ../build
+			$(RM) $(OBJ) && cd libft && make clean && $(RM) -rf ../build
 
 fclean:		clean 
 			$(RM) $(NAME) && cd libft && make WITBON=1 fclean
