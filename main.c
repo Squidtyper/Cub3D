@@ -4,7 +4,6 @@
 #include <errno.h>
 #include <unistd.h>
 #include "cube3D.h"
-
 #include <stdio.h>
 #include <memory.h>
 
