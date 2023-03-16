@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/16 12:15:32 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/16 12:16:43 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/16 16:36:21 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ mlx_texture_t	*calculate_texture(t_image_mlx *img, t_tex_var *tex)
 
 double	calculate_x(t_image_mlx *img, mlx_texture_t *text, t_tex_var *tex)
 {
-	double	x;
+	int	x;
 
 	if (img->blk_size > text->width)
-		x = (int)(tex->ray / (img->blk_size / text->width)) % text->width;
+		x = (int)(tex->ray / (img->blk_size / text->width)) % (int)text->width;
 	else
-		x = (int)(tex->ray * (text->width / img->blk_size)) % text->width;
+		x = (int)(tex->ray * (text->width / img->blk_size)) % (int)text->width;
 	if (tex->wall_side == HORIZONTAL_DOWN || tex->wall_side == VERTICAL_LEFT)
-		x = text->width - 1 - x;
+		x = (int)text->width - 1 - x;
 	return (x);
 }
 

@@ -6,33 +6,13 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/15 18:22:24 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/16 12:18:34 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/16 16:35:31 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3D.h"
 #include <math.h>
 #define PI 3.1415926535
-
-void	st_draw_square_ray(t_image_mlx *img, double start_x, double start_y,
-	uint32_t color)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	while (y < 9)
-	{
-		x = 0;
-		while (x < 9)
-		{
-			mlx_put_pixel(img->player.img, x + round(start_x),
-				y + round(start_y), color);
-			x++;
-		}
-		y++;
-	}
-}
 
 void	st_draw_wall(t_image_mlx *img, double start_x, double start_y,
 	t_tex_var *tex)
@@ -48,11 +28,12 @@ void	st_draw_wall(t_image_mlx *img, double start_x, double start_y,
 	y = 0;
 	while (y < tex->line_h)
 	{
-		color = calc_color(texture, (int)(tex->y * texture->width + tex->x));
-		st_draw_square_ray(img, start_x, y + start_y, color);
+		color = calc_color(texture, round(tex->y) * texture->width + tex->x);
+		mlx_put_pixel(img->player.img, start_x, y + start_y, color);
 		y++;
 		tex->y += tex->step_y;
 	}
+	printf("\n");
 }
 
 /*
@@ -88,5 +69,5 @@ void	draw_scene(t_image_mlx *img, t_wall_pos *wall, int ray, double angle)
 	texture.line_h = line_h;
 	texture.wall_side = wall->side;
 	set_right_ray(wall, &texture);
-	st_draw_wall(img, ray * 8.52, line_offset + 30, &texture);
+	st_draw_wall(img, ray, line_offset + 30, &texture);
 }

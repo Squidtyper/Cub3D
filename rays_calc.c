@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 16:32:33 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/16 12:42:48 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/16 15:51:27 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ void	draw_rays_view(t_image_mlx *img)
 
 	i = 0;
 	ray_angle = img->player.angle - (0.0174533 * 30);
-	while (i < 120)
+	while (i < HEIGHT_WIDTH)
 	{
 		if (ray_angle < 0)
 			ray_angle += 2 * PI;
@@ -189,6 +189,6 @@ void	draw_rays_view(t_image_mlx *img)
 			draw_ray(img, &info);
 		draw_scene(img, &w_pos, i, img->player.angle - ray_angle);
 		i++;
-		ray_angle += 0.0174533 / 2;
+		ray_angle += 0.0174533 / 17;
 	}
 }

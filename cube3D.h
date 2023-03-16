@@ -101,7 +101,7 @@ typedef struct s_print_info
 
 typedef struct s_tex_var
 {
-	double	x;
+	int		x;
 	double	y;
 	double	x_offsee;
 	double	y_offset;
