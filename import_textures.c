@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 17:32:02 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/16 17:41:56 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/16 18:26:04 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,30 +79,7 @@ void	find_texture(t_input *input)
 	while (input->lines[i])
 	{
 		words = ft_space_split(input->lines[i]);
-		if (ft_strncmp(words[0], "NO", 3) == 0)
-		{
-			texture_error(input->NO_found, "NO");
-			input->NO_tex = open_texture(words[1]);
-			input->NO_found = true;
-		}
-		if (ft_strncmp(words[0], "SO", 3) == 0)
-		{
-			texture_error(input->SO_found, "SO");
-			input->SO_tex = open_texture(words[1]);
-			input->SO_found = true;
-		}
-		if (ft_strncmp(words[0], "WE", 3) == 0)
-		{
-			texture_error(input->WE_found, "WE");
-			input->WE_tex = open_texture(words[1]);
-			input->WE_found = true;
-		}
-		if (ft_strncmp(words[0], "EA", 3) == 0)
-		{
-			texture_error(input->EA_found, "EA");
-			input->EA_tex = open_texture(words[1]);
-			input->EA_found = true;
-		}
+		get_texture(input, words);
 		i++;
 }
 }
