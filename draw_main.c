@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/13 12:42:01 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/16 18:29:11 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/16 18:42:49 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,7 @@ static void	st_set_player(t_image_mlx *img)
 	t_input	*p;
 
 	p = img->map_input;
-	// //printf("hello %c/n", p->map_points[p->player_y][p->player_x]);
-	// if (p->map_points[p->player_y][p->player_x] == 'N')
-	// 	img->player.angle = 3 * PI / 2;
-	// else if (p->map_points[p->player_y][p->player_x] == 'S')
-	// 	img->player.angle = PI;
-	// else if (p->map_points[p->player_y][p->player_x] == 'W')
-	// 	img->player.angle = PI / 2;
-	// else
+
 	img->player.angle = p->a_player;
 	printf ("%f\n ", img->player.angle);
 	p->map_points[p->player_y][p->player_x] = '0';

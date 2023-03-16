@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 16:31:10 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/16 12:22:03 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/16 18:44:47 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_drc	set_direction(t_drc pos, double angle)
 {
 	if (pos == HORIZONTAL)
 	{
-		if (angle > PI)
+		if (angle < PI)
 			return (HORIZONTAL_DOWN);
 		else
 			return (HORIZONTAL_UP);
