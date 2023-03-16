@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 16:32:33 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/15 11:27:14 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/16 12:42:48 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,27 @@
 #include <stdio.h>
 #define PI 3.1415926535
 
-
-static void	set_ray(t_image_mlx *img, t_ray_end *rays, t_rays *ray, t_drc pos)
+static void	st_set_ray(t_image_mlx *img, t_wall_pos *w_pos, t_ray *ray,
+	t_drc pos)
 {
 	double	dist;
 
 	dist = dist_pg_rayend(img->player.x, img->player.y, ray->x, ray->y);
 	if (pos == HORIZONTAL)
 	{
-		rays->hor_x = ray->x;
-		rays->hor_y = ray->y;
-		rays->dist = dist;
-		rays->pos = set_direction(pos, img->player.angle);
+		w_pos->hor_x = ray->x;
+		w_pos->hor_y = ray->y;
+		w_pos->dist = dist;
+		w_pos->side = set_direction(pos, img->player.angle);
 	}
 	else
 	{
-		rays->ver_x = ray->x;
-		rays->ver_y = ray->y;
-		if (rays->dist > dist)
+		w_pos->ver_x = ray->x;
+		w_pos->ver_y = ray->y;
+		if (w_pos->dist > dist)
 		{
-			rays->dist = dist;
-			rays->pos = set_direction(pos, img->player.angle);
+			w_pos->dist = dist;
+			w_pos->side = set_direction(pos, img->player.angle);
 		}
 	}
 }
@@ -47,25 +47,25 @@ static void	set_ray(t_image_mlx *img, t_ray_end *rays, t_rays *ray, t_drc pos)
     we devide by blk_size
     then y and x become simply like our height and width in the previous map loop
 */
-static void	find_wall_map(t_rays *rays, t_image_mlx *img)
+static void	st_find_wall_map(t_image_mlx *img, t_ray *ray)
 {
 	int	x;
 	int	y;
 
-	while (rays->dof < 8)
+	while (ray->max_pg_view < 8)
 	{
-		x = (int)(rays->x) / img->blk_size;
-		y = (int)(rays->y) / img->blk_size;
+		x = (int)(ray->x) / img->blk_size;
+		y = (int)(ray->y) / img->blk_size;
 		if ((y >= 0 && x >= 0)
 			&& (y < (int)img->map_input->map_height && x
 				< (int)img->map_input->map_width)
 			&& img->map_input->map_points[y][x] == '1')
-			rays->dof = 8;
+			ray->max_pg_view = 8;
 		else
 		{
-			rays->y += rays->y_offset;
-			rays->x += rays->x_offset;
-			rays->dof++;
+			ray->y += ray->y_offset;
+			ray->x += ray->x_offset;
+			ray->max_pg_view++;
 		}
 	}
 }
@@ -91,32 +91,32 @@ static void	find_wall_map(t_rays *rays, t_image_mlx *img)
         __|__ 
           |
 */
-static void	find_horizontal_wall(t_image_mlx *img, t_ray_end *rays,
+static void	st_find_horiz_wall(t_image_mlx *img, t_wall_pos *w_pos,
 	double angle)
 {
-	t_rays	ray;
+	t_ray	ray;
 
-	ray.dof = 0;
-	ray.a_tan = -1 / tan (angle);
+	ray.max_pg_view = 0;
+	ray.tan = -1 / tan (angle);
 	if (angle > PI)
 	{
 		ray.y = ((int)(img->player.y / img->blk_size) * img->blk_size) - 0.0001;
-		ray.x = (img->player.y - ray.y) * ray.a_tan + img->player.x;
+		ray.x = (img->player.y - ray.y) * ray.tan + img->player.x;
 		ray.y_offset = -img->blk_size;
-		ray.x_offset = -ray.y_offset * ray.a_tan;
+		ray.x_offset = -ray.y_offset * ray.tan;
 	}
 	if (angle < PI)
 	{	
 		ray.y = ((int)(img->player.y / img->blk_size) * img->blk_size)
 			+ img->blk_size;
-		ray.x = (img->player.y - ray.y) * ray.a_tan + img->player.x;
+		ray.x = (img->player.y - ray.y) * ray.tan + img->player.x;
 		ray.y_offset = img->blk_size;
-		ray.x_offset = -ray.y_offset * ray.a_tan;
+		ray.x_offset = -ray.y_offset * ray.tan;
 	}
 	if (angle == 0 || angle == PI)
-		set_no_wall(&ray, &(img->player));
-	find_wall_map(&ray, img);
-	set_ray(img, rays, &ray, HORIZONTAL);
+		set_no_wall(&(img->player), &ray);
+	st_find_wall_map(img, &ray);
+	st_set_ray(img, w_pos, &ray, HORIZONTAL);
 }
 
 /*
@@ -139,37 +139,37 @@ static void	find_horizontal_wall(t_image_mlx *img, t_ray_end *rays,
          -|->
           |
 */
-static void	find_vertical_wall(t_image_mlx *img, t_ray_end *rays, double angle)
+static void	st_find_vert_wall(t_image_mlx *img, t_wall_pos *w_pos,
+	double angle)
 {
-	t_rays	ray;
+	t_ray	ray;
 
-	ray.a_tan = -tan(angle);
-	ray.dof = 0;
-	
+	ray.max_pg_view = 0;
+	ray.tan = -tan(angle);
 	if (angle > PI / 2 && angle < 3 * PI / 2)
 	{
 		ray.x = ((int)(img->player.x / img->blk_size) * img->blk_size) - 0.0001;
-		ray.y = (img->player.x - ray.x) * ray.a_tan + img->player.y;
+		ray.y = (img->player.x - ray.x) * ray.tan + img->player.y;
 		ray.x_offset = -img->blk_size;
-		ray.y_offset = -ray.x_offset * ray.a_tan;
+		ray.y_offset = -ray.x_offset * ray.tan;
 	}
 	if (angle < PI / 2 || angle > 3 * PI / 2)
 	{	
 		ray.x = (((int)(img->player.x / img->blk_size)) * img->blk_size)
 			+ img->blk_size;
-		ray.y = (img->player.x - ray.x) * ray.a_tan + img->player.y;
+		ray.y = (img->player.x - ray.x) * ray.tan + img->player.y;
 		ray.x_offset = img->blk_size;
-		ray.y_offset = -ray.x_offset * ray.a_tan;
+		ray.y_offset = -ray.x_offset * ray.tan;
 	}
 	if (angle == 0 || angle == 3 * PI / 2)
-		set_no_wall(&ray, &(img->player));
-	find_wall_map(&ray, img);
-	set_ray(img, rays, &ray, VERTICAL);
+		set_no_wall(&(img->player), &ray);
+	st_find_wall_map(img, &ray);
+	st_set_ray(img, w_pos, &ray, VERTICAL);
 }
 
 void	draw_rays_view(t_image_mlx *img)
 {
-	t_ray_end		rays;
+	t_wall_pos		w_pos;
 	t_print_info	info;
 	double			ray_angle;
 	int				i;
@@ -182,12 +182,12 @@ void	draw_rays_view(t_image_mlx *img)
 			ray_angle += 2 * PI;
 		if (ray_angle > 2 * PI)
 			ray_angle -= 2 * PI;
-		find_horizontal_wall(img, &rays, ray_angle);
-		find_vertical_wall(img, &rays, ray_angle);
-		set_print(&info, img, &rays);
+		st_find_horiz_wall(img, &w_pos, ray_angle);
+		st_find_vert_wall(img, &w_pos, ray_angle);
+		set_print(img, &info, &w_pos);
 		if (img->pad_x < HEIGHT_WIDTH)
-			draw_lineray(&info, img);
-		scene3d(&rays, i, img->player.angle - ray_angle, img);
+			draw_ray(img, &info);
+		draw_scene(img, &w_pos, i, img->player.angle - ray_angle);
 		i++;
 		ray_angle += 0.0174533 / 2;
 	}

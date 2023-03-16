@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 17:29:19 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/14 17:29:22 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/16 12:06:08 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	new_increase(double *y, double *x, int step)
 	*x /= step;
 }
 
-void	draw_lineray(t_print_info *info, t_image_mlx *img)
+void	draw_ray(t_image_mlx *img, t_print_info *info)
 {
 	double	x_increas;
 	double	y_increas;

@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/15 18:22:24 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/15 18:31:35 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/16 12:18:34 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <math.h>
 #define PI 3.1415926535
 
-void	draw_square_ray(t_image_mlx *img, double start_x, double start_y,
+void	st_draw_square_ray(t_image_mlx *img, double start_x, double start_y,
 	uint32_t color)
 {
 	int	y;
@@ -34,7 +34,7 @@ void	draw_square_ray(t_image_mlx *img, double start_x, double start_y,
 	}
 }
 
-void	draw_wall(t_image_mlx *img, double start_x, double start_y,
+void	st_draw_wall(t_image_mlx *img, double start_x, double start_y,
 	t_tex_var *tex)
 {
 	int				y;
@@ -49,7 +49,7 @@ void	draw_wall(t_image_mlx *img, double start_x, double start_y,
 	while (y < tex->line_h)
 	{
 		color = calc_color(texture, (int)(tex->y * texture->width + tex->x));
-		draw_square_ray(img, start_x, y + start_y, color);
+		st_draw_square_ray(img, start_x, y + start_y, color);
 		y++;
 		tex->y += tex->step_y;
 	}
@@ -60,12 +60,12 @@ void	draw_wall(t_image_mlx *img, double start_x, double start_y,
     line_h is the length of the line that gives the illusion of the distance
     line offset is just a padding of the line to have them 
     at the center of the screen.
-    To avoid the fisheye effect (that happens because of different length of the ray) 
-    we need to myltiply the distance of the ray with the cosine of the 
-    distance of the player angle and the ray angle
-    all the numeric values are going to be change based on the size of the screen
+    To avoid the fisheye effect (that happens because of different length 
+    of the ray) we need to myltiply the distance of the ray with the cosine 
+    of the distance of the player angle and the ray angle, all the numeric 
+    values are going to be change based on the size of the screen
 */
-void	scene3d(t_ray_end *rays, int ray, double angle, t_image_mlx *img)
+void	draw_scene(t_image_mlx *img, t_wall_pos *wall, int ray, double angle)
 {
 	double		line_h;
 	double		line_offset;
@@ -75,18 +75,18 @@ void	scene3d(t_ray_end *rays, int ray, double angle, t_image_mlx *img)
 		angle += 2 * PI;
 	if (angle > 2 * PI)
 		angle -= 2 * PI;
-	rays->dist = rays->dist * cos(angle);
-	line_h = (img->blk_size * (HEIGHT_WIDTH / 1.5) ) / rays->dist;
+	wall->dist = wall->dist * cos(angle);
+	line_h = (img->blk_size * (HEIGHT_WIDTH / 1.5)) / wall->dist;
 	texture.step_y = line_h;
-	texture.y_offset  = 0;
-	if (line_h > HEIGHT_WIDTH / 1.5) 
+	texture.y_offset = 0;
+	if (line_h > HEIGHT_WIDTH / 1.5)
 	{	
 		texture.y_offset = (line_h - HEIGHT_WIDTH / 1.5) / 2.0;
 		line_h = HEIGHT_WIDTH / 1.5;
 	}
-	line_offset = HEIGHT_WIDTH / 2 - ((int)line_h >> 1) ;
+	line_offset = HEIGHT_WIDTH / 2 - ((int)line_h >> 1);
 	texture.line_h = line_h;
-	texture.wall = rays->pos;
-	set_ray(rays, &texture);
-	draw_wall(img, ray * 8.52, line_offset + 30, &texture);
+	texture.wall_side = wall->side;
+	set_right_ray(wall, &texture);
+	st_draw_wall(img, ray * 8.52, line_offset + 30, &texture);
 }

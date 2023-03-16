@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 16:31:10 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/14 18:02:17 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/16 12:22:03 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 #include <math.h>
 #define PI 3.1415926535
 
-void	set_print(t_print_info *info, t_image_mlx *img, t_ray_end *ray)
+void	set_print(t_image_mlx *img, t_print_info *info, t_wall_pos *w_pos)
 {
 	info->img = img->player.img;
 	info->start_x = img->player.x;
 	info->start_y = img->player.y;
-	if (ray->pos == VERTICAL_LEFT || ray->pos == VERTICAL_RIGHT)
+	if (w_pos->side == VERTICAL_LEFT || w_pos->side == VERTICAL_RIGHT)
 	{
-		info->end_x = ray->ver_x;
-		info->end_y = ray->ver_y;
+		info->end_x = w_pos->ver_x;
+		info->end_y = w_pos->ver_y;
 		info->color = 0x85b6c1FF;
 	}
 	else
 	{
-		info->end_x = ray->hor_x;
-		info->end_y = ray->hor_y;
+		info->end_x = w_pos->hor_x;
+		info->end_y = w_pos->hor_y;
 		info->color = 0x911ef6FF;
 	}
 }
@@ -37,11 +37,11 @@ void	set_print(t_print_info *info, t_image_mlx *img, t_ray_end *ray)
 	you cannot a see a verical wall if you look up/down
 	and you cannot see a horizontal wall if you look left/right
 */
-void	set_no_wall(t_rays *rays, t_player *player)
+void	set_no_wall(t_player *player, t_ray *ray)
 {
-		rays->y = player->y;
-		rays->x = player->x;
-		rays->dof = 8;
+		ray->y = player->y;
+		ray->x = player->x;
+		ray->max_pg_view = 8;
 }
 
 /*

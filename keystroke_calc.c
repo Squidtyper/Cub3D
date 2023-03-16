@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 16:17:27 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/14 17:11:41 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/16 12:33:32 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@
     so when we look left and right we have to keep this in consideration,
     we multiply by 5 because the values are very small
 */
-
-void	key_left(t_image_mlx *img)
+static void	st_key_left(t_image_mlx *img)
 {
 	img->player.angle -= 0.1;
 	if (img->player.angle < 0)
@@ -31,7 +30,7 @@ void	key_left(t_image_mlx *img)
 	img->player.delta_x = cos(img->player.angle) * 5;
 }
 
-void	key_right(t_image_mlx *img)
+static void	st_key_right(t_image_mlx *img)
 {
 	img->player.angle += 0.1;
 	if (img->player.angle > 2 * PI)
@@ -40,7 +39,7 @@ void	key_right(t_image_mlx *img)
 	img->player.delta_x = cos(img->player.angle) * 5;
 }
 
-void	wall_collision(t_image_mlx	*img, t_wall_coll *set)
+static void	st_wall_collision(t_image_mlx	*img, t_wall_coll *set)
 {
 	if (img->player.delta_x < 0)
 		set->x_offset = -(img->blk_size / 3);
@@ -68,7 +67,7 @@ void	hook(void *param)
 	t_wall_coll	set;
 
 	img = param;
-	wall_collision(img, &set);
+	st_wall_collision(img, &set);
 	if (mlx_is_key_down(img->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(img->mlx);
 	if (mlx_is_key_down(img->mlx, MLX_KEY_W))
@@ -80,8 +79,8 @@ void	hook(void *param)
 	if (mlx_is_key_down(img->mlx, MLX_KEY_D))
 		key_d(img, &set);
 	if (mlx_is_key_down(img->mlx, MLX_KEY_LEFT))
-		key_left(img);
+		st_key_left(img);
 	if (mlx_is_key_down(img->mlx, MLX_KEY_RIGHT))
-		key_right(img);
-	draw_cube3d(img);
+		st_key_right(img);
+	draw_cube(img);
 }

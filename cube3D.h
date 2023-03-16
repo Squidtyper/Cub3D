@@ -43,15 +43,25 @@ typedef enum e_drc
 	HORIZONTAL_DOWN,
 }t_drc;
 
-typedef struct s_rays
+typedef struct s_ray
 {
-	int		dof;
+	int		max_pg_view;
 	double	x;
 	double	y;
-	double	a_tan;
 	double	x_offset;
 	double	y_offset;
-}	t_rays;
+	double	tan;
+}	t_ray;
+
+typedef struct s_wall_pos
+{
+	double	hor_x;
+	double	hor_y;
+	double	ver_x;
+	double	ver_y;
+	double	dist;
+	t_drc	side;
+}	t_wall_pos;
 
 typedef struct s_player
 {
@@ -79,16 +89,6 @@ typedef struct s_wall_coll
 	int	ipy_sub_xo;
 }	t_wall_coll;
 
-typedef struct s_ray_end
-{
-	double	hor_x;
-	double	hor_y;
-	double	ver_x;
-	double	ver_y;
-	double	dist;
-	t_drc	pos;
-}	t_ray_end;
-
 typedef struct s_print_info
 {
 	mlx_image_t		*img;
@@ -102,12 +102,12 @@ typedef struct s_print_info
 typedef struct s_tex_var
 {
 	double	x;
-	double	x_offsee;
 	double	y;
+	double	x_offsee;
 	double	y_offset;
 	double	step_x;
 	double	step_y;
-	t_drc	wall;
+	t_drc	wall_side;
 	double	line_h;
 	double	ray;
 }	t_tex_var;
@@ -124,29 +124,26 @@ typedef struct s_image_mlx
 	double		blk_size;
 }	t_image_mlx;
 
-void	draw_cube3d(t_image_mlx *img);
-void	draw_lineray(t_print_info *info, t_image_mlx *img);
-void	draw_rays_view(t_image_mlx *img);
-void	draw_map(t_image_mlx *img);
-void	draw3d(t_print_info *info);
-void	draw_player_direction(t_image_mlx *img);
-void	scene3d(t_ray_end *rays, int ray, double angle, t_image_mlx *img);
-void	set_print(t_print_info *info, t_image_mlx *img, t_ray_end *ray);
-void	set_no_wall(t_rays *rays, t_player *player);
-double	dist_pg_rayend(double ax, double ay, double bx, double by);
-void	draw_background(t_image_mlx *img);
-t_drc	set_direction(t_drc pos, double angle);
-void	hook(void *param);
-void	key_w(t_image_mlx *img, t_wall_coll *set);
-void	key_s(t_image_mlx *img, t_wall_coll *set);
-void	key_a(t_image_mlx *img, t_wall_coll *set);
-void	key_d(t_image_mlx *img, t_wall_coll *set);
-void	key_left(t_image_mlx *img);
-void	key_right(t_image_mlx *img);
+void			hook(void *param);
+void			draw_fixed_element(t_image_mlx *img);
+void			draw_cube(t_image_mlx *img);
+void			draw_ray(t_image_mlx *img, t_print_info *info);
+void			draw_rays_view(t_image_mlx *img);
+void			draw_map(t_image_mlx *img);
+void			draw_player_direction(t_image_mlx *img);
+void			draw_scene(t_image_mlx *img,t_wall_pos *wall, int ray, double angle);
+void			set_print(t_image_mlx *img, t_print_info *info, t_wall_pos *w_pos);
+void			set_no_wall(t_player *player, t_ray *ray);
+double			dist_pg_rayend(double ax, double ay, double bx, double by);
+t_drc			set_direction(t_drc pos, double angle);
+void			key_w(t_image_mlx *img, t_wall_coll *set);
+void			key_s(t_image_mlx *img, t_wall_coll *set);
+void			key_a(t_image_mlx *img, t_wall_coll *set);
+void			key_d(t_image_mlx *img, t_wall_coll *set);
 mlx_texture_t	*calculate_texture(t_image_mlx *img, t_tex_var *tex);
-double	calculate_x(t_image_mlx *img, mlx_texture_t *text, t_tex_var *tex);
-void	set_ray(t_ray_end *rays, t_tex_var *tex);
-uint32_t calc_color(mlx_texture_t *texture, int position);
+double			calculate_x(t_image_mlx *img, mlx_texture_t *text, t_tex_var *tex);
+void			set_right_ray(t_wall_pos *wall, t_tex_var *tex);
+uint32_t		calc_color(mlx_texture_t *texture, int position);
 
 /*-----------parsing functions-------------*/
 
