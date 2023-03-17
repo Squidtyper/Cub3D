@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/15 18:22:24 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/16 19:32:52 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/17 14:37:04 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,21 @@
 #include <math.h>
 #define PI 3.1415926535
 
-void	st_draw_wall(t_image_mlx *img, double start_x, double start_y,
+static double	st_calculate_x(t_image_mlx *img, mlx_texture_t *text,
+	t_tex_var *tex)
+{
+	int	x;
+
+	if (img->blk_size > text->width)
+		x = (int)(tex->ray / (img->blk_size / text->width)) % (int)text->width;
+	else
+		x = (int)(tex->ray * (text->width / img->blk_size)) % (int)text->width;
+	if (tex->wall_side == HORIZONTAL_DOWN || tex->wall_side == VERTICAL_LEFT)
+		x = (int)text->width - 1 - x;
+	return (x);
+}
+
+static void	st_draw_wall(t_image_mlx *img, double start_x, double start_y,
 	t_tex_var *tex)
 {
 	int				y;
@@ -24,16 +38,18 @@ void	st_draw_wall(t_image_mlx *img, double start_x, double start_y,
 	texture = calculate_texture(img, tex);
 	tex->step_y = texture->height / tex->step_y;
 	tex->y = tex->y_offset * tex->step_y;
-	tex->x = calculate_x(img, texture, tex);
+	tex->x = st_calculate_x(img, texture, tex);
 	y = 0;
 	while (y < tex->line_h)
-	{
+	{	
+		if (is_mini_map_space(img, y + start_y, start_x))
+			return ;
 		color = calc_color(texture, round(tex->y) * texture->width + tex->x);
-		mlx_put_pixel(img->player.img, start_x, y + start_y, color);
+		mlx_put_pixel(img->scene, start_x, y + start_y, color);
 		y++;
-		if (round(tex->y + tex->step_y) * texture->width + tex->x < texture->width * texture->height )
+		if (round(tex->y + tex->step_y) * texture->width + tex->x
+			< texture->width * texture->height)
 			tex->y += tex->step_y;
-
 	}
 }
 
@@ -58,17 +74,17 @@ void	draw_scene(t_image_mlx *img, t_wall_pos *wall, int ray, double angle)
 	if (angle > 2 * PI)
 		angle -= 2 * PI;
 	wall->dist = wall->dist * cos(angle);
-	line_h = (img->blk_size * (HEIGHT_WIDTH / 1.5)) / wall->dist;
+	line_h = (img->blk_size * (HEIGHT_WIDTH)) / wall->dist;
 	texture.step_y = line_h;
 	texture.y_offset = 0;
-	if (line_h > HEIGHT_WIDTH / 1.5)
+	if (line_h >= HEIGHT_WIDTH - 1)
 	{	
-		texture.y_offset = (line_h - HEIGHT_WIDTH / 1.5) / 2.0;
-		line_h = HEIGHT_WIDTH / 1.5;
+		texture.y_offset = (line_h - HEIGHT_WIDTH - 1) / 2.0;
+		line_h = HEIGHT_WIDTH - 1 ;
 	}
 	line_offset = HEIGHT_WIDTH / 2 - ((int)line_h >> 1);
 	texture.line_h = line_h;
 	set_right_ray(wall, &texture);
 	texture.wall_side = wall->side;
-	st_draw_wall(img, ray, line_offset + 30, &texture);
+	st_draw_wall(img, ray, line_offset, &texture);
 }

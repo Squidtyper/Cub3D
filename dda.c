@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 17:29:19 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/16 12:06:08 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/17 14:19:30 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	draw_player_direction(t_image_mlx *img)
 	{
 		print_x += x_increas;
 		print_y += y_increas;
-		mlx_put_pixel(img->player.img, round(print_x) + img->pad_x,
+		mlx_put_pixel(img->scene, round(print_x) + img->pad_x,
 			round(print_y) + img->pad_y, 0xFFeb34db);
 	}
 }

@@ -46,12 +46,13 @@ typedef enum e_drc
 typedef struct s_ray
 {
 	int		max_pg_view;
+	int		pg_view;
 	double	x;
 	double	y;
 	double	x_offset;
 	double	y_offset;
 	double	tan;
-	double angle;
+	double	angle;
 }	t_ray;
 
 typedef struct s_wall_pos
@@ -66,7 +67,6 @@ typedef struct s_wall_pos
 
 typedef struct s_player
 {
-	mlx_image_t	*img;
 	double		x;
 	double		y;
 	double		delta_x;
@@ -117,7 +117,8 @@ typedef struct s_tex_var
 typedef struct s_image_mlx
 {
 	mlx_t		*mlx;
-	mlx_image_t	*map;
+	mlx_image_t	*background;
+	mlx_image_t	*scene;
 	t_player	player;
 	t_input		*map_input;
 	double		pad_x;
@@ -142,9 +143,11 @@ void			key_s(t_image_mlx *img, t_wall_coll *set);
 void			key_a(t_image_mlx *img, t_wall_coll *set);
 void			key_d(t_image_mlx *img, t_wall_coll *set);
 mlx_texture_t	*calculate_texture(t_image_mlx *img, t_tex_var *tex);
-double			calculate_x(t_image_mlx *img, mlx_texture_t *text, t_tex_var *tex);
 void			set_right_ray(t_wall_pos *wall, t_tex_var *tex);
 uint32_t		calc_color(mlx_texture_t *texture, int position);
+int				calc_max_wall_dist(t_image_mlx *img);
+void			calculate_map_size(t_image_mlx *img);
+bool			is_mini_map_space(t_image_mlx *img, int y, int x);
 
 /*-----------parsing functions-------------*/
 

@@ -6,7 +6,7 @@
 #    By: lizhang <lizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/05/18 21:21:47 by lizhang       #+#    #+#                  #
-#    Updated: 2021/10/05 21:42:09 by lizhang       ########   odam.nl          #
+#    Updated: 2023/03/17 14:47:11 by dmonfrin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ bonus:
 				$(MAKE) WITBON=1 all
 
 clean:
-				$(RM) $(COBJ)
+				$(RM) $(OBJ) $(BOBJ)
 
 fclean:		clean 
 				$(RM) $(NAME)

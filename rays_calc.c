@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 16:32:33 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/16 19:16:42 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/17 14:16:39 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	st_find_wall_map(t_image_mlx *img, t_ray *ray)
 	int	x;
 	int	y;
 
-	while (ray->max_pg_view < 8)
+	while (ray->pg_view < ray->max_pg_view)
 	{
 		x = (int)(ray->x) / img->blk_size;
 		y = (int)(ray->y) / img->blk_size;
@@ -60,12 +60,12 @@ static void	st_find_wall_map(t_image_mlx *img, t_ray *ray)
 			&& (y < (int)img->map_input->map_height && x
 				< (int)img->map_input->map_width)
 			&& img->map_input->map_points[y][x] == '1')
-			ray->max_pg_view = 8;
+			ray->pg_view = ray->max_pg_view;
 		else
 		{
 			ray->y += ray->y_offset;
 			ray->x += ray->x_offset;
-			ray->max_pg_view++;
+			ray->pg_view++;
 		}
 	}
 }
@@ -96,7 +96,8 @@ static void	st_find_horiz_wall(t_image_mlx *img, t_wall_pos *w_pos,
 {
 	t_ray	ray;
 
-	ray.max_pg_view = 0;
+	ray.max_pg_view = calc_max_wall_dist(img);
+	ray.pg_view = 0;
 	ray.tan = -1 / tan (angle);
 	ray.angle = angle;
 	if (angle > PI)
@@ -145,7 +146,8 @@ static void	st_find_vert_wall(t_image_mlx *img, t_wall_pos *w_pos,
 {
 	t_ray	ray;
 
-	ray.max_pg_view = 0;
+	ray.max_pg_view = calc_max_wall_dist(img);
+	ray.pg_view = 0;
 	ray.tan = -tan(angle);
 	ray.angle = angle;
 	if (angle > PI / 2 && angle < 3 * PI / 2)
@@ -187,10 +189,10 @@ void	draw_rays_view(t_image_mlx *img)
 		st_find_horiz_wall(img, &w_pos, ray_angle);
 		st_find_vert_wall(img, &w_pos, ray_angle);
 		set_print(img, &info, &w_pos);
+		draw_scene(img, &w_pos, i, img->player.angle - ray_angle);
 		if (img->pad_x < HEIGHT_WIDTH)
 			draw_ray(img, &info);
-		draw_scene(img, &w_pos, i, img->player.angle - ray_angle);
-		i++;
 		ray_angle += 0.0174533 / 17;
+		i++;
 	}
 }

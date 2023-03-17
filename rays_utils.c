@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 16:31:10 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/16 18:44:47 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/17 14:54:11 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 void	set_print(t_image_mlx *img, t_print_info *info, t_wall_pos *w_pos)
 {
-	info->img = img->player.img;
+	info->img = img->scene;
 	info->start_x = img->player.x;
 	info->start_y = img->player.y;
 	if (w_pos->side == VERTICAL_LEFT || w_pos->side == VERTICAL_RIGHT)
@@ -41,7 +41,7 @@ void	set_no_wall(t_player *player, t_ray *ray)
 {
 		ray->y = player->y;
 		ray->x = player->x;
-		ray->max_pg_view = 8;
+		ray->pg_view = ray->max_pg_view;
 }
 
 /*
@@ -65,4 +65,11 @@ t_drc	set_direction(t_drc pos, double angle)
 	if (angle < PI / 2 || angle > 3 * PI / 2)
 		return (VERTICAL_LEFT);
 	return (VERTICAL_RIGHT);
+}
+
+int	calc_max_wall_dist(t_image_mlx *img)
+{
+	if (img->map_input->map_height > img->map_input->map_width)
+		return (img->map_input->map_height);
+	return (img->map_input->map_width);
 }

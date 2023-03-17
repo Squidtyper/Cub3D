@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/16 12:15:32 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/16 16:36:21 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/17 14:30:41 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,11 @@ mlx_texture_t	*calculate_texture(t_image_mlx *img, t_tex_var *tex)
 		return (img->map_input->SO_tex);
 }
 
-double	calculate_x(t_image_mlx *img, mlx_texture_t *text, t_tex_var *tex)
+bool	is_mini_map_space(t_image_mlx *img, int y, int x)
 {
-	int	x;
-
-	if (img->blk_size > text->width)
-		x = (int)(tex->ray / (img->blk_size / text->width)) % (int)text->width;
-	else
-		x = (int)(tex->ray * (text->width / img->blk_size)) % (int)text->width;
-	if (tex->wall_side == HORIZONTAL_DOWN || tex->wall_side == VERTICAL_LEFT)
-		x = (int)text->width - 1 - x;
-	return (x);
+	if (y >= img->pad_y && x >= img->pad_x)
+		return (true);
+	return (false);
 }
 
 void	set_right_ray(t_wall_pos *wall, t_tex_var *tex)

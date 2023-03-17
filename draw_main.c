@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/13 12:42:01 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/16 19:20:32 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/17 14:20:41 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	st_draw_background(t_image_mlx *img)
 		x = 0;
 		while (x < HEIGHT_WIDTH)
 		{
-			mlx_put_pixel(img->map, x, y, color);
+			mlx_put_pixel(img->background, x, y, color);
 			x++;
 		}
 		y++;
@@ -72,7 +72,7 @@ static void	st_draw_player(t_image_mlx *img)
 		x = 0;
 		while (x < size)
 		{
-			mlx_put_pixel(img->player.img, round(img->player.x - size / 2)
+			mlx_put_pixel(img->scene, round(img->player.x - size / 2)
 				+ x + img->pad_x, round(img->player.y - size / 2) + y
 				+ img->pad_y, 0xFF5733FF);
 			x++;
@@ -84,17 +84,19 @@ static void	st_draw_player(t_image_mlx *img)
 void	draw_fixed_element(t_image_mlx *img)
 {
 	st_draw_background(img);
-	draw_map(img);
-	mlx_image_to_window(img->mlx, img->map, 0, 0);
+	mlx_image_to_window(img->mlx, img->background, 0, 0);
+	calculate_map_size(img);
 	st_set_player(img);
+	draw_map(img);
 }
 
 void	draw_cube(t_image_mlx *img)
 {
-	mlx_delete_image(img->mlx, img->player.img);
-	img->player.img = mlx_new_image(img->mlx, HEIGHT_WIDTH, HEIGHT_WIDTH);
-	st_draw_player(img);
+	mlx_delete_image(img->mlx, img->scene);
+	img->scene = mlx_new_image(img->mlx, HEIGHT_WIDTH, HEIGHT_WIDTH);
+	//draw_map(img);
 	draw_rays_view(img);
+	st_draw_player(img);
 	draw_player_direction(img);
-	mlx_image_to_window(img->mlx, img->player.img, 0, 0);
+	mlx_image_to_window(img->mlx, img->scene, 0, 0);
 }

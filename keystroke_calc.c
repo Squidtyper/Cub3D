@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 16:17:27 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/16 19:21:03 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/17 14:56:09 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,20 @@
 */
 static void	st_key_left(t_image_mlx *img)
 {
-	img->player.angle -= 0.1;
+	img->player.angle -= 0.05;
 	if (img->player.angle < 0)
 		img->player.angle += 2 * PI;
 	img->player.delta_y = sin(img->player.angle) * 3;
 	img->player.delta_x = cos(img->player.angle) * 3;
-	draw_cube(img);
 }
 
 static void	st_key_right(t_image_mlx *img)
 {
-	img->player.angle += 0.1;
+	img->player.angle += 0.05;
 	if (img->player.angle > 2 * PI)
 		img->player.angle -= 2 * PI;
 	img->player.delta_y = sin(img->player.angle) * 3;
 	img->player.delta_x = cos(img->player.angle) * 3;
-	draw_cube(img);
 }
 
 static void	st_wall_collision(t_image_mlx	*img, t_wall_coll *set)
@@ -85,4 +83,5 @@ void	hook(void *param)
 		st_key_left(img);
 	if (mlx_is_key_down(img->mlx, MLX_KEY_RIGHT))
 		st_key_right(img);
+	draw_cube(img);
 }
