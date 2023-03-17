@@ -14,6 +14,8 @@ NAME		= game
 CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra -D BUFFER_SIZE=1 -fsanitize=address
 RM			= rm -f
+LIB_PATH 	= ./libft/libft.a
+MLX_PATH	= ./MLX42/build/libmlx42.a
 INCLUDE		= -I include \
 			-ICub3D.h -Ilglfw -Ilibft -IMLX42/include
 
@@ -28,25 +30,26 @@ OBJ			= $(SRC:.c=.o)
 
 all:		$(NAME)
 
-$(NAME):	$(OBJ)
-				$(MAKE) WITBON=1 -C libft
-				$(RM) -rf ./MLX42/build
-				cmake -S MLX42 -B ./MLX42/build
-				cd MLX42/build && make
+$(NAME):	$(OBJ) $(LIB_PATH) 
 				$(CC) $(CFLAGS) $(OBJ) libft/libft.a  MLX42/build/libmlx42.a -I include -lglfw \
 				-L "/Users/$(USER)/.brew/opt/glfw/lib/"\
 				-o $(NAME)
-
 %.o:%.c
 			$(CC) -c $(CFLAGS) $(INCLUDE) -o $@ $<
 
+$(LIB_PATH):
+		$(MAKE) WITBON=1 -C libft
+
+$(MLX_PATH):
+		cmake -S MLX42 -B ./MLX42/build 
+				$(MAKE) - C ./MLX42/build 
+				
 clean:
 			$(RM) $(OBJ) && cd libft && make clean && $(RM) -rf ../build
 
 fclean:		clean 
-			$(RM) $(NAME) && cd libft && make WITBON=1 fclean
-#there is no fclean in MLX42
+			$(RM) $(NAME) && cd libft && make fclean
 
-re:			fclean $(NAME)
+re:			fclean $(NAME)				
 
-.PHONY:		make all clean fclean re so bonus
+.PHONY:		make all clean fclean re
