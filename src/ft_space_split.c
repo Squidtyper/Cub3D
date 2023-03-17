@@ -6,11 +6,11 @@
 /*   By: hwang <hwang@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/13 17:48:30 by hwang         #+#    #+#                 */
-/*   Updated: 2023/03/14 19:08:22 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/17 15:42:51 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "../libft/libft.h"
 
 int	count_words(char *str)
 {

@@ -11,41 +11,47 @@
 
 NAME		= cub3D
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra -D BUFFER_SIZE=1  -fsanitize=address
+CFLAGS		= -Wall -Werror -Wextra -I ${INCLDIR} -fsanitize=address
 RM			= rm -f
-LIB_PATH 	= ./libft/libft.a
+LIB_PATH	= ./libft/libft.a
 MLX_PATH	= ./MLX42/build/libmlx42.a
-INCLUDE		= -I include \
+INCLDIR 	= incl
+OBJDIR		= obj
+SRCDIR		= src
+MLX_FLAG		= -I include \
 			-ICub3D.h -Ilglfw -Ilibft -IMLX42/include
-LIB_PATH 	= ./libft/libft.a
-MLX_PATH	= .MLX42/build/libmlx42.a
-SRC			= main.c read_input.c error_messages.c\
+FILES			= main.c read_input.c error_messages.c\
 			ft_space_split.c parse_utils.c import_textures.c get_player.c \
 			get_map.c test_inputs.c parse_color.c boundary_test.c clean_parsing.c\
 			keystroke.c keystroke_calc.c dda.c rays_calc.c draw_map.c\
-			draw_scene.c rays_utils.c scene_utils.c draw_main.c \
-				$(addprefix get_next_line/, get_next_line.c get_next_line_utils.c)
+			draw_scene.c rays_utils.c scene_utils.c draw_main.c 
 
-OBJ			= $(SRC:.c=.o)
+OBJ			= $(FILES:%.c=$(OBJDIR)/%.o)
+SRC			= ${FILES:%.c=${SRCDIR}/%.c}			
+
 
 all:		$(NAME)
 
-$(NAME):	$(OBJ) $(LIB_PATH) 
-				$(CC) $(CFLAGS) $(OBJ) libft/libft.a  MLX42/build/libmlx42.a -I include -lglfw \
+$(NAME):	$(OBJ) $(LIB_PATH) $(MLX_PATH)
+				$(CC) $(CFLAGS) $(OBJ) $(LIB_PATH)  $(MLX_PATH) -I include -lglfw \
 				-L "/Users/$(USER)/.brew/opt/glfw/lib/"\
 				-o $(NAME)
-%.o:%.c
-			$(CC) -c $(CFLAGS) $(INCLUDE) -o $@ $<
+
+$(OBJDIR)/%.o:$(SRCDIR)/%.c
+			$(CC) -c $(CFLAGS) $(MLX_FLAG) -o $@ $<
 
 $(LIB_PATH):
 		$(MAKE) WITBON=1 -C libft
 
 $(MLX_PATH):
 		cmake -S MLX42 -B ./MLX42/build 
-				$(MAKE) - C ./MLX42/build 
+				$(MAKE) -C ./MLX42/build 
+$(OBJ) : | $(OBJDIR)
 
+$(OBJDIR) :
+	mkdir $@
 clean:
-			$(RM) $(OBJ) && cd libft && make clean && $(RM) -rf ../build
+			$(RM) -R $(OBJDIR) && cd libft && make clean && $(RM) -rf ../build
 
 fclean:		clean 
 			$(RM) $(NAME) && cd libft && make fclean

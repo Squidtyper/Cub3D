@@ -6,13 +6,13 @@
 #    By: lizhang <lizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/05/18 21:21:47 by lizhang       #+#    #+#                  #
-#    Updated: 2023/03/17 14:47:11 by dmonfrin      ########   odam.nl          #
+#    Updated: 2023/03/17 15:27:13 by dmonfrin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= libft.a
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra
+CFLAGS		= -Wall -Werror -Wextra -DBUFFER_SIZE=20 
 RM			= rm -f
 
 SRC			= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
@@ -22,7 +22,9 @@ SRC			= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 			  ft_strnstr.c ft_atoi.c ft_calloc.c ft_strdup.c ft_substr.c \
 			  ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c \
 			  ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c \
-			  ft_putnbr_fd.c
+			  ft_putnbr_fd.c get_next_line/get_next_line.c \
+			  get_next_line/get_next_line_utils.c
+
 BSRC		= ft_lstnew.c ft_lstadd_front.c ft_lstsize.c \
 			  ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c \
 			  ft_lstiter.c ft_lstmap.c

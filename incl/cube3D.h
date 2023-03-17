@@ -1,8 +1,7 @@
 #ifndef CUBE3D_H
 # define CUBE3D_H
-# include "MLX42/include/MLX42/MLX42.h"
-# include "libft/libft.h"
-# include "get_next_line/get_next_line.h"
+# include "../MLX42/include/MLX42/MLX42.h"
+# include "../libft/libft.h"
 # include <fcntl.h>
 # include <errno.h>
 # include <stdio.h>
