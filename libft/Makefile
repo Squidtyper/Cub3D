@@ -44,7 +44,7 @@ bonus:
 				$(MAKE) WITBON=1 all
 
 clean:
-				$(RM) $(COBJ)
+				$(RM) $(OBJ) $(BOBJ)
 
 fclean:		clean 
 				$(RM) $(NAME)
