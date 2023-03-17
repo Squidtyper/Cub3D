@@ -18,8 +18,7 @@ MLX_PATH	= ./MLX42/build/libmlx42.a
 INCLDIR 	= incl
 OBJDIR		= obj
 SRCDIR		= src
-MLX_FLAG		= -I include \
-			-ICub3D.h -Ilglfw -Ilibft -IMLX42/include
+MLX_FLAG		= -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
 FILES			= main.c read_input.c error_messages.c\
 			ft_space_split.c parse_utils.c import_textures.c get_player.c \
 			get_map.c test_inputs.c parse_color.c boundary_test.c clean_parsing.c\
@@ -33,9 +32,7 @@ SRC			= ${FILES:%.c=${SRCDIR}/%.c}
 all:		$(NAME)
 
 $(NAME):	$(OBJ) $(LIB_PATH) $(MLX_PATH)
-				$(CC) $(CFLAGS) $(OBJ) $(LIB_PATH)  $(MLX_PATH) -I include -lglfw \
-				-L "/Users/$(USER)/.brew/opt/glfw/lib/"\
-				-o $(NAME)
+				$(CC) $(CFLAGS) $(OBJ) $(LIB_PATH)  $(MLX_PATH) $(MLX_FLAG) -o $(NAME)
 
 $(OBJDIR)/%.o:$(SRCDIR)/%.c
 			$(CC) -c $(CFLAGS) -o $@ $<
