@@ -13,6 +13,8 @@ NAME		= cub3D
 CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra -D BUFFER_SIZE=1  -fsanitize=address
 RM			= rm -f
+LIB_PATH 	= ./libft/libft.a
+MLX_PATH	= ./MLX42/build/libmlx42.a
 INCLUDE		= -I include \
 			-ICub3D.h -Ilglfw -Ilibft -IMLX42/include
 LIB_PATH 	= ./libft/libft.a
@@ -32,7 +34,6 @@ $(NAME):	$(OBJ) $(LIB_PATH)
 				$(CC) $(CFLAGS) $(OBJ) libft/libft.a  MLX42/build/libmlx42.a -I include -lglfw \
 				-L "/Users/$(USER)/.brew/opt/glfw/lib/"\
 				-o $(NAME)
-
 %.o:%.c
 			$(CC) -c $(CFLAGS) $(INCLUDE) -o $@ $<
 
@@ -43,13 +44,12 @@ $(MLX_PATH):
 		cmake -S MLX42 -B ./MLX42/build 
 				$(MAKE) - C ./MLX42/build 
 
-
 clean:
 			$(RM) $(OBJ) && cd libft && make clean && $(RM) -rf ../build
 
 fclean:		clean 
 			$(RM) $(NAME) && cd libft && make fclean
 
-re:			fclean $(NAME)
+re:			fclean $(NAME)				
 
-.PHONY:		make all clean fclean re so bonus
+.PHONY:		make all clean fclean re
