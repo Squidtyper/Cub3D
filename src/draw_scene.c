@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/15 18:22:24 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/17 14:37:04 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/17 18:39:35 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static double	st_calculate_x(t_image_mlx *img, mlx_texture_t *text,
 		x = (int)(tex->ray / (img->blk_size / text->width)) % (int)text->width;
 	else
 		x = (int)(tex->ray * (text->width / img->blk_size)) % (int)text->width;
-	if (tex->wall_side == HORIZONTAL_DOWN || tex->wall_side == VERTICAL_LEFT)
-		x = (int)text->width - 1 - x;
+	if (tex->wall_side == HORIZONTAL_DOWN || tex->wall_side == VERTICAL_RIGHT)
+		x = (int)text->width - x;
 	return (x);
 }
 
@@ -77,12 +77,12 @@ void	draw_scene(t_image_mlx *img, t_wall_pos *wall, int ray, double angle)
 	line_h = (img->blk_size * (HEIGHT_WIDTH)) / wall->dist;
 	texture.step_y = line_h;
 	texture.y_offset = 0;
-	if (line_h >= HEIGHT_WIDTH - 1)
+	if (line_h > HEIGHT_WIDTH)
 	{	
-		texture.y_offset = (line_h - HEIGHT_WIDTH - 1) / 2.0;
-		line_h = HEIGHT_WIDTH - 1 ;
+		texture.y_offset = (line_h - HEIGHT_WIDTH) / 2.0;
+		line_h = HEIGHT_WIDTH ;
 	}
-	line_offset = HEIGHT_WIDTH / 2 - ((int)line_h >> 1);
+	line_offset = (HEIGHT_WIDTH - 1) / 2 - ((int)(line_h - 1) >> 1);
 	texture.line_h = line_h;
 	set_right_ray(wall, &texture);
 	texture.wall_side = wall->side;

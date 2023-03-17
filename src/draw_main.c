@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/13 12:42:01 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/17 14:20:41 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/17 15:50:17 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,7 @@ static void	st_set_player(t_image_mlx *img)
 	t_input	*p;
 
 	p = img->map_input;
-
 	img->player.angle = p->a_player;
-	printf ("%f\n ", img->player.angle);
 	p->map_points[p->player_y][p->player_x] = '0';
 	img->player.x = p->player_x * img->blk_size + img->blk_size / 2;
 	img->player.y = p->player_y * img->blk_size + img->blk_size / 2;
@@ -94,7 +92,6 @@ void	draw_cube(t_image_mlx *img)
 {
 	mlx_delete_image(img->mlx, img->scene);
 	img->scene = mlx_new_image(img->mlx, HEIGHT_WIDTH, HEIGHT_WIDTH);
-	//draw_map(img);
 	draw_rays_view(img);
 	st_draw_player(img);
 	draw_player_direction(img);

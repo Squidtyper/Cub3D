@@ -6,11 +6,12 @@
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 14:24:03 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/14 18:42:40 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/17 16:01:41 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3D.h"
+#include <stdio.h>
 
 void	cleardarray(char **array)
 {

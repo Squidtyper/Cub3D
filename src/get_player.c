@@ -6,12 +6,13 @@
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/10 18:11:40 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/16 18:43:29 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/17 16:02:34 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3D.h"
 #include <math.h>
+#include <stdio.h>
 #define _USE_MATH_DEFINES
 
 void	player_error(char c)

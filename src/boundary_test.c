@@ -6,11 +6,12 @@
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 18:36:25 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/14 18:40:01 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/17 16:04:22 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3D.h"
+#include <stdio.h>
 
 bool	test_around(char **map, unsigned int i, unsigned int j)
 {

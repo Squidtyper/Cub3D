@@ -6,11 +6,12 @@
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 14:35:51 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/14 17:51:12 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/17 16:02:51 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3D.h"
+#include <stdio.h>
 
 void    test_inputs(t_input *input)
 {

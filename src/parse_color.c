@@ -6,12 +6,13 @@
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 17:52:53 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/14 19:05:42 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/17 16:03:00 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3D.h"
 #include <math.h>
+#include <stdio.h>
 
 void	color_double(bool testvalue)
 {

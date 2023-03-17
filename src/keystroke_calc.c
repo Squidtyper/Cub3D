@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 16:17:27 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/17 14:56:09 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/17 18:30:00 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	hook(void *param)
 		mlx_close_window(img->mlx);
 	if (mlx_is_key_down(img->mlx, MLX_KEY_W))
 		key_w(img, &set);
-		
 	if (mlx_is_key_down(img->mlx, MLX_KEY_S))
 		key_s(img, &set);
 	if (mlx_is_key_down(img->mlx, MLX_KEY_A))

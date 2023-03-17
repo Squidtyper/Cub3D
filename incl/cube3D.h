@@ -2,10 +2,9 @@
 # define CUBE3D_H
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../libft/libft.h"
-# include <fcntl.h>
-# include <errno.h>
-# include <stdio.h>
 # define HEIGHT_WIDTH 1024
+
+# include <stdio.h>
 
 typedef struct s_input
 {
@@ -54,6 +53,15 @@ typedef struct s_ray
 	double	angle;
 }	t_ray;
 
+typedef struct s_player
+{
+	double		x;
+	double		y;
+	double		delta_x;
+	double		delta_y;
+	double		angle;
+}	t_player;
+
 typedef struct s_wall_pos
 {
 	double	hor_x;
@@ -63,15 +71,6 @@ typedef struct s_wall_pos
 	double	dist;
 	t_drc	side;
 }	t_wall_pos;
-
-typedef struct s_player
-{
-	double		x;
-	double		y;
-	double		delta_x;
-	double		delta_y;
-	double		angle;
-}	t_player;
 
 typedef struct s_wall_coll
 {

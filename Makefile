@@ -38,7 +38,7 @@ $(NAME):	$(OBJ) $(LIB_PATH) $(MLX_PATH)
 				-o $(NAME)
 
 $(OBJDIR)/%.o:$(SRCDIR)/%.c
-			$(CC) -c $(CFLAGS) $(MLX_FLAG) -o $@ $<
+			$(CC) -c $(CFLAGS) -o $@ $<
 
 $(LIB_PATH):
 		$(MAKE) WITBON=1 -C libft

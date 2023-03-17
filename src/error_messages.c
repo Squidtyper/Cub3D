@@ -6,11 +6,13 @@
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/06 16:37:54 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/14 19:45:32 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/17 16:00:33 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3D.h"
+#include <errno.h>
+#include <stdio.h>
 
 void	ac_error(int ac)
 {

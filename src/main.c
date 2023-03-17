@@ -1,12 +1,4 @@
-#include <stdlib.h>
-#include <stdarg.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <unistd.h>
 #include "cube3D.h"
-#include <stdio.h>
-#include <memory.h>
-
 
 int32_t	main(int ac, char **av)
 {

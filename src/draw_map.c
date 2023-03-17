@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/16 12:20:11 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/03/17 14:32:10 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/17 15:51:43 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	st_draw_square(t_print_info *info)
 {
 	uint32_t	x_i;
-
 
 	while (info->start_y < info->end_y - 1)
 	{

@@ -6,11 +6,14 @@
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 17:32:02 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/16 18:26:04 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/17 16:02:13 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3D.h"
+#include <stdio.h>
+#include <fcntl.h>
+#include <errno.h>
 
 mlx_texture_t	*open_texture(char *path)
 {

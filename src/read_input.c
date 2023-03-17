@@ -6,13 +6,15 @@
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/05 15:40:57 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/14 19:43:10 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/17 16:00:05 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3D.h"
-#include <readline/readline.h>
 #include <math.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <stdio.h>
 
 int	open_file(char *name)
 {
