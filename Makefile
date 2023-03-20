@@ -10,6 +10,7 @@
 # **************************************************************************** #
 
 NAME		= cub3D
+BNAME		= cub3D_bonus
 CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra -I ${INCLDIR} #-fsanitize=address
 RM			= rm -f
@@ -29,14 +30,13 @@ FILES_MAN	= main.c read_input.c \
 			import_textures.c \
 			get_map.c test_inputs.c boundary_test.c clean_parsing.c
 FILES_B		= main_bonus.c read_input_bonus.c \
-			import_textures.c \
-			get_map_bonus.c boundary_test.c \
-			clean_parsing_bonus.c test_inputs_bonus.c clean_parsing_bonus.c
+			import_textures_bonus.c \
+			get_map_bonus.c boundary_test_bonus.c \
+			clean_parsing_bonus.c test_inputs_bonus.c
 OBJ			= $(FILES_SHARE:%.c=$(OBJDIR)/%.o) ${FILES_MAN:%.c=${OBJDIR}/%.o}
 SRC			= ${FILES_SHARE:%.c=${SRCDIR}/%.c} ${FILES_MAN:%.c=${SRCDIR}/%.c}
-BOBJ		= $(FILES_SHARE:%.c=$(BOBJDIR)/%.o) ${FILES_B:%.c=${BOBJDIR}/%.o}
-BSRC		= ${FILES_SHARE:%.c=${BSRCDIR}/%.c} ${FILES_B:%.c=${BSRCDIR}/%.c} 
-
+BOBJ		= $(FILES_SHARE:%.c=$(OBJDIR)/%.o) ${FILES_B:%.c=${BOBJDIR}/%.o}
+BSRC		= ${FILES_SHARE:%.c=${SRCDIR}/%.c} ${FILES_B:%.c=${BSRCDIR}/%.c} 
 
 all:		$(NAME)
 
@@ -46,6 +46,13 @@ $(NAME):	$(OBJ) $(LIB_PATH) $(MLX_PATH)
 $(OBJDIR)/%.o:$(SRCDIR)/%.c
 			$(CC) -c $(CFLAGS) -o $@ $<
 
+$(BOBJDIR)/%.o:$(BSRCDIR)/%.c
+			$(CC) -c $(CFLAGS) -o $@ $<
+
+bonus:		$(BNAME)
+$(BNAME):	$(BOBJ) $(LIB_PATH) $(MLX_PATH)
+				$(CC) $(CFLAGS) $(BOBJ) $(LIB_PATH)  $(MLX_PATH) $(MLX_FLAG) -o $(BNAME)
+
 $(LIB_PATH):
 		$(MAKE) WITBON=1 -C libft
 
@@ -54,7 +61,12 @@ $(MLX_PATH):
 				$(MAKE) -C ./MLX42/build 
 $(OBJ) : | $(OBJDIR)
 
+$(BOBJ) : | $(BOBJDIR)
+
 $(OBJDIR) :
+	mkdir $@
+
+$(BOBJDIR) :
 	mkdir $@
 
 clean:
@@ -65,4 +77,4 @@ fclean:		clean
 
 re:			fclean $(NAME)				
 
-.PHONY:		make all clean fclean re
+.PHONY:		make all clean fclean re bonus
