@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 17:32:02 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/20 21:45:53 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/20 22:07:41 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,5 @@ void	find_texture(t_input *input)
 		i++;
 	}
 	input->door_tex = open_texture(DOOR);
-	input->door_found = true;
 	input->sprite_tex = open_texture(GHOSTPNG);
-	input->sprite_found = true;
 }

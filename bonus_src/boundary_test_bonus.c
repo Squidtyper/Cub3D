@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 18:36:25 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/20 21:34:44 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/20 21:54:14 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 bool	test_around(char **map, unsigned int i, unsigned int j)
 {
-	if (ft_strchr("01NSWE", map[i - 1][j]) == NULL || \
-	ft_strchr("01NSWE", map[i - 1][j - 1]) == NULL || \
-	ft_strchr("01NSWE", map[i - 1][j + 1]) == NULL || \
-	ft_strchr("01NSWE", map[i][j - 1]) == NULL || \
-	ft_strchr("01NSWE", map[i][j + 1]) == NULL || \
-	ft_strchr("01NSWE", map[i + 1][j - 1]) == NULL || \
-	ft_strchr("01NSWE", map[i + 1][j]) == NULL || \
-	ft_strchr("01NSWE", map[i + 1][j + 1]) == NULL)
+	if (ft_strchr("012GNSWE", map[i - 1][j]) == NULL || \
+	ft_strchr("012GNSWE", map[i - 1][j - 1]) == NULL || \
+	ft_strchr("012GNSWE", map[i - 1][j + 1]) == NULL || \
+	ft_strchr("012GNSWE", map[i][j - 1]) == NULL || \
+	ft_strchr("012GNSWEE", map[i][j + 1]) == NULL || \
+	ft_strchr("012GNSWE", map[i + 1][j - 1]) == NULL || \
+	ft_strchr("012GNSWE", map[i + 1][j]) == NULL || \
+	ft_strchr("012GNSWE", map[i + 1][j + 1]) == NULL)
 		return (false);
 	return (true);
 }
@@ -38,7 +38,7 @@ void	boundary_test(char **m_p, unsigned int height, unsigned int width)
 		j = 0;
 		while (j < width)
 		{
-			if (ft_strchr("0NSWE", m_p[i][j]) != NULL)
+			if (ft_strchr("0NSWGE", m_p[i][j]) != NULL)
 			{
 				if (i == 0 || i == (height - 1) || j == 0 || j == (width) || \
 				test_around(m_p, i, j) == false)

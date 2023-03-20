@@ -1,5 +1,5 @@
-#ifndef CUBE3D_H
-# define CUBE3D_H
+#ifndef CUBE3D_BONUS_H
+# define CUBE3D_BONUS_H
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../libft/libft.h"
 # define HEIGHT_WIDTH 1024
@@ -27,9 +27,9 @@ typedef struct s_input
 	mlx_texture_t	*EA_tex;
 	bool			EA_found;
 	mlx_texture_t	*door_tex;
-	bool			door_found;	//2 for doors
+	bool			door_found;//2 for doors
 	mlx_texture_t	*sprite_tex;	
-	bool			sprite_found;	//G for sprite
+	bool			sprite_found;//G for sprite
 	float			a_player;
 	int				player_x;
 	int				player_y;
