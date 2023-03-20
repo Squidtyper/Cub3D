@@ -23,20 +23,20 @@
 */
 static void	st_key_left(t_image_mlx *img)
 {
-	img->player.angle -= 0.05;
+	img->player.angle -= 0.01;
 	if (img->player.angle < 0)
 		img->player.angle += 2 * PI;
-	img->player.delta_y = sin(img->player.angle) * 3;
-	img->player.delta_x = cos(img->player.angle) * 3;
+	img->player.delta_y = sin(img->player.angle) * (img->blk_size / 20);
+	img->player.delta_x = cos(img->player.angle) * (img->blk_size / 20);
 }
 
 static void	st_key_right(t_image_mlx *img)
 {
-	img->player.angle += 0.05;
+	img->player.angle += 0.01;
 	if (img->player.angle > 2 * PI)
 		img->player.angle -= 2 * PI;
-	img->player.delta_y = sin(img->player.angle) * 3;
-	img->player.delta_x = cos(img->player.angle) * 3;
+	img->player.delta_y = sin(img->player.angle) * (img->blk_size / 20);
+	img->player.delta_x = cos(img->player.angle) * (img->blk_size / 20);
 }
 
 static void	st_wall_collision(t_image_mlx	*img, t_wall_coll *set)
