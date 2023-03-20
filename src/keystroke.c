@@ -15,31 +15,31 @@
 void	key_w(t_image_mlx *img, t_wall_coll *set)
 {
 	if (img->map_input->map_points[set->ipy][set->ipx_add_xo] == '0')
-		img->player.x += img->player.delta_x / 4;
+		img->player.x += img->player.delta_x;
 	if (img->map_input->map_points[set->ipy_add_yo][set->ipx] == '0')
-		img->player.y += img->player.delta_y / 4;
+		img->player.y += img->player.delta_y;
 }
 
 void	key_s(t_image_mlx *img, t_wall_coll *set)
 {
 	if (img->map_input->map_points[set->ipy][set->ipx_sub_xo] == '0')
-		img->player.x -= img->player.delta_x / 4;
+		img->player.x -= img->player.delta_x;
 	if (img->map_input->map_points[set->ipy_sub_yo][set->ipx] == '0')
-		img->player.y -= img->player.delta_y / 4;
+		img->player.y -= img->player.delta_y;
 }
 
 void	key_a(t_image_mlx *img, t_wall_coll *set)
 {
 	if (img->map_input->map_points[set->ipy][set->ipx_add_yo] == '0')
-		img->player.x += img->player.delta_y / 4;
+		img->player.x += img->player.delta_y;
 	if (img->map_input->map_points[set->ipy_sub_xo][set->ipx] == '0')
-		img->player.y -= img->player.delta_x / 4;
+		img->player.y -= img->player.delta_x;
 }
 
 void	key_d(t_image_mlx *img, t_wall_coll *set)
 {
 	if (img->map_input->map_points[set->ipy][set->ipx_sub_yo] == '0')
-		img->player.x -= img->player.delta_y / 4;
+		img->player.x -= img->player.delta_y;
 	if (img->map_input->map_points[set->ipy_add_xo][set->ipx] == '0')
-		img->player.y += img->player.delta_x / 4;
+		img->player.y += img->player.delta_x;
 }
