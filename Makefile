@@ -70,10 +70,17 @@ $(BOBJDIR) :
 	mkdir $@
 
 clean:
-			$(RM) -R $(OBJDIR) && cd libft && make clean && $(RM) -rf ../build
+			$(RM) -R $(OBJDIR) && cd libft && make WITBON=1 clean && $(RM) -rf ../build
+
+clean_bonus:
+			$(RM) -R $(OBJDIR) -R $(BOBJDIR) && cd libft && make WITBON=1 clean && \
+			$(RM) -rf ../build
 
 fclean:		clean 
 			$(RM) $(NAME) && cd libft && make fclean
+
+fclean_bonus:	clean 
+			$(RM) $(BNAME) && cd libft && make fclean
 
 re:			fclean $(NAME)				
 
