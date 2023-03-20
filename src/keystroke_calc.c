@@ -19,7 +19,7 @@
     we automatically know that after 360 it's just 0 again (not 361),
     and vice versa less than 0 it's 360 (not -1)
     so when we look left and right we have to keep this in consideration,
-    we multiply by 5 because the values are very small
+    we multiply by img->blk_size / 20 because the values are very small
 */
 static void	st_key_left(t_image_mlx *img)
 {
