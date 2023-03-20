@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_map.c                                          :+:    :+:            */
+/*   get_map_bonus.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/10 18:13:19 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/20 16:16:52 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/20 21:36:48 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3D.h"
+#include "cube3D_bonus.h"
 
 char	*fill_map_line(char *content, unsigned int len)
 {
@@ -84,7 +84,7 @@ int	valid_map_line(char *str)
 	while (str[i])
 	{
 		if (str[i] != ' ' && str[i] != '	' && str[i] != 'N' && str[i] != 'S' \
-		&& str[i] != 'W' && str[i] != 'E' && ft_isdigit(str[i]) == 0)
+		&& str[i] != 'W' && str[i] != 'E' && str[i] != 'G' &&ft_isdigit(str[i]) == 0)
 			return (0);
 		if (ft_isdigit(str[i]) == 1)
 			n_digit++;

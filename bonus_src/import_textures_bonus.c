@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   import_textures.c                                  :+:    :+:            */
+/*   import_textures_bonus.c                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 17:32:02 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/20 16:10:05 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/20 21:45:53 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3D.h"
+#include "cube3D_bonus.h"
 #include <stdio.h>
 #include <fcntl.h>
 #include <errno.h>
@@ -85,5 +85,9 @@ void	find_texture(t_input *input)
 		get_texture(input, words);
 		cleardarray(words);
 		i++;
-}
+	}
+	input->door_tex = open_texture(DOOR);
+	input->door_found = true;
+	input->sprite_tex = open_texture(GHOSTPNG);
+	input->sprite_found = true;
 }

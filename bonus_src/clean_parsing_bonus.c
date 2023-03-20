@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   clean_parsing.c                                    :+:    :+:            */
+/*   clean_parsing_bonus.c                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 19:50:02 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/20 16:12:56 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/20 21:46:58 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3D.h"
+#include "cube3D_bonus.h"
 
 void	clean_input(t_input *input)
 {
@@ -23,7 +23,8 @@ void	clean_input(t_input *input)
 		mlx_delete_texture(input->SO_tex);
 		mlx_delete_texture(input->WE_tex);
 		mlx_delete_texture(input->EA_tex);
+		mlx_delete_texture(input->door_tex);
+		mlx_delete_texture(input->sprite_tex);
 		free(input);
 	}
 }
-

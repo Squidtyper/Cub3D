@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   test_inputs.c                                      :+:    :+:            */
+/*   test_inputs_bonus.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 14:35:51 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/17 16:02:51 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/20 21:46:09 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3D.h"
+#include "cube3D_bonus.h"
 #include <stdio.h>
 
 void    test_inputs(t_input *input)
@@ -48,4 +48,12 @@ void    test_inputs(t_input *input)
 		printf("EA_tex successfully imported\n");
 	else
 		printf("EA_tex import is unsuccessful\n");
+	if (input->door_tex)
+		printf("door_tex successfully imported\n");
+	else
+		printf("door_tex import is unsuccessful\n");
+	if (input->sprite_tex)
+		printf("sprite_tex successfully imported\n");
+	else
+		printf("sprite import is unsuccessful\n");
 }

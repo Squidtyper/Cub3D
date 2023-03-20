@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   read_input.c                                       :+:    :+:            */
+/*   read_input_bonus.c                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/05 15:40:57 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/17 16:00:05 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/20 21:34:21 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3D.h"
+#include "cube3D_bonus.h"
 #include <math.h>
 #include <fcntl.h>
 #include <errno.h>
@@ -60,6 +60,8 @@ void	pre_fill(t_input *input)
 	input->f_color = 0;
 	input->c_found = false;
 	input->f_found = false;
+	input->door_found = false;
+	input->sprite_found = false;
 	input->NO_tex = NULL;
 	input->SO_tex = NULL;
 	input->WE_tex = NULL;
