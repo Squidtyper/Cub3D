@@ -20,6 +20,8 @@
     and vice versa less than 0 it's 360 (not -1)
     so when we look left and right we have to keep this in consideration,
     we multiply by img->blk_size / 20 because the values are very small
+    and we want to be obtained base of the block size to mantain the 
+    speed to be constant across differnt map size
 */
 static void	st_key_left(t_image_mlx *img)
 {
