@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/10 18:13:19 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/14 19:27:01 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/20 16:16:52 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ char	**convert_map(t_list *map, t_input *input)
 		i++;
 	}
 	array[i] = NULL;
+	ft_lstclear(&map, &free);
 	return (array);
 }
 

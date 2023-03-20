@@ -8,14 +8,14 @@
 
 typedef struct s_input
 {
-	char			*file_content;	//not so important
-	char			**lines;		//not so important
-	char			**map_points;	//I changed the player to 0 after getting the player
+	char			*file_content;	
+	char			**lines;
+	char			**map_points;
 	unsigned int	map_width;
 	unsigned int	map_height;
-	long long		c_color;		//this has changed
+	long long		c_color;
 	bool			c_found;
-	long long		f_color;		//this has changed		
+	long long		f_color;		
 	bool			f_found;
 	mlx_texture_t	*NO_tex;
 	bool			NO_found;
@@ -25,9 +25,9 @@ typedef struct s_input
 	bool			WE_found;
 	mlx_texture_t	*EA_tex;
 	bool			EA_found;
-	double			a_player;		//angle of player in radians
-	int				player_x;		//location player
-	int				player_y;		//location player
+	double			a_player;
+	int				player_x;
+	int				player_y;
 	bool			p_found;
 }	t_input;
 

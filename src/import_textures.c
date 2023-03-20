@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/09 17:32:02 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/17 16:02:13 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/03/20 16:10:05 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	find_texture(t_input *input)
 	{
 		words = ft_space_split(input->lines[i]);
 		get_texture(input, words);
+		cleardarray(words);
 		i++;
 }
 }

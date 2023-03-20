@@ -11,7 +11,7 @@
 
 NAME		= cub3D
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra -I ${INCLDIR} -fsanitize=address
+CFLAGS		= -Wall -Werror -Wextra -I ${INCLDIR} #-fsanitize=address
 RM			= rm -f
 LIB_PATH	= ./libft/libft.a
 MLX_PATH	= ./MLX42/build/libmlx42.a
