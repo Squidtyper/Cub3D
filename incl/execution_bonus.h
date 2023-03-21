@@ -79,31 +79,18 @@ typedef struct s_exe_info
 
 
 // /* draw_dda.c*/
-// void			draw_ray(t_exe_info *img, t_print_info *info);
-// void			draw_player_direction(t_exe_info *img);
-/* draw_main.c*/
-// void			draw_background(t_exe_info *img);
 int				draw_cube(t_exe_info *img);
 /* draw_map.c */
 void			draw_map(t_exe_info *img);
 /* draw_ray_calc.c*/
 void			draw_ray_scene(t_exe_info *img);
-/* draw_rays_utils.c*/
-////void			set_print(t_exe_info *img, t_print_info *info, t_wall_pos *w_pos);
-// void			set_no_wall(t_player *player, t_ray *ray);
-// double			dist_pg_rayend(double ax, double ay, double bx, double by);
-// t_drc			set_direction(t_drc pos, double angle);
-// int				calc_max_wall_dist(t_exe_info *img);
 /* draw_scene_utils.c */
 uint32_t		calc_color(mlx_texture_t *texture, t_tex_var *tex);
 bool			is_mini_map_space(t_exe_info *img, int y, int x);
 void			set_right_ray(t_wall_pos *wall, t_tex_var *tex);
-/* draw_scene.c */
-// void			draw_scene(t_exe_info *img,t_wall_pos *wall, int ray, double angle);
 /* execution_utils.c */
 bool			is_wall(char c);
 t_drc			set_wall_side(t_exe_info * info, t_wall_pos *wall);
-
 /* keystroke_calc.c*/
 void			hook(void *param);
 /* keystroke.c*/
