@@ -16,7 +16,7 @@ CFLAGS		= -Wall -Werror -Wextra -I ${INCLDIR} #-fsanitize=address
 RM			= rm -f
 LIB_PATH	= ./libft/libft.a
 MLX_PATH	= ./MLX42/build/libmlx42.a
-INCLDIR 	= incl
+INCLDIR 	= include
 OBJDIR		= obj
 SRCDIR		= src
 BSRCDIR		= bonus_src
