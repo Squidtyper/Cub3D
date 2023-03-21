@@ -24,15 +24,15 @@ BSRCDIR		= bonus_src
 MLX_FLAG	= -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
 FILES_SHARE	= error_messages.c\
 			ft_space_split.c parse_utils.c get_player.c parse_color.c \
-			keystroke.c keystroke_calc.c dda.c rays_calc.c draw_map.c \
-			draw_scene.c rays_utils.c scene_utils.c draw_main.c 
-FILES_MAN	= main.c read_input.c \
-			import_textures.c \
-			get_map.c test_inputs.c boundary_test.c clean_parsing.c
-FILES_B		= main_bonus.c read_input_bonus.c \
-			import_textures_bonus.c \
-			get_map_bonus.c boundary_test_bonus.c \
-			clean_parsing_bonus.c test_inputs_bonus.c
+			draw_dda.c draw_rays_calc.c draw_map.c \
+			draw_rays_utils.c draw_scene_utils.c draw_main.c 
+			execution.c main.c	
+FILES_MAN	= 	read_input.c import_textures.c get_map.c test_inputs.c boundary_test.c \
+			clean_parsing.c execution_utils.c draw_scene.c keystroke.c keystroke_calc.c
+FILES_B		= 	read_input_bonus.c import_textures_bonus.c 
+			get_map_bonus.c boundary_test_bonus.c clean_parsing_bonus.c 
+			test_inputs_bonus.c execution_utils_bonus.c draw_scene_bonus.c
+			keystroke_bonus.c keystroke_calc_bonus.c
 OBJ			= $(FILES_SHARE:%.c=$(OBJDIR)/%.o) ${FILES_MAN:%.c=${OBJDIR}/%.o}
 SRC			= ${FILES_SHARE:%.c=${SRCDIR}/%.c} ${FILES_MAN:%.c=${SRCDIR}/%.c}
 BOBJ		= $(FILES_SHARE:%.c=$(OBJDIR)/%.o) ${FILES_B:%.c=${BOBJDIR}/%.o}
