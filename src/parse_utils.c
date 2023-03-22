@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3D.h"
-#include <stdio.h>
+#include "parsing.h"
 
 void	cleardarray(char **array)
 {

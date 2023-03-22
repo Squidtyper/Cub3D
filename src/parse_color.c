@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3D.h"
+#include "parsing.h"
 #include <math.h>
-#include <stdio.h>
 
 void	color_double(bool testvalue)
 {
@@ -65,17 +64,17 @@ void	parse_color(char **words, t_input *input)
 	cleardarray(frag);
 }
 
-void	find_color(t_input *input)
+void	find_color(t_input *input, t_f_con *f_con)
 {
 	char	**words;
 	int		i;
 	int		i2;
 
 	i = 0;
-	input->lines = ft_split(input->file_content, '\n');
-	while (input->lines[i])
+	f_con->lines = ft_split(f_con->file_content, '\n');
+	while (f_con->lines[i])
 	{
-		words = ft_split(input->lines[i], ',');
+		words = ft_split(f_con->lines[i], ',');
 		if (!words)
 			mallocerr();
 		i2 = 0;

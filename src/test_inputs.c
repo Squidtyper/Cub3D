@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3D.h"
+#include "parsing.h"
 #include <stdio.h>
 
 void    test_inputs(t_input *input)

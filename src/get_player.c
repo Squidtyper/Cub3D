@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3D.h"
+#include "parsing.h"
 #include <math.h>
-#include <stdio.h>
 #define _USE_MATH_DEFINES
 
 void	player_error(char c)

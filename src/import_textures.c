@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3D.h"
-#include <stdio.h>
+#include "parsing.h"
 #include <fcntl.h>
 #include <errno.h>
 
@@ -73,15 +72,15 @@ void	get_texture(t_input *input, char **words)
 	}
 }
 
-void	find_texture(t_input *input)
+void	find_texture(t_input *input, t_f_con *f_con)
 {
 	int		i;
 	char	**words;
 
 	i = 0;
-	while (input->lines[i])
+	while (f_con->lines[i])
 	{
-		words = ft_space_split(input->lines[i]);
+		words = ft_space_split(f_con->lines[i]);
 		get_texture(input, words);
 		cleardarray(words);
 		i++;

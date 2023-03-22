@@ -1,10 +1,10 @@
 #ifndef BONUS
 # ifndef EXECUTION_H
-#  define EXECUTION_H
-#  include "../MLX42/include/MLX42/MLX42.h"
-#  include "../libft/libft.h"
-#  include "cube3d.h"
-#  define HEIGHT_WIDTH 512
+# define EXECUTION_H
+# include "../MLX42/include/MLX42/MLX42.h"
+# include "../libft/libft.h"
+# include "cube3D.h"
+# define HEIGHT_WIDTH 512
 
 typedef enum e_drc
 {

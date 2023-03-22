@@ -73,16 +73,16 @@ void	get_texture(t_input *input, char **words)
 	}
 }
 
-void	find_texture(t_input *input)
+void	find_texture(t_input *input, t_f_con *f_con)
 {
 	int		i;
 	char	**words;
 
 	i = 0;
-	while (input->lines[i])
+	while (f_con->lines[i])
 	{
-		words = ft_space_split(input->lines[i]);
-		get_texture(input, words);
+		words = ft_space_split(f_con->lines[i]);
+		get_texture(t_input, words);
 		cleardarray(words);
 		i++;
 	}

@@ -2,6 +2,7 @@
 # define CUBE3D_BONUS_H
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../libft/libft.h"
+# include "parsing_bonus.h"
 # define HEIGHT_WIDTH 1024
 # include <stdio.h>
 # define DOOR "../textures/whirlpool.png"

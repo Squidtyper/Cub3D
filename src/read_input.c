@@ -10,11 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3D.h"
+#include "parsing.h"
 #include <math.h>
-#include <fcntl.h>
 #include <errno.h>
-#include <stdio.h>
 
 int	open_file(char *name)
 {
@@ -53,8 +51,6 @@ char	*read_file(char *name)
 
 void	pre_fill(t_input *input)
 {
-	input->file_content = NULL;
-	input->lines = NULL;
 	input->map_points = NULL;
 	input->c_color = 0;
 	input->f_color = 0;
@@ -70,7 +66,7 @@ void	pre_fill(t_input *input)
 	input->p_found = false;
 }
 
-void	find_map(t_input *input)
+void	find_map(t_input *input, t_f_con *f_con)
 {
 	int		i;
 	t_list	*map;
@@ -78,16 +74,16 @@ void	find_map(t_input *input)
 
 	i = 0;
 	map = NULL;
-	while (input->lines[i])
+	while (f_con->lines[i])
 	{
-		if (ft_strlen(input->lines[i]) > 3 && only_digits(input->lines[i]) == 1)
+		if (ft_strlen(f_con->lines[i]) > 3 && only_digits(f_con->lines[i]) == 1)
 			break ;
 		i++;
 	}
-	while (input->lines[i] && ft_strlen(input->lines[i]) > 3 && \
+	while (f_con->lines[i] && ft_strlen(f_con->lines[i]) > 3 && \
 	valid_map_line(input->lines[i]) == 1)
 	{
-		item = ft_lstnew(ft_strdup(input->lines[i]));
+		item = ft_lstnew(ft_strdup(f_con->lines[i]));
 		ft_lstadd_back(&map, item);
 		i++;
 	}
@@ -102,16 +98,18 @@ void	find_map(t_input *input)
 t_input	*parse(int ac, char **av)
 {
 	t_input	*input;
+	t_f_con *f_con;
 
 	ac_error(ac);
 	input = (t_input *)malloc(sizeof(t_input));
-	pre_fill(input);
 	if (!input)
 		mallocerr();
-	input->file_content = read_file(av[1]);
-	find_color(input);
-	find_texture(input);
-	find_map(input);
+	pre_fill(input);
+	f_con = (t_f_con *)malloc(sizeof(t_f_con));
+	f_con->file_content = read_file(av[1]);
+	find_color(input, f_con);
+	find_texture(input, f_con);
+	find_map(input, f_con);
 	get_player(input);
 	test_inputs(input);
 	boundary_test(input->map_points, input->map_height, input->map_width);
