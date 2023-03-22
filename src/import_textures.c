@@ -11,8 +11,19 @@
 /* ************************************************************************** */
 
 #include "parsing.h"
-#include <fcntl.h>
 #include <errno.h>
+
+typedef struct s_tex_all
+{
+	mlx_texture_t	*NO_tex;
+	bool			NO_found;
+	mlx_texture_t	*SO_tex;
+	bool			SO_found;
+	mlx_texture_t	*WE_tex;
+	bool			WE_found;
+	mlx_texture_t	*EA_tex;
+	bool			EA_found;
+}	t_tex_all;
 
 mlx_texture_t	*open_texture(char *path)
 {
