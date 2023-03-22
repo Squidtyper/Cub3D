@@ -95,7 +95,7 @@ void	find_map(t_input *input, t_f_con *f_con)
 t_input	*parse(int ac, char **av)
 {
 	t_input	*input;
-	t_f_con *f_con;
+	t_f_con	*f_con;
 
 	ac_error(ac);
 	input = (t_input *)malloc(sizeof(t_input));
@@ -103,10 +103,15 @@ t_input	*parse(int ac, char **av)
 		mallocerr();
 	pre_fill(input);
 	f_con = (t_f_con *)malloc(sizeof(t_f_con));
+	if (!f_con)
+		mallocerr();
 	f_con->file_content = read_file(av[1]);
 	find_color(input, f_con);
 	find_texture(input, f_con);
 	find_map(input, f_con);
+	cleardarray(f_con->lines);
+	free(f_con->file_content);
+	free(f_con);
 	get_player(input);
 	test_inputs(input);
 	boundary_test(input->map_points, input->map_height, input->map_width);
