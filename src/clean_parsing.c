@@ -12,17 +12,32 @@
 
 #include "cube3D.h"
 
+typedef struct s_tex_all
+{
+	mlx_texture_t	*NO_tex;
+	bool			NO_found;
+	mlx_texture_t	*SO_tex;
+	bool			SO_found;
+	mlx_texture_t	*WE_tex;
+	bool			WE_found;
+	mlx_texture_t	*EA_tex;
+	bool			EA_found;
+}	t_tex_all;
+
 void	clean_input(t_input *input)
 {
+	t_list *buf;
+
+	buf = input->textures;
 	if (input)
 	{
-		free(input->file_content);
-		cleardarray(input->lines);
 		cleardarray(input->map_points);
-		mlx_delete_texture(input->NO_tex);
-		mlx_delete_texture(input->SO_tex);
-		mlx_delete_texture(input->WE_tex);
-		mlx_delete_texture(input->EA_tex);
+		while (buf)
+		{
+			mlx_delete_texture((mlx_texture_t *)buf->content);
+			buf = buf->next;
+		}
+		free(input->textures);
 		free(input);
 	}
 }

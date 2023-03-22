@@ -56,10 +56,7 @@ void	pre_fill(t_input *input)
 	input->f_color = 0;
 	input->c_found = false;
 	input->f_found = false;
-	input->NO_tex = NULL;
-	input->SO_tex = NULL;
-	input->WE_tex = NULL;
-	input->EA_tex = NULL;
+	input->textures = NULL;
 	input->a_player = 0;
 	input->player_x = 0;
 	input->player_y = 0;
@@ -81,7 +78,7 @@ void	find_map(t_input *input, t_f_con *f_con)
 		i++;
 	}
 	while (f_con->lines[i] && ft_strlen(f_con->lines[i]) > 3 && \
-	valid_map_line(input->lines[i]) == 1)
+	valid_map_line(f_con->lines[i]) == 1)
 	{
 		item = ft_lstnew(ft_strdup(f_con->lines[i]));
 		ft_lstadd_back(&map, item);

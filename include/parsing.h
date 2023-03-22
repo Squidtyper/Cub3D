@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 14:52:22 by lizhang           #+#    #+#             */
-/*   Updated: 2023/03/22 16:29:07 by lizhang          ###   ########.fr       */
+/*   Updated: 2023/03/22 17:14:37 by lizhang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,6 @@ typedef struct s_f_con
 	char			*file_content;
 	char			**lines;
 }	t_f_con;
-
-typedef struct s_tex
-{
-	char			*name;
-	mlx_texture_t	texture;
-	bool			found;
-}	t_tex;
 
 typedef struct s_input
 {
@@ -64,7 +57,6 @@ void			get_player(t_input *input);
 int				valid_map_line(char *str);
 char			**convert_map(t_list *map, t_input *input);
 char			*fill_map_line(char *content, unsigned int len);
-void			find_texture(t_input *input);
 mlx_texture_t	*open_texture(char *path);
 void			boundary_test(char **m_p, unsigned int height, unsigned int width);
 void			test_inputs(t_input *input);

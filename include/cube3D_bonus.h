@@ -12,29 +12,7 @@ typedef struct s_input
 {
 	char			*file_content;
 	char			**lines;
-	char			**map_points;
-	unsigned int	map_width;
-	unsigned int	map_height;
-	long long		c_color;
-	bool			c_found;
-	long long		f_color;	
-	bool			f_found;
-	mlx_texture_t	*NO_tex;
-	bool			NO_found;
-	mlx_texture_t	*SO_tex;
-	bool			SO_found;
-	mlx_texture_t	*WE_tex;
-	bool			WE_found;
-	mlx_texture_t	*EA_tex;
-	bool			EA_found;
-	mlx_texture_t	*door_tex;
-	bool			door_found;//2 for doors
-	mlx_texture_t	*sprite_tex;	
-	bool			sprite_found;//G for sprite
-	float			a_player;
-	int				player_x;
-	int				player_y;
-	bool			p_found;
+
 }	t_input;
 
 typedef enum e_drc

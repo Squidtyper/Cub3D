@@ -32,20 +32,4 @@ void    test_inputs(t_input *input)
 	}
 	printf("map width: %d, map height: %d\n", input->map_width, input->map_height);
 	printf("ceiling color: 0x%llX, floor color: 0x%llX\n", input->c_color, input->f_color);
-	if (input->NO_tex)
-		printf("NO_tex successfully imported\n");
-	else
-		printf("NO_tex import is unsuccessful\n");
-	if (input->SO_tex)
-		printf("SO_tex successfully imported\n");
-	else
-		printf("SO_tex import is unsuccessful\n");
-	if (input->WE_tex)
-		printf("WE_tex successfully imported\n");
-	else
-		printf("WE_tex import is unsuccessful\n");
-	if (input->EA_tex)
-		printf("EA_tex successfully imported\n");
-	else
-		printf("EA_tex import is unsuccessful\n");
 }

@@ -44,45 +44,64 @@ void	texture_error(bool testvalue, char *what)
 	}
 }
 
-void	get_texture(t_input *input, char **words)
+void	get_texture(t_tex_all *col, char **words)
 {
 	if (ft_strncmp(words[0], "NO", 3) == 0)
 	{
-		texture_error(input->NO_found, "NO");
-		input->NO_tex = open_texture(words[1]);
-		input->NO_found = true;
+		texture_error(col->NO_found, "NO");
+		col->NO_tex = open_texture(words[1]);
+		col->NO_found = true;
 	}
 	if (ft_strncmp(words[0], "SO", 3) == 0)
 	{
-		texture_error(input->SO_found, "SO");
-		input->SO_tex = open_texture(words[1]);
-		input->SO_found = true;
+		texture_error(col->SO_found, "SO");
+		col->SO_tex = open_texture(words[1]);
+		col->SO_found = true;
 	}
 	if (ft_strncmp(words[0], "WE", 3) == 0)
 	{
-		texture_error(input->WE_found, "WE");
-		input->WE_tex = open_texture(words[1]);
-		input->WE_found = true;
+		texture_error(col->WE_found, "WE");
+		col->WE_tex = open_texture(words[1]);
+		col->WE_found = true;
 	}
 	if (ft_strncmp(words[0], "EA", 3) == 0)
 	{
-		texture_error(input->EA_found, "EA");
-		input->EA_tex = open_texture(words[1]);
-		input->EA_found = true;
+		texture_error(col->EA_found, "EA");
+		col->EA_tex = open_texture(words[1]);
+		col->EA_found = true;
 	}
+}
+
+t_list	*texture_to_list(t_tex_all *col)
+{
+	t_list	*textures;
+	
+	textures = ft_lstnew(col->NO_tex);
+	ft_lstadd_back(&textures, ft_lstnew(col->SO_tex));
+	ft_lstadd_back(&textures, ft_lstnew(col->WE_tex));
+	ft_lstadd_back(&textures, ft_lstnew(col->EA_tex));
+	return (textures);
 }
 
 void	find_texture(t_input *input, t_f_con *f_con)
 {
-	int		i;
-	char	**words;
+	int			i;
+	char		**words;
+	t_tex_all	*col;
 
 	i = 0;
+	col = (t_tex_all *)malloc(sizeof(t_tex_all));
+	col->NO_found = false;
+	col->EA_found = false;
+	col->SO_found = false;
+	col->WE_found = false;
 	while (f_con->lines[i])
 	{
 		words = ft_space_split(f_con->lines[i]);
-		get_texture(input, words);
+		get_texture(col, words);
 		cleardarray(words);
 		i++;
-}
+	}
+	input->textures = texture_to_list(col);
+	free(col);
 }
