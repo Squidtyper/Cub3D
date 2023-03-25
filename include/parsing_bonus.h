@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing_bonus.h                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lizhang <lizhang@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/22 14:52:22 by lizhang           #+#    #+#             */
-/*   Updated: 2023/03/22 16:14:04 by lizhang          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parsing_bonus.h                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: lizhang <lizhang@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/03/22 14:52:22 by lizhang       #+#    #+#                 */
+/*   Updated: 2023/03/25 19:21:22 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_BONUS_H
 #define PARSING_BONUS_H
-#include <readline/readline.h>
-#include <fcntl.h>
+# include <readline/readline.h>
+# include <fcntl.h>
+
 # include "../MLX42/include/MLX42/MLX42.h"
 #include "../libft/libft.h"
 

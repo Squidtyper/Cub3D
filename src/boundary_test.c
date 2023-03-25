@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3D.h"
+#include "parsing.h"
 #include <stdio.h>
 
 bool	test_around(char **map, unsigned int i, unsigned int j)

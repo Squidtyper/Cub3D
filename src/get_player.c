@@ -36,39 +36,39 @@ double	get_angle(char c)
 	return (0);
 }
 
-void	fill_input(int x, int y, t_input *input, char c)
+void	fill_input(int x, int y, t_check *check, char c)
 {
-	if (input->p_found == true)
+	if (check->p_found == true)
 		player_error('D');
-	input->a_player = get_angle(c);
-	input->player_x = x;
-	input->player_y = y;
-	input->p_found = true;
-	input->map_points[y][x] = '0';
+	check->input->a_player = get_angle(c);
+	check->input->player_x = x;
+	check->input->player_y = y;
+	check->p_found = true;
+	check->input->map_points[y][x] = '0';
 }
 
-void	get_player(t_input *input)
+void	get_player(t_check *check)
 {
 	unsigned int	i;
 	unsigned int	j;
 	char			c;
 
 	i = 0;
-	if (!input->map_points)
+	if (!check->input->map_points)
 		return ;
-	while (i < input->map_height)
+	while (i < check->input->map_height)
 	{
 		j = 0;
-		while (j < input->map_width)
+		while (j < check->input->map_width)
 		{
-			c = input->map_points[i][j];
+			c = check->input->map_points[i][j];
 			if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
-				fill_input(j, i, input, c);
+				fill_input(j, i, check, c);
 			j++;
 		}
 		i++;
 	}
-	if (input->p_found == false)
+	if (check->p_found == false)
 	{
 		player_error('N');
 		exit(1);

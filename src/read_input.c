@@ -49,21 +49,22 @@ char	*read_file(char *name)
 	return (content);
 }
 
-void	pre_fill(t_input *input)
+void	pre_fill(t_check *check)
 {
-	input->map_points = NULL;
-	input->c_color = 0;
-	input->f_color = 0;
-	input->c_found = false;
-	input->f_found = false;
-	input->textures = NULL;
-	input->a_player = 0;
-	input->player_x = 0;
-	input->player_y = 0;
-	input->p_found = false;
+	check->input = (t_input *)malloc(sizeof(t_input));
+	if (!check->input)
+		mallocerr();
+	check->input->map_points = NULL;
+	check->input->map_width = 0;
+	check->input->map_height = 0;
+	check->input->textures = NULL;
+	check->c_found = false;
+	check->f_found = false;
+	check->tex = NULL;
+	check->p_found = false;
 }
 
-void	find_map(t_input *input, t_f_con *f_con)
+void	find_map(t_check *check, t_f_con *f_con)
 {
 	int		i;
 	t_list	*map;
@@ -89,31 +90,34 @@ void	find_map(t_input *input, t_f_con *f_con)
 		printf("Error: map does not suffice\n");
 		exit(1);
 	}
-	input->map_points = convert_map(map, input);
+	check->input->map_points = convert_map(map, check->input);
 }
 
 t_input	*parse(int ac, char **av)
 {
-	t_input	*input;
+	t_check	*check;
 	t_f_con	*f_con;
+	t_input *input_r;
 
 	ac_error(ac);
-	input = (t_input *)malloc(sizeof(t_input));
-	if (!input)
+	check = (t_check *)malloc(sizeof(t_check));
+	if (!check)
 		mallocerr();
-	pre_fill(input);
+	input_r = check->input;
+	pre_fill(check);
 	f_con = (t_f_con *)malloc(sizeof(t_f_con));
 	if (!f_con)
 		mallocerr();
 	f_con->file_content = read_file(av[1]);
-	find_color(input, f_con);
-	find_texture(input, f_con);
-	find_map(input, f_con);
+	find_color(check, f_con);
+	find_texture(check, f_con);
+	find_map(check, f_con);
 	cleardarray(f_con->lines);
 	free(f_con->file_content);
 	free(f_con);
-	get_player(input);
-	test_inputs(input);
-	boundary_test(input->map_points, input->map_height, input->map_width);
-	return (input);
+	get_player(check);
+	test_inputs(input_r);
+	boundary_test(input_r->map_points, input_r->map_height, input_r->map_width);
+	free(check);
+	return (input_r);
 }

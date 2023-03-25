@@ -36,7 +36,7 @@ long long	color_combine(char *r, char *b, char *g)
 	return (combined);
 }
 
-void	parse_color(char **words, t_input *input)
+void	parse_color(char **words, t_check *check)
 {
 	char		**frag;
 
@@ -51,20 +51,20 @@ void	parse_color(char **words, t_input *input)
 	}
 	if (ft_strncmp(frag[0], "C", 2) == 0)
 	{
-		color_double(input->c_found);
-		input->c_color = color_combine(frag[1], words[1], words[2]);
-		input->c_found = true;
+		color_double(check->c_found);
+		check->input->c_color = color_combine(frag[1], words[1], words[2]);
+		check->c_found = true;
 	}
 	if (ft_strncmp(frag[0], "F", 2) == 0)
 	{
-		color_double(input->f_found);
-		input->f_color = color_combine(frag[1], words[1], words[2]);
-		input->f_found = true;
+		color_double(check->f_found);
+		check->input->f_color = color_combine(frag[1], words[1], words[2]);
+		check->f_found = true;
 	}
 	cleardarray(frag);
 }
 
-void	find_color(t_input *input, t_f_con *f_con)
+void	find_color(t_check *check, t_f_con *f_con)
 {
 	char	**words;
 	int		i;
@@ -81,7 +81,7 @@ void	find_color(t_input *input, t_f_con *f_con)
 		while (words[i2])
 			i2++;
 		if (i2 == 3)
-			parse_color(words, input);
+			parse_color(words, check);
 		i++;
 		cleardarray(words);
 	}
