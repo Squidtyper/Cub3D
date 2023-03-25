@@ -13,11 +13,14 @@
 #include "parsing.h"
 #include <errno.h>
 
+//here something weird as hell is happening
+
 mlx_texture_t	*open_texture(char *path)
 {
 	int				fd;
 	mlx_texture_t	*tex;
 
+	path = clear_str_space(path);
 	fd = open(path, O_RDONLY);
 	if (fd <= 0)
 	{
@@ -31,6 +34,7 @@ mlx_texture_t	*open_texture(char *path)
 		printf("Error: %s: file is not a png file.\n", path);
 		exit(1);
 	}
+	free(path);
 	return (tex);
 }
 
@@ -82,7 +86,7 @@ t_list	*texture_to_list(t_tex_all *col)
 	return (textures);
 }
 
-void	find_texture(t_check *check, t_f_con *f_con)
+void	find_texture(t_check *check, char **lines)
 {
 	int			i;
 	char		**words;
@@ -93,9 +97,11 @@ void	find_texture(t_check *check, t_f_con *f_con)
 	check->tex->ea_found = false;
 	check->tex->so_found = false;
 	check->tex->we_found = false;
-	while (f_con->lines[i])
+	while (lines[i])
 	{
-		words = ft_space_split(f_con->lines[i]);
+		words = ft_space_split(lines[i]);
+		if (!words)
+			mallocerr();
 		get_texture(check->tex, words);
 		cleardarray(words);
 		i++;

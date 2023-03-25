@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/22 14:52:22 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/25 19:57:00 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/25 22:05:34 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,6 @@
 # include <stdio.h>
 # include "cube3D.h"
 # include "../MLX42/include/MLX42/MLX42.h"
-
-typedef struct s_f_con
-{
-	char			*file_content;
-	char			**lines;
-}	t_f_con;
 
 typedef struct s_tex_all
 {
@@ -45,6 +39,7 @@ typedef struct s_check
 	t_tex_all		*tex;
 }	t_check;
 
+char			*clear_str_space(char *str);
 void			ac_error(int ac);
 void			mallocerr(void);
 int				color_atoi(char *str);
@@ -55,10 +50,10 @@ int				open_file(char *name);
 void    		ac_error(int ac);
 void			parse_color(char **words, t_check *check);
 void			color_double(bool testvalue);
-void			find_color(t_check *check, t_f_con *f_con);
-void			find_map(t_check *check, t_f_con *f_con);
-int				only_digits(char *str);
-void			find_texture(t_check *check, t_f_con *f_con);
+void			find_color(t_check *check, char **lines);
+void			find_map(t_check *check, char **lines);
+bool			only_digits(char *str);
+void			find_texture(t_check *check, char **lines);
 void			get_player(t_check *check);
 int				valid_map_line(char *str);
 char			**convert_map(t_list *map, t_input *input);

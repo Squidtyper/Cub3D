@@ -43,10 +43,10 @@ void	parse_color(char **words, t_check *check)
 	frag = ft_space_split(words[0]);
 	if (!frag)
 		mallocerr();
-	if ((frag[1] && only_digits(frag[1]) == 0) || !frag[1] || \
-	only_digits(words[1]) == 0 || only_digits(words[2]) == 0)
+	if (!frag[1] || only_digits(frag[1]) == false || \
+	only_digits(words[1]) == false || only_digits(words[2]) == false)
 	{
-		printf("Error: color codes not correct\n");
+		printf("Error: color codes are not correct\n");
 		exit(1);
 	}
 	if (ft_strncmp(frag[0], "C", 2) == 0)
@@ -64,17 +64,16 @@ void	parse_color(char **words, t_check *check)
 	cleardarray(frag);
 }
 
-void	find_color(t_check *check, t_f_con *f_con)
+void	find_color(t_check *check, char **lines)
 {
 	char	**words;
 	int		i;
 	int		i2;
 
 	i = 0;
-	f_con->lines = ft_split(f_con->file_content, '\n');
-	while (f_con->lines[i])
+	while (lines[i])
 	{
-		words = ft_split(f_con->lines[i], ',');
+		words = ft_split(lines[i], ',');
 		if (!words)
 			mallocerr();
 		i2 = 0;

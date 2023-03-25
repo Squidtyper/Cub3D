@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3D.h"
+#include "parsing.h"
 #include <errno.h>
 #include <stdio.h>
 
@@ -31,20 +31,23 @@ void	mallocerr(void)
 
 int	color_atoi(char *str)
 {
-	int	i;
-	int	color;
+	int		i;
+	char	*str2;
+	int		color;
 
 	i = 0;
-	while (str[i])
+	str2 = clear_str_space(str);
+	while (str2[i])
 	{
-		if (ft_isdigit(str[i]) != 1)
+		if (ft_isdigit(str2[i]) != 1)
 		{
 			printf("Unexpected character found in color specification\n");
 			exit(1);
 		}
 		i++;
 	}
-	color = ft_atoi(str);
+	color = ft_atoi(str2);
+	free(str2);
 	if (color < 0 || color > 255)
 	{
 		printf("Error: rgb color cannot exceed 0 - 255");

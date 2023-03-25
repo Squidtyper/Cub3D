@@ -40,6 +40,11 @@ char	*read_file(char *name)
 		exit(1);
 	}
 	file_fd = open_file(name);
+	if (file_fd <= 0)
+	{
+		printf("Error: %s: %s\n", name, strerror(errno));
+		exit(1);
+	}
 	buf = get_next_line(file_fd);
 	while (buf)
 	{
@@ -64,7 +69,7 @@ void	pre_fill(t_check *check)
 	check->p_found = false;
 }
 
-void	find_map(t_check *check, t_f_con *f_con)
+void	find_map(t_check *check, char **lines)
 {
 	int		i;
 	t_list	*map;
@@ -72,16 +77,17 @@ void	find_map(t_check *check, t_f_con *f_con)
 
 	i = 0;
 	map = NULL;
-	while (f_con->lines[i])
+	while (lines[i])
 	{
-		if (ft_strlen(f_con->lines[i]) > 3 && only_digits(f_con->lines[i]) == 1)
+		write(1, "while loop run\n", 16);
+		if (ft_strlen(lines[i]) > 3 && only_digits(lines[i]) == 1)
 			break ;
 		i++;
 	}
-	while (f_con->lines[i] && ft_strlen(f_con->lines[i]) > 3 && \
-	valid_map_line(f_con->lines[i]) == 1)
+	while (lines[i] && ft_strlen(lines[i]) > 3 && \
+	valid_map_line(lines[i]) == 1)
 	{
-		item = ft_lstnew(ft_strdup(f_con->lines[i]));
+		item = ft_lstnew(ft_strdup(lines[i]));
 		ft_lstadd_back(&map, item);
 		i++;
 	}
@@ -96,8 +102,9 @@ void	find_map(t_check *check, t_f_con *f_con)
 t_input	*parse(int ac, char **av)
 {
 	t_check	*check;
-	t_f_con	*f_con;
-	t_input *input_r;
+	char	*file_content;
+	char	**lines;
+	t_input	*input_r;
 
 	ac_error(ac);
 	check = (t_check *)malloc(sizeof(t_check));
@@ -105,16 +112,15 @@ t_input	*parse(int ac, char **av)
 		mallocerr();
 	input_r = check->input;
 	pre_fill(check);
-	f_con = (t_f_con *)malloc(sizeof(t_f_con));
-	if (!f_con)
+	file_content = read_file(av[1]);
+	lines = ft_split(file_content, '\n');
+	if (!lines)
 		mallocerr();
-	f_con->file_content = read_file(av[1]);
-	find_color(check, f_con);
-	find_texture(check, f_con);
-	find_map(check, f_con);
-	cleardarray(f_con->lines);
-	free(f_con->file_content);
-	free(f_con);
+	free(file_content);
+	find_color(check, lines);
+	find_texture(check, lines);
+	find_map(check, lines);
+	cleardarray(lines);
 	get_player(check);
 	test_inputs(input_r);
 	boundary_test(input_r->map_points, input_r->map_height, input_r->map_width);

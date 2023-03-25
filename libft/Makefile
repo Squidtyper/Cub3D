@@ -12,7 +12,7 @@
 
 NAME		= libft.a
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra -DBUFFER_SIZE=20 
+CFLAGS		= -Wall -Werror -Wextra -DBUFFER_SIZE=20
 RM			= rm -f
 
 SRC			= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \

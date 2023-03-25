@@ -12,7 +12,7 @@
 NAME		= cub3D
 BNAME		= cub3D_bonus
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra -I ${INCLDIR} #-fsanitize=address
+CFLAGS		= -Wall -Werror -Wextra -I ${INCLDIR} -fsanitize=address
 RM			= rm -f
 LIB_PATH	= ./libft/libft.a
 MLX_PATH	= ./MLX42/build/libmlx42.a

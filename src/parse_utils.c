@@ -45,22 +45,45 @@ char	*join_free(char *str1, char *str2)
 	return (newstr);
 }
 
-int	only_digits(char *str)
+bool	only_digits(char *str)
 {
-	int	i;
-	int	n_digit;
+	int		i;
+	int		n_digit;
+	char	*str2;
 
 	i = 0;
 	n_digit = 0;
-	while (str[i])
+	if (!str)
+		return (false);
+	str2 = clear_str_space(str);
+	while (str2[i])
 	{
-		if (str[i] != ' ' && str[i] != '	' && ft_isdigit(str[i]) == 0)
+		if (ft_isdigit(str2[i]) == 0)
 			return (0);
-		if (ft_isdigit(str[i]) == 1)
+		if (ft_isdigit(str2[i]) == 1)
 			n_digit++;
 		i++;
 	}
+	free(str2);
 	if (n_digit == 0)
-		return (0);
-	return (1);
+		return (false);
+	return (true);
+}
+
+char	*clear_str_space(char *str)
+{
+	int		i;
+	int		i2;
+	char	*str2;
+
+	i = 0;
+	if (!str)
+		return (NULL);
+	i2 = ft_strlen(str) - 1;
+	while (str[i] == 32 || str[i] == 9 || str[i] == 13)
+		i++;
+	while (str[i2] == 32 || str[i2] == 9 || str[i2] == 13)
+		i2--;
+	str2 = ft_substr(str, i, i2 - i + 1);
+	return (str2);
 }
