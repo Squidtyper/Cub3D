@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/22 14:52:22 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/25 22:05:34 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/26 16:46:38 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char			**convert_map(t_list *map, t_input *input);
 char			*fill_map_line(char *content, unsigned int len);
 mlx_texture_t	*open_texture(char *path);
 void			boundary_test(char **m_p, unsigned int height, unsigned int width);
-void			test_inputs(t_input *input);
+void			test_inputs(t_check *check);
 
 
 #endif

@@ -11,25 +11,37 @@
 /* ************************************************************************** */
 
 #include "parsing.h"
-#include <stdio.h>
 
-void    test_inputs(t_input *input)
+void	test_var(t_check *check)
+{
+	if (!check->input->map_points || !check->tex || check->c_found == false || \
+	check->f_found == false || check->p_found == false)
+	{
+		printf("Error: information incomplete. Cannot start Cub3D");
+		exit(1);
+	}
+}
+
+void    test_inputs(t_check *check)
 {
 	unsigned int i;
 	unsigned int j;
 
+	test_var(check);
+	boundary_test(check->input->map_points, check->input->map_height, \
+	check->input->map_width);
 	i = 0;
-	while(i < input->map_height)
+	while(i < check->input->map_height)
 	{
 		j = 0;
-		while (j < input->map_width)
+		while (j < check->input->map_width)
 		{
-			printf("%c ", input->map_points[i][j]);
+			printf("%c ", check->input->map_points[i][j]);
 			j++;
 		}
 		printf("\n");
 		i++;
 	}
-	printf("map width: %d, map height: %d\n", input->map_width, input->map_height);
-	printf("ceiling color: 0x%llX, floor color: 0x%llX\n", input->c_color, input->f_color);
+	printf("map width: %d, map height: %d\n", check->input->map_width, check->input->map_height);
+	printf("ceiling color: 0x%llX, floor color: 0x%llX\n", check->input->c_color, check->input->f_color);
 }

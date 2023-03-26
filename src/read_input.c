@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "parsing.h"
-#include <math.h>
 #include <errno.h>
 
 int	open_file(char *name)
@@ -79,14 +78,15 @@ void	find_map(t_check *check, char **lines)
 	map = NULL;
 	while (lines[i])
 	{
-		write(1, "while loop run\n", 16);
 		if (ft_strlen(lines[i]) > 3 && only_digits(lines[i]) == 1)
 			break ;
 		i++;
 	}
+	printf("valid map lines return %d\n", valid_map_line(lines[i]));
 	while (lines[i] && ft_strlen(lines[i]) > 3 && \
 	valid_map_line(lines[i]) == 1)
 	{
+
 		item = ft_lstnew(ft_strdup(lines[i]));
 		ft_lstadd_back(&map, item);
 		i++;
@@ -122,8 +122,7 @@ t_input	*parse(int ac, char **av)
 	find_map(check, lines);
 	cleardarray(lines);
 	get_player(check);
-	test_inputs(input_r);
-	boundary_test(input_r->map_points, input_r->map_height, input_r->map_width);
+	test_inputs(check);
 	free(check);
 	return (input_r);
 }
