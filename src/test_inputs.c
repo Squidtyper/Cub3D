@@ -36,7 +36,7 @@ void    test_inputs(t_check *check)
 		j = 0;
 		while (j < check->input->map_width)
 		{
-			printf("%c ", check->input->map_points[i][j]);
+			write(1, &check->input->map_points[i][j], 1);
 			j++;
 		}
 		printf("\n");

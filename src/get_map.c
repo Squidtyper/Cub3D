@@ -18,6 +18,7 @@ char	*fill_map_line(char *content, unsigned int len)
 	char			*to_fill;
 
 	i = 0;
+	len++;
 	to_fill = (char *)malloc(sizeof(char) * (len + 1));
 	while (content[i])
 	{
@@ -93,4 +94,33 @@ int	valid_map_line(char *str)
 	if (n_digit == 0)
 		return (0);
 	return (1);
+}
+
+void	find_map(t_check *check, char **lines)
+{
+	int		i;
+	t_list	*map;
+	t_list	*item;
+
+	i = 0;
+	map = NULL;
+	while (lines[i])
+	{
+		if (ft_strlen(lines[i]) > 3 && only_digits(lines[i]) == 1)
+			break ;
+		i++;
+	}
+	while (lines[i] && ft_strlen(lines[i]) > 3 && \
+	valid_map_line(lines[i]) == 1)
+	{
+		item = ft_lstnew(ft_strdup(lines[i]));
+		ft_lstadd_back(&map, item);
+		i++;
+	}
+	if (ft_lstsize(map) < 3)
+	{
+		printf("Error: map does not suffice\n");
+		exit(1);
+	}
+	check->input->map_points = convert_map(map, check->input);
 }

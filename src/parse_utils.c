@@ -87,3 +87,18 @@ char	*clear_str_space(char *str)
 	str2 = ft_substr(str, i, i2 - i + 1);
 	return (str2);
 }
+
+char	*rm_vertical_tab(char *str)
+{
+	int		i;
+	char	*str2;
+
+	if (!str)
+		return(NULL);
+	i = ft_strlen(str) - 1;
+	if (str[i] == 13)
+		i--;
+	str2 = ft_substr(str, 0, i + 1);
+	free(str);
+	return(str2);
+}

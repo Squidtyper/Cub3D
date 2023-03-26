@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/22 14:52:22 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/26 16:46:38 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/26 19:12:42 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int				color_atoi(char *str);
 void			cleardarray(char **array);
 char			*join_free(char *str1, char *str2);
 char			**ft_space_split(char *str);
+char			*rm_vertical_tab(char *str);
 int				open_file(char *name);
 void    		ac_error(int ac);
 void			parse_color(char **words, t_check *check);

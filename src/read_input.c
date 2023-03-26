@@ -68,41 +68,27 @@ void	pre_fill(t_check *check)
 	check->p_found = false;
 }
 
-void	find_map(t_check *check, char **lines)
+char	**file_lines(char *path)
 {
+	char	*file_content;
+	char	**lines;
 	int		i;
-	t_list	*map;
-	t_list	*item;
 
 	i = 0;
-	map = NULL;
+	file_content = read_file(path);
+	lines = ft_split(file_content, '\n');
 	while (lines[i])
 	{
-		if (ft_strlen(lines[i]) > 3 && only_digits(lines[i]) == 1)
-			break ;
+		lines[i] = rm_vertical_tab(lines[i]);
 		i++;
 	}
-	printf("valid map lines return %d\n", valid_map_line(lines[i]));
-	while (lines[i] && ft_strlen(lines[i]) > 3 && \
-	valid_map_line(lines[i]) == 1)
-	{
-
-		item = ft_lstnew(ft_strdup(lines[i]));
-		ft_lstadd_back(&map, item);
-		i++;
-	}
-	if (ft_lstsize(map) < 3)
-	{
-		printf("Error: map does not suffice\n");
-		exit(1);
-	}
-	check->input->map_points = convert_map(map, check->input);
+	free(file_content);
+	return (lines);
 }
 
 t_input	*parse(int ac, char **av)
 {
 	t_check	*check;
-	char	*file_content;
 	char	**lines;
 	t_input	*input_r;
 
@@ -112,11 +98,9 @@ t_input	*parse(int ac, char **av)
 		mallocerr();
 	input_r = check->input;
 	pre_fill(check);
-	file_content = read_file(av[1]);
-	lines = ft_split(file_content, '\n');
+	lines = file_lines(av[1]);
 	if (!lines)
 		mallocerr();
-	free(file_content);
 	find_color(check, lines);
 	find_texture(check, lines);
 	find_map(check, lines);
