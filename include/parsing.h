@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/22 14:52:22 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/26 19:12:42 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/27 16:14:46 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,29 +39,60 @@ typedef struct s_check
 	t_tex_all		*tex;
 }	t_check;
 
+//parse_utils:
+void			cleardarray(char **array);
+char			*join_free(char *str1, char *str2);
+bool			only_digits(char *str);
 char			*clear_str_space(char *str);
+char			*rm_vertical_tab(char *str);
+
+//error_messages:
 void			ac_error(int ac);
 void			mallocerr(void);
 int				color_atoi(char *str);
-void			cleardarray(char **array);
-char			*join_free(char *str1, char *str2);
+
+//ft_space_split:
 char			**ft_space_split(char *str);
-char			*rm_vertical_tab(char *str);
+
+//read_input:
 int				open_file(char *name);
-void    		ac_error(int ac);
-void			parse_color(char **words, t_check *check);
+char			*read_file(char *name);
+void			pre_fill(t_check *check);
+char			**file_lines(char *path);
+t_input			*parse(int ac, char **av);
+
+//parse_color:
 void			color_double(bool testvalue);
+long long		color_combine(char *r, char *b, char *g);
+void			parse_color(char **words, t_check *check);
 void			find_color(t_check *check, char **lines);
-void			find_map(t_check *check, char **lines);
-bool			only_digits(char *str);
-void			find_texture(t_check *check, char **lines);
-void			get_player(t_check *check);
-int				valid_map_line(char *str);
-char			**convert_map(t_list *map, t_input *input);
+
+//get_map:
 char			*fill_map_line(char *content, unsigned int len);
+unsigned int	get_map_width(t_list *map);
+char			**convert_map(t_list *map, t_input *input);
+int				valid_map_line(char *str);
+void			find_map(t_check *check, char **lines);
+
+//get_player:
+void			player_error(char c);
+double			get_angle(char c);
+void			fill_input(int x, int y, t_check *check, char c);
+void			get_player(t_check *check);
+
+//import texture:
 mlx_texture_t	*open_texture(char *path);
-void			boundary_test(char **m_p, unsigned int height, unsigned int width);
+void			texture_error(bool testvalue, char *what);
+void			get_texture(t_tex_all *col, char **words);
+t_list			*texture_to_list(t_tex_all *col);
+void			find_texture(t_check *check, char **lines);
+
+//test_inputs:
+void			test_var(t_check *check);
 void			test_inputs(t_check *check);
+
+//boundary_test:
+void			boundary_test(char **m_p, unsigned int height, unsigned int width);
 
 
 #endif

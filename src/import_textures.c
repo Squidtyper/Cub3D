@@ -13,8 +13,6 @@
 #include "parsing.h"
 #include <errno.h>
 
-//here something weird as hell is happening
-
 mlx_texture_t	*open_texture(char *path)
 {
 	int				fd;

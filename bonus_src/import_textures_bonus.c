@@ -10,82 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3D_bonus.h"
-#include <stdio.h>
-#include <fcntl.h>
+#include "parsing_bonus.h"
 #include <errno.h>
 
-mlx_texture_t	*open_texture(char *path)
+void	get_texture_bonus(t_tex_bonus *tex_bonus)
 {
-	int				fd;
-	mlx_texture_t	*tex;
-
-	fd = open(path, O_RDONLY);
-	if (fd <= 0)
-	{
-		printf("Error: %s: %s\n", path, strerror(errno));
-		exit(1);
-	}
-	close(fd);
-	tex = mlx_load_png(path);
-	if (tex == NULL)
-	{
-		printf("Error: %s: file is not a png file.\n", path);
-		exit(1);
-	}
-	return (tex);
+	tex_bonus->door_tex = open_texture(DOORPNG);
+	tex_bonus->door_found = true;
+	tex_bonus->sprite_tex = open_texture(GHOSTPNG);
+	tex_bonus->door_found = true;
 }
 
-void	texture_error(bool testvalue, char *what)
+void	find_texture_bonus(t_check_bonus *checkb, char **lines)
 {
-	if (testvalue == true)
-	{
-		printf("Error: double %s texture in input\n", what);
-		exit(1);
-	}
-}
-
-void	get_texture(t_input *input, char **words)
-{
-	if (ft_strncmp(words[0], "NO", 3) == 0)
-	{
-		texture_error(input->NO_found, "NO");
-		input->NO_tex = open_texture(words[1]);
-		input->NO_found = true;
-	}
-	if (ft_strncmp(words[0], "SO", 3) == 0)
-	{
-		texture_error(input->SO_found, "SO");
-		input->SO_tex = open_texture(words[1]);
-		input->SO_found = true;
-	}
-	if (ft_strncmp(words[0], "WE", 3) == 0)
-	{
-		texture_error(input->WE_found, "WE");
-		input->WE_tex = open_texture(words[1]);
-		input->WE_found = true;
-	}
-	if (ft_strncmp(words[0], "EA", 3) == 0)
-	{
-		texture_error(input->EA_found, "EA");
-		input->EA_tex = open_texture(words[1]);
-		input->EA_found = true;
-	}
-}
-
-void	find_texture(t_input *input, t_f_con *f_con)
-{
-	int		i;
-	char	**words;
-
-	i = 0;
-	while (f_con->lines[i])
-	{
-		words = ft_space_split(f_con->lines[i]);
-		get_texture(t_input, words);
-		cleardarray(words);
-		i++;
-	}
-	input->door_tex = open_texture(DOOR);
-	input->sprite_tex = open_texture(GHOSTPNG);
+	find_texture(checkb->check, lines);
+	checkb->tex_bonus = (t_tex_bonus *)malloc(sizeof(t_tex_bonus));
+	if (!checkb->tex_bonus)
+		mallocerr();
+	checkb->tex_bonus->door_found = false;
+	checkb->tex_bonus->sprite_found = false;
+	get_texture_bonus(checkb->tex_bonus);
+	ft_lstadd_back(&checkb->check->input->textures, ft_lstnew(checkb->tex_bonus->door_tex));
+	ft_lstadd_back(&checkb->check->input->textures, ft_lstnew(checkb->tex_bonus->sprite_tex));
+	free(checkb->tex_bonus);
 }

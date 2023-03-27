@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3D_bonus.h"
-#include <stdio.h>
+#include "parsing_bonus.h"
 
-bool	test_around(char **map, unsigned int i, unsigned int j)
+bool	test_around_bonus(char **map, unsigned int i, unsigned int j)
 {
 	if (ft_strchr("012GNSWE", map[i - 1][j]) == NULL || \
 	ft_strchr("012GNSWE", map[i - 1][j - 1]) == NULL || \
@@ -27,7 +26,7 @@ bool	test_around(char **map, unsigned int i, unsigned int j)
 	return (true);
 }
 
-void	boundary_test(char **m_p, unsigned int height, unsigned int width)
+void	boundary_test_bonus(char **m_p, unsigned int height, unsigned int width)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -41,7 +40,7 @@ void	boundary_test(char **m_p, unsigned int height, unsigned int width)
 			if (ft_strchr("0NSWGE", m_p[i][j]) != NULL)
 			{
 				if (i == 0 || i == (height - 1) || j == 0 || j == (width) || \
-				test_around(m_p, i, j) == false)
+				test_around_bonus(m_p, i, j) == false)
 				{
 					printf("Error: map is not closed\n");
 					exit (1);

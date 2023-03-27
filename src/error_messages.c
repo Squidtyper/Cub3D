@@ -12,7 +12,6 @@
 
 #include "parsing.h"
 #include <errno.h>
-#include <stdio.h>
 
 void	ac_error(int ac)
 {

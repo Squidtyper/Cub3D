@@ -10,50 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3D_bonus.h"
-#include <stdio.h>
+#include "parsing_bonus.h"
 
-void    test_inputs(t_input *input)
+void    test_inputs_bonus(t_check_bonus *checkb)
 {
 	unsigned int i;
 	unsigned int j;
 
+	test_var(checkb->check);
+	boundary_test_bonus(checkb->check->input->map_points, checkb->check->input->map_height, \
+	checkb->check->input->map_width);
 	i = 0;
-	while(i < input->map_height)
+	while(i < checkb->check->input->map_height)
 	{
 		j = 0;
-		while (j < input->map_width)
+		while (j < checkb->check->input->map_width)
 		{
-			printf("%c ", input->map_points[i][j]);
+			write(1, &checkb->check->input->map_points[i][j], 1);
 			j++;
 		}
 		printf("\n");
 		i++;
 	}
-	printf("map width: %d, map height: %d\n", input->map_width, input->map_height);
-	printf("ceiling color: 0x%llX, floor color: 0x%llX\n", input->c_color, input->f_color);
-	if (input->NO_tex)
-		printf("NO_tex successfully imported\n");
-	else
-		printf("NO_tex import is unsuccessful\n");
-	if (input->SO_tex)
-		printf("SO_tex successfully imported\n");
-	else
-		printf("SO_tex import is unsuccessful\n");
-	if (input->WE_tex)
-		printf("WE_tex successfully imported\n");
-	else
-		printf("WE_tex import is unsuccessful\n");
-	if (input->EA_tex)
-		printf("EA_tex successfully imported\n");
-	else
-		printf("EA_tex import is unsuccessful\n");
-	if (input->door_tex)
-		printf("door_tex successfully imported\n");
-	else
-		printf("door_tex import is unsuccessful\n");
-	if (input->sprite_tex)
-		printf("sprite_tex successfully imported\n");
-	else
-		printf("sprite import is unsuccessful\n");
+	printf("map width: %d, map height: %d\n", checkb->check->input->map_width, checkb->check->input->map_height);
+	printf("ceiling color: 0x%llX, floor color: 0x%llX\n", checkb->check->input->c_color, checkb->check->input->f_color);
 }
