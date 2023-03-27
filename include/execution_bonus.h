@@ -2,7 +2,7 @@
 # define EXECUTION_BONUS_H
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../libft/libft.h"
-# include "Cube3D.h"
+# include "cube3D.h"
 # define HEIGHT_WIDTH 512
 
 typedef enum e_drc

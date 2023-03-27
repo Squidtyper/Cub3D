@@ -18,6 +18,7 @@ typedef struct s_input
 
 void		execution(t_input *input);
 t_input 	*parse(int ac, char **av);
+t_input		*parse_bonus(int ac, char **av);
 void		clean_input(t_input *input);
 
 #endif

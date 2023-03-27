@@ -21,7 +21,7 @@ int	valid_map_line_bonus(char *str)
 	n_digit = 0;
 	while (str[i])
 	{
-		if (str[i] != 13 && str[i] != '	' && str[i] != 'N' && str[i] != 'S' \
+		if (str[i] != 'G' && str[i] != '	' && str[i] != 'N' && str[i] != 'S' \
 		&& str[i] != 'W' && str[i] != 'E' && ft_isdigit(str[i]) == 0)
 			return (0);
 		if (ft_isdigit(str[i]) == 1)

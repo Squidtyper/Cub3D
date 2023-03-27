@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/22 14:52:22 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/03/27 18:08:45 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/03/27 20:26:25 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include "cube3D.h"
 # include "parsing.h" 
 # include "../MLX42/include/MLX42/MLX42.h"
-# define GHOSTPNG "../textures/king_boo.png"
-# define DOORPNG "../textures/whirlpool.png"
+# define GHOSTPNG "textures/king_boo.png"
+# define DOORPNG "textures/whirlpool.png"
 
 typedef struct s_tex_bonus
 {
@@ -45,7 +45,6 @@ void			find_map_bonus(t_check_bonus *check, char **lines);
 
 //get_player_bonus:
 void			fill_input_bonus(int x, int y, t_check_bonus *check, char c);
-void			get_player_bonus(t_check_bonus *check);
 
 //import_texture_bonus:
 void			get_texture_bonus(t_tex_bonus *tex_bonus);

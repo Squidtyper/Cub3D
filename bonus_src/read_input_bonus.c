@@ -46,7 +46,7 @@ t_input	*parse_bonus(int ac, char **av)
 	input_r = checkb->check->input;
 	find_map_bonus(checkb, lines);
 	cleardarray(lines);
-	get_player_bonus(checkb);
+	get_player(checkb->check);
 	test_inputs_bonus(checkb);
 	free(checkb->check);
 	free(checkb);

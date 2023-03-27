@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "parsing_bonus.h"
-#include <errno.h>
 
 void	get_texture_bonus(t_tex_bonus *tex_bonus)
 {
