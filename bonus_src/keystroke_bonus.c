@@ -1,55 +1,76 @@
 #include "execution.h"
 #include <math.h>
 
-void	key_w(t_exe_info *img, t_wall_coll *set)
+void	key_w(t_exe_info *img, t_object_seen *wall, t_object_seen *door)
 {
-	if (!is_wall(img->map_input->map_points[set->ipy][set->ipx_add_xo]))
-		img->player.x += img->player.delta_x;
-	if (!is_wall(img->map_input->map_points[set->ipy_add_yo][set->ipx]))
-		img->player.y += img->player.delta_y;
+	if (!is_wall(img->map_input->map_points[wall->ipy][wall->ipx_add_xo]))
+		img->player.pos.x += img->player.delta.x;
+	if (!is_wall(img->map_input->map_points[wall->ipy_add_yo][wall->ipx]))
+		img->player.pos.y += img->player.delta.y;
+	if(img->map_input->map_points[door->ipy][door->ipx_sub_xo] == 'O')
+		img->map_input->map_points[door->ipy][door->ipx_sub_xo] = 'D';
+	if (img->map_input->map_points[door->ipy_sub_yo][door->ipx] == 'O')
+		img->map_input->map_points[door->ipy_sub_yo][door->ipx] = 'D';
 }
 
-void	key_s(t_exe_info *img, t_wall_coll *set)
+void	key_s(t_exe_info *img, t_object_seen *wall, t_object_seen *door)
 {
-	if (!is_wall(img->map_input->map_points[set->ipy][set->ipx_sub_xo]))
-		img->player.x -= img->player.delta_x;
-	if (!is_wall(img->map_input->map_points[set->ipy_sub_yo][set->ipx]))
-		img->player.y -=  img->player.delta_y;
+	if (!is_wall(img->map_input->map_points[wall->ipy][wall->ipx_sub_xo]))
+		img->player.pos.x -= img->player.delta.x;
+	if (!is_wall(img->map_input->map_points[wall->ipy_sub_yo][wall->ipx]))
+		img->player.pos.y -=  img->player.delta.y;
+	if(img->map_input->map_points[door->ipy][door->ipx_add_xo] == 'O')
+		img->map_input->map_points[door->ipy][door->ipx_add_xo] = 'D';
+	if (img->map_input->map_points[door->ipy_add_yo][door->ipx] == 'O')
+		img->map_input->map_points[door->ipy_add_yo][door->ipx] = 'D';
+
 }
 
-void	key_a(t_exe_info *img, t_wall_coll *set)
+void	key_a(t_exe_info *img, t_object_seen *wall, t_object_seen *door)
 {
-	if (!is_wall(img->map_input->map_points[set->ipy][set->ipx_add_yo]))
-		img->player.x += img->player.delta_y;
-	if (!is_wall(img->map_input->map_points[set->ipy_sub_xo][set->ipx]))
-		img->player.y -= img->player.delta_x;
+	if (!is_wall(img->map_input->map_points[wall->ipy][wall->ipx_add_yo]))
+		img->player.pos.x += img->player.delta.y;
+	if (!is_wall(img->map_input->map_points[wall->ipy_sub_xo][wall->ipx]))
+		img->player.pos.y -= img->player.delta.x;
+	if(img->map_input->map_points[door->ipy][door->ipx_sub_yo] == 'O')
+		img->map_input->map_points[door->ipy][door->ipx_sub_yo] = 'D';
+	if (img->map_input->map_points[door->ipy_add_xo][door->ipx] == 'O')
+		img->map_input->map_points[door->ipy_add_xo][door->ipx] = 'D';
 }
 
-void	key_d(t_exe_info *img, t_wall_coll *set)
+void	key_d(t_exe_info *img, t_object_seen *wall,  t_object_seen *door)
 {
-	if (!is_wall(img->map_input->map_points[set->ipy][set->ipx_sub_yo]))
-		img->player.x -=  img->player.delta_y;
-	if (!is_wall(img->map_input->map_points[set->ipy_add_xo][set->ipx]))
-		img->player.y += img->player.delta_x;
+	if (!is_wall(img->map_input->map_points[wall->ipy][wall->ipx_sub_yo]))
+		img->player.pos.x -=  img->player.delta.y;
+	if (!is_wall(img->map_input->map_points[wall->ipy_add_xo][wall->ipx]))
+		img->player.pos.y += img->player.delta.x;
+	if(img->map_input->map_points[door->ipy][door->ipx_add_yo] == 'O')
+		img->map_input->map_points[door->ipy][door->ipx_add_yo] = 'D';
+	if (img->map_input->map_points[door->ipy_sub_xo][door->ipx] == 'O')
+		img->map_input->map_points[door->ipy_sub_xo][door->ipx] = 'D';
 }
 
-void	key_space(t_exe_info *img)
+void	key_space(t_exe_info *info)
 {
-	t_wall_coll	set;
+	t_object_seen	door;
 
-	set.x_offset = 0;
-	set.y_offset = 0;
+	door.offset.x = 0;
+	door.offset.y = 0;
 
-	if (img->player.delta_x < 0)
-		set.x_offset = -(img->blk_size / 2.5);
+	if (info->player.delta.x < 0)
+		door.offset.x = -(info->size / 2.5);
 	else
-		set.x_offset = (img->blk_size / 2.5);
-	if (img->player.delta_y < 0)
-		set.y_offset = -(img->blk_size / 2.5);
+		door.offset.x = (info->size / 2.5);
+	if (info->player.delta.y < 0)
+		door.offset.y = -(info->size / 2.5);
 	else
-		set.y_offset = (img->blk_size / 2.5);
-	set.ipx_add_xo = (img->player.x + set.x_offset) / img->blk_size;
-	set.ipy_add_yo = (img->player.y + set.y_offset) / img->blk_size;
-	if (img->map_input->map_points[set.ipy_add_yo][set.ipx_add_xo] == 'D')
-		img->map_input->map_points[set.ipy_add_yo][set.ipx_add_xo] = 'O';
+		door.offset.y = (info->size / 2.5);
+	door.ipx_add_xo = (info->player.pos.x + door.offset.x) / info->size;
+	door.ipy_add_yo = (info->player.pos.y + door.offset.y) / info->size;
+	door.ipy = info->player.pos.y / info->size;
+	door.ipx = info->player.pos.x / info->size;
+	if (info->map_input->map_points[door.ipy][door.ipx_add_xo] == 'D')
+		info->map_input->map_points[door.ipy][door.ipx_add_xo] = 'O';
+	if (info->map_input->map_points[door.ipy_add_yo][door.ipx] == 'D')
+		info->map_input->map_points[door.ipy_add_yo][door.ipx] = 'O';
 }
