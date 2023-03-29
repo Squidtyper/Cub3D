@@ -73,3 +73,18 @@ int	calc_max_wall_dist(t_exe_info *img)
 		return (img->map_input->map_height);
 	return (img->map_input->map_width);
 }
+
+/*
+	this function set the angle to the right degree:
+    the angle cannot be lees than 0 or more then 360°, 
+    so we know that 361° is equal to 1° 
+	and -2° is equal 358°
+   
+*/
+void	angle_normalizer(double *angle)
+{
+	if (*angle < 0)
+			*angle += 2.0 * PI;
+	if (*angle > 2.0 * PI)
+			*angle -= 2.0 * PI;
+}
