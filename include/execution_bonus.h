@@ -17,53 +17,63 @@ typedef enum e_drc
 	OPPOSITE_DOOR,
 }	t_drc;
 
+typedef enum e_num
+{
+	FOV = 60,
+}t_num;
+
+typedef struct s_axis
+{
+	double	x;
+	double	y;
+}t_axis;
 typedef struct s_player
 {
-	double		x;
-	double		y;
-	double		delta_x;
-	double		delta_y;
-	double		angle;
-}	t_player;
+	t_axis	pos;
+	t_axis	delta;
+	double	angle;
+}t_player;
 
 typedef struct s_wall_pos
 {
-	double	hor_x;
-	double	hor_y;
-	double	ver_x;
-	double	ver_y;
+	t_axis	hor;
+	t_axis	ver;
 	double	dist;
 	t_drc	side;
-}	t_wall_pos;
+}t_wall_pos;
 
 typedef struct s_wall_coll
 {
-	int	x_offset;
-	int	y_offset;
-	int	ipx;
-	int	ipx_add_xo;
-	int	ipx_sub_xo;
-	int	ipx_add_yo;
-	int	ipx_sub_yo;
-	int	ipy;
-	int	ipy_add_yo;
-	int	ipy_sub_yo;
-	int	ipy_add_xo;
-	int	ipy_sub_xo;
-}	t_wall_coll;
+	t_axis	offset;
+	int		ipx;
+	int		ipx_add_xo;
+	int		ipx_sub_xo;
+	int		ipx_add_yo;
+	int		ipx_sub_yo;
+	int		ipy;
+	int		ipy_add_yo;
+	int		ipy_sub_yo;
+	int		ipy_add_xo;
+	int		ipy_sub_xo;
+}t_object_seen;
 
 typedef struct s_tex_var
 {
-	int		x;
-	double	y;
-	double	x_offsee;
-	double	y_offset;
-	double	step_x;
-	double	step_y;
+	t_axis	base;
+	t_axis	offset;
+	t_axis	step;
 	t_drc	wall_side;
 	double	line_h;
 	double	ray;
-}	t_tex_var;
+}t_tex_var;
+
+typedef struct s_print_info
+{
+	mlx_image_t	*img;
+	uint32_t	color;
+	t_axis		start_point;
+	t_axis		end_point;
+}t_print_info;
 
 typedef struct s_exe_info
 {
@@ -72,33 +82,51 @@ typedef struct s_exe_info
 	mlx_image_t	*scene;
 	t_player	player;
 	t_input		*map_input;
-	double		pad_x;
-	double		pad_y;
-	double		blk_size;
-}	t_exe_info;
+	t_axis		pad;
+	double		size;
+	t_axis	sprite;
+}t_exe_info;
 
 
-// /* draw_dda.c*/
+/* draw_dda.c*/
+void			draw_ray(t_exe_info *img, t_print_info *info);
+void			draw_player_direction(t_exe_info *img);
+
+/* draw_main.c */
 int				draw_cube(t_exe_info *img);
-/* draw_map.c */
+void			draw_background(t_exe_info *img);
+/* draw_map_bonus.c */
 void			draw_map(t_exe_info *img);
-/* draw_ray_calc.c*/
-void			draw_ray_scene(t_exe_info *img);
-/* draw_scene_utils.c */
+/* rays_calc.c*/
+void			find_vert_wall(t_exe_info *img, t_wall_pos *w_pos, double angle);
+void			find_horiz_wall(t_exe_info *img, t_wall_pos *w_pos, double angle);
+/* draw_scene_utils_bonus.c */
 uint32_t		calc_color(mlx_texture_t *texture, t_tex_var *tex);
 bool			is_mini_map_space(t_exe_info *img, int y, int x);
 void			set_right_ray(t_wall_pos *wall, t_tex_var *tex);
-/* execution_utils.c */
+/* execution_init.c */
+int				init_info(t_exe_info *info);
+/* execution_utils_bonus.c */
 bool			is_wall(char c);
-t_drc			set_wall_side(t_exe_info * info, t_wall_pos *wall);
-/* keystroke_calc.c*/
+t_drc			set_wall_side(t_exe_info *info, t_wall_pos *wall);
+/* hook_loop_bonus.c*/
 void			hook(void *param);
-/* keystroke.c*/
-void			key_w(t_exe_info *img, t_wall_coll *set);
-void			key_s(t_exe_info *img, t_wall_coll *set);
-void			key_a(t_exe_info *img, t_wall_coll *set);
-void			key_d(t_exe_info *img, t_wall_coll *set);
+/* keystroke_calc_bonus.c*/
+void			keystroke(t_exe_info *info, t_object_seen *wall, t_object_seen *door);
+void			wall_collision(t_exe_info *info, t_object_seen *wall);
+void			door_closing(t_exe_info *info, t_object_seen *door);
+/* keystroke_bonus.c*/
+void			key_w(t_exe_info *img, t_object_seen *waal, t_object_seen *door);
+void			key_s(t_exe_info *img, t_object_seen *wall, t_object_seen *door);
+void			key_a(t_exe_info *img, t_object_seen *wall,  t_object_seen *door);
+void			key_d(t_exe_info *img, t_object_seen *wall,  t_object_seen *door);
 void			key_space(t_exe_info *img);
-
+/* rays_utils.c*/
+void			set_print(t_exe_info *img, t_print_info *info,
+					t_wall_pos *w_pos);
+void			angle_normalizer(double *angle);					
+/* sprite_bonus.c*/
+void			draw_sprite(t_exe_info *info, double *is_visible_sprite);
+void			look_for_sprite(t_exe_info *info);
 
 #endif
