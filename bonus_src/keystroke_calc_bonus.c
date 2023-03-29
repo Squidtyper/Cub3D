@@ -24,66 +24,79 @@
 static void	st_key_left(t_exe_info *info)
 {
 	info->player.angle -= 0.01;
-	if (info->player.angle < 0)
-		info->player.angle += 2 * PI;
-	info->player.delta_y = sin(info->player.angle) * (info->blk_size / 30);
-	info->player.delta_x = cos(info->player.angle) * (info->blk_size / 30);
+	angle_normalizer(&(info->player.angle));
+	info->player.delta.y = sin(info->player.angle) * (info->size / 30);
+	info->player.delta.x = cos(info->player.angle) * (info->size / 30);
 }
 
 static void	st_key_right(t_exe_info *info)
 {
 	info->player.angle += 0.01;
-	if (info->player.angle > 2 * PI)
-		info->player.angle -= 2 * PI;
-	info->player.delta_y = sin(info->player.angle) * (info->blk_size / 30);
-	info->player.delta_x = cos(info->player.angle) * (info->blk_size / 30);
+	angle_normalizer(&(info->player.angle));
+	info->player.delta.y = sin(info->player.angle) * (info->size / 30);
+	info->player.delta.x = cos(info->player.angle) * (info->size / 30);
 }
 
-static void	st_wall_collision(t_exe_info	*info, t_wall_coll *set)
+void	door_closing(t_exe_info *info, t_object_seen *door)
 {
-	if (info->player.delta_x < 0)
-		set->x_offset = -(info->blk_size / 3);
+	if (info->player.delta.x < 0)
+		door->offset.x = -info->size;
 	else
-		set->x_offset = (info->blk_size / 3);
-	if (info->player.delta_y < 0)
-		set->y_offset = -(info->blk_size / 3);
+		door->offset.x = info->size;
+	if (info->player.delta.y < 0)
+		door->offset.y = -info->size;
 	else
-		set->y_offset = (info->blk_size / 3);
-	set->ipx = info->player.x / info->blk_size;
-	set->ipx_add_xo = (info->player.x + set->x_offset) / info->blk_size;
-	set->ipx_add_yo = (info->player.x + set->y_offset) / info->blk_size;
-	set->ipx_sub_xo = (info->player.x - set->x_offset) / info->blk_size;
-	set->ipx_sub_yo = (info->player.x - set->y_offset) / info->blk_size;
-	set->ipy = info->player.y / info->blk_size;
-	set->ipy_add_yo = (info->player.y + set->y_offset) / info->blk_size;
-	set->ipy_sub_yo = (info->player.y - set->y_offset) / info->blk_size;
-	set->ipy_add_xo = (info->player.y + set->x_offset) / info->blk_size;
-	set->ipy_sub_xo = (info->player.y - set->x_offset) / info->blk_size;
+		door->offset.y = info->size;
+	door->ipx = info->player.pos.x / info->size;
+	door->ipx_add_xo = (info->player.pos.x + door->offset.x) / info->size;
+	door->ipx_add_yo = (info->player.pos.x + door->offset.y) / info->size;
+	door->ipx_sub_xo = (info->player.pos.x - door->offset.x) / info->size;
+	door->ipx_sub_yo = (info->player.pos.x - door->offset.y) / info->size;
+	door->ipy = info->player.pos.y / info->size;
+	door->ipy_add_yo = (info->player.pos.y + door->offset.y) / info->size;
+	door->ipy_sub_yo = (info->player.pos.y - door->offset.y) / info->size;
+	door->ipy_add_xo = (info->player.pos.y + door->offset.x) / info->size;
+	door->ipy_sub_xo = (info->player.pos.y - door->offset.x) / info->size;
 }
 
-void	hook(void *param)
+void	wall_collision(t_exe_info *info, t_object_seen *wall)
 {
-	t_exe_info	*info;
-	t_wall_coll	set;
+	if (info->player.delta.x < 0)
+		wall->offset.x = -(info->size / 3);
+	else
+		wall->offset.x = (info->size / 3);
+	if (info->player.delta.y < 0)
+		wall->offset.y = -(info->size / 3);
+	else
+		wall->offset.y = (info->size / 3);
+	wall->ipx = info->player.pos.x / info->size;
+	wall->ipx_add_xo = (info->player.pos.x + wall->offset.x) / info->size;
+	wall->ipx_add_yo = (info->player.pos.x + wall->offset.y) / info->size;
+	wall->ipx_sub_xo = (info->player.pos.x - wall->offset.x) / info->size;
+	wall->ipx_sub_yo = (info->player.pos.x - wall->offset.y) / info->size;
+	wall->ipy = info->player.pos.y / info->size;
+	wall->ipy_add_yo = (info->player.pos.y + wall->offset.y) / info->size;
+	wall->ipy_sub_yo = (info->player.pos.y - wall->offset.y) / info->size;
+	wall->ipy_add_xo = (info->player.pos.y + wall->offset.x) / info->size;
+	wall->ipy_sub_xo = (info->player.pos.y - wall->offset.x) / info->size;
+}
 
-	info = param;
-	st_wall_collision(info, &set);
+void	keystroke(t_exe_info *info, t_object_seen *wall,  t_object_seen *door)
+{
 	if (mlx_is_key_down(info->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(info->mlx);
 	if (mlx_is_key_down(info->mlx, MLX_KEY_W))
-		key_w(info, &set);
+		key_w(info, wall, door);
 	if (mlx_is_key_down(info->mlx, MLX_KEY_S))
-		key_s(info, &set);
+		key_s(info, wall, door);
 	if (mlx_is_key_down(info->mlx, MLX_KEY_A))
-		key_a(info, &set);
+		key_a(info, wall, door);
 	if (mlx_is_key_down(info->mlx, MLX_KEY_D))
-		key_d(info, &set);
+		key_d(info, wall, door);
 	if (mlx_is_key_down(info->mlx, MLX_KEY_LEFT))
 		st_key_left(info);
 	if (mlx_is_key_down(info->mlx, MLX_KEY_RIGHT))
 		st_key_right(info);
 	if (mlx_is_key_down(info->mlx, MLX_KEY_SPACE))
 		key_space(info);
-	if (draw_cube(info) == EXIT_FAILURE)
-		mlx_close_window(info->mlx);
 }
