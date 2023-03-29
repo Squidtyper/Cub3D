@@ -14,6 +14,13 @@
 #include <math.h>
 #define PI 3.1415926535
 
+static	void	st_set_no_wall(t_player *player, t_ray *ray)
+{
+		ray->base.y = player->pos.y;
+		ray->base.x = player->pos.x;
+		ray->pg_view = ray->max_pg_view;
+}
+
 static void	st_set_ray(t_exe_info *img, t_wall_pos *w_pos, t_ray *ray,
 	t_drc pos)
 {
@@ -92,8 +99,7 @@ static void	st_find_wall_map(t_exe_info *img, t_ray *ray)
         __|__ 
           |
 */
-static void	st_find_horiz_wall(t_exe_info *img, t_wall_pos *w_pos,
-	double angle)
+void	find_horiz_wall(t_exe_info *img, t_wall_pos *w_pos, double angle)
 {
 	t_ray	ray;
 
@@ -117,7 +123,7 @@ static void	st_find_horiz_wall(t_exe_info *img, t_wall_pos *w_pos,
 		ray.x_offset = -ray.y_offset * ray.tan;
 	}
 	if (angle == 0 || angle == PI)
-		set_no_wall(&(img->player), &ray);
+		st_set_no_wall(&(img->player), &ray);
 	st_find_wall_map(img, &ray);
 	st_set_ray(img, w_pos, &ray, HORIZONTAL);
 }
@@ -142,8 +148,7 @@ static void	st_find_horiz_wall(t_exe_info *img, t_wall_pos *w_pos,
          -|->
           |
 */
-static void	st_find_vert_wall(t_exe_info *img, t_wall_pos *w_pos,
-	double angle)
+void	find_vert_wall(t_exe_info *img, t_wall_pos *w_pos, double angle)
 {
 	t_ray	ray;
 
@@ -167,33 +172,7 @@ static void	st_find_vert_wall(t_exe_info *img, t_wall_pos *w_pos,
 		ray.y_offset = -ray.x_offset * ray.tan;
 	}
 	if (angle == 0 || angle == 3 * PI / 2)
-		set_no_wall(&(img->player), &ray);
+		st_set_no_wall(&(img->player), &ray);
 	st_find_wall_map(img, &ray);
 	st_set_ray(img, w_pos, &ray, VERTICAL);
-}
-
-void	draw_ray_scene(t_exe_info *img)
-{
-	t_wall_pos		w_pos;
-	t_print_info	info;
-	double			ray_angle;
-	int				i;
-
-	i = 0;
-	ray_angle = img->player.angle - (0.0174533 * 30);
-	while (i < HEIGHT_WIDTH)
-	{
-		if (ray_angle < 0)
-			ray_angle += 2 * PI;
-		if (ray_angle > 2 * PI)
-			ray_angle -= 2 * PI;
-		st_find_horiz_wall(img, &w_pos, ray_angle);
-		st_find_vert_wall(img, &w_pos, ray_angle);
-		set_print(img, &info, &w_pos);
-		draw_scene(img, &w_pos, i, img->player.angle - ray_angle);
-		if (img->pad_x < HEIGHT_WIDTH)
-			draw_ray(img, &info);
-		ray_angle += 0.0174533 / 17;
-		i++;
-	}
 }
