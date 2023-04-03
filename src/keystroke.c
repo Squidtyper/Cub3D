@@ -13,34 +13,34 @@
 #include "execution.h"
 #include <math.h>
 
-void	key_w(t_exe_info *img, t_wall_coll *set)
+void	key_w(t_exe_info *img, t_object_seen *set)
 {
 	if (!is_wall(img->map_input->map_points[set->ipy][set->ipx_add_xo]))
-		img->player.x += img->player.delta_x;
+		img->player.pos.x += img->player.delta.x;
 	if (!is_wall(img->map_input->map_points[set->ipy_add_yo][set->ipx]))
-		img->player.y += img->player.delta_y;
+		img->player.pos.y += img->player.delta.y;
 }
 
-void	key_s(t_exe_info *img, t_wall_coll *set)
+void	key_s(t_exe_info *img, t_object_seen *set)
 {
 	if (!is_wall(img->map_input->map_points[set->ipy][set->ipx_sub_xo]))
-		img->player.x -= img->player.delta_x;
+		img->player.pos.x -= img->player.delta.x;
 	if (!is_wall(img->map_input->map_points[set->ipy_sub_yo][set->ipx]))
-		img->player.y -= img->player.delta_y;
+		img->player.pos.y -= img->player.delta.y;
 }
 
-void	key_a(t_exe_info *img, t_wall_coll *set)
+void	key_a(t_exe_info *img, t_object_seen *set)
 {
 	if (!is_wall(img->map_input->map_points[set->ipy][set->ipx_add_yo]))
-		img->player.x += img->player.delta_y;
+		img->player.pos.x += img->player.delta.y;
 	if (!is_wall(img->map_input->map_points[set->ipy_sub_xo][set->ipx]))
-		img->player.y -= img->player.delta_x;
+		img->player.pos.y -= img->player.delta.x;
 }
 
-void	key_d(t_exe_info *img, t_wall_coll *set)
+void	key_d(t_exe_info *img, t_object_seen *set)
 {
 	if (!is_wall(img->map_input->map_points[set->ipy][set->ipx_sub_yo]))
-		img->player.x -= img->player.delta_y;
+		img->player.pos.x -= img->player.delta.y;
 	if (!is_wall(img->map_input->map_points[set->ipy_add_xo][set->ipx]))
-		img->player.y += img->player.delta_x;
+		img->player.pos.y += img->player.delta.x;
 }
