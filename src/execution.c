@@ -24,18 +24,18 @@ static int	st_set_mlx(t_exe_info *info)
 
 static void	st_calculate_map_size(t_exe_info *info)
 {
-	info->blk_size = HEIGHT_WIDTH / 6;
-	while (info->blk_size * info->map_input->map_width > HEIGHT_WIDTH / 6)
-		info->blk_size--;
-	while (info->blk_size * info->map_input->map_height > HEIGHT_WIDTH / 6)
-		info->blk_size--;
-	info->pad_x = HEIGHT_WIDTH - info->map_input->map_width * info->blk_size;
-	info->pad_y = HEIGHT_WIDTH - info->map_input->map_height * info->blk_size;
-	if (info->blk_size < 2)
+	info->size = HEIGHT_WIDTH / 6;
+	while (info->size * info->map_input->map_width > HEIGHT_WIDTH / 6)
+		info->size--;
+	while (info->size * info->map_input->map_height > HEIGHT_WIDTH / 6)
+		info->size--;
+	info->pad.x = HEIGHT_WIDTH - info->map_input->map_width * info->size;
+	info->pad.y = HEIGHT_WIDTH - info->map_input->map_height * info->size;
+	if (info->size < 2)
 	{	
-		info->blk_size = 2;
-		info->pad_x = HEIGHT_WIDTH;
-		info->pad_y = HEIGHT_WIDTH;
+		info->size = 2;
+		info->pad.x = HEIGHT_WIDTH;
+		info->pad.y = HEIGHT_WIDTH;
 	}
 }
 
@@ -45,10 +45,10 @@ static void	st_set_player(t_exe_info *info)
 
 	p = info->map_input;
 	info->player.angle = p->a_player;
-	info->player.x = p->player_x * info->blk_size + info->blk_size / 2;
-	info->player.y = p->player_y * info->blk_size + info->blk_size / 2;
-	info->player.delta_x = cos(info->player.angle) * (info->blk_size / 30);
-	info->player.delta_y = sin(info->player.angle) * (info->blk_size / 30);
+	info->player.pos.x = p->player_x * info->size + info->size / 2;
+	info->player.pos.y = p->player_y * info->size + info->size / 2;
+	info->player.delta.x = cos(info->player.angle) * (info->size / 30);
+	info->player.delta.y = sin(info->player.angle) * (info->size / 30);
 }
 
 static int	st_init_info(t_exe_info	*info)
