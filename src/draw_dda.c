@@ -14,69 +14,66 @@
 #include <math.h>
 #include <stdio.h>
 
-static int	st_calculate_step(double y, double x)
+static int	st_calculate_step(t_axis ax)
 {
 	int	step;
 
-	if (fabs(x) > fabs(y) && x != 0)
-		step = x;
+	if (fabs(ax.x) > fabs(ax.y) && ax.x != 0)
+		step = ax.x;
 	else
-		step = y;
+		step = ax.y;
 	if (step < 0)
 		step *= -1;
 	return (step);
 }
 
-static void	st_new_increase(double *y, double *x, int step)
+static void	st_new_increase(t_axis *ax, int step)
 {
-	*y /= step;
-	*x /= step;
+	ax->y /= step;
+	ax->x /= step;
 }
 
 void	draw_ray(t_exe_info *img, t_print_info *info)
 {
-	double	x_increas;
-	double	y_increas;
+	t_axis	increase;
 	int		step;
 
-	x_increas = info->start_x - info->end_x;
-	y_increas = info->start_y - info->end_y;
-	step = st_calculate_step(y_increas, x_increas);
+	increase.x = info->start_point.x - info->end_point.x;
+	increase.y = info->start_point.y - info->end_point.y;
+	step = st_calculate_step(increase);
 	if (step == 0)
 		return ;
-	st_new_increase(&y_increas, &x_increas, step);
+	st_new_increase(&increase, step);
 	while (step--)
 	{
-		info->start_x -= x_increas;
-		info->start_y -= y_increas;
-		mlx_put_pixel(info->img, round(info->start_x) + img->pad_x,
-			round(info->start_y) + img->pad_y, info->color);
+		info->start_point.x -= increase.x;
+		info->start_point.y -= increase.y;
+		mlx_put_pixel(info->img, round(info->start_point.x) + img->pad.x,
+			round(info->start_point.y) + img->pad.y, info->color);
 	}
 }
 
 void	draw_player_direction(t_exe_info *img)
 {
-	double	y_increas;
-	double	x_increas;
-	double	print_x;
-	double	print_y;
+	t_axis	increase;
+	t_axis	print;
 	int		step;
 
-	if (img->pad_x == HEIGHT_WIDTH)
+	if (img->pad.x == HEIGHT_WIDTH)
 		return ;
-	print_x = img->player.x;
-	print_y = img->player.y;
-	x_increas = img->player.delta_x * 1;
-	y_increas = img->player.delta_y * 1;
-	step = st_calculate_step(y_increas, x_increas);
+	print.x = img->player.pos.x;
+	print.y = img->player.pos.y;
+	increase.x = img->player.delta.x * 1;
+	increase.y = img->player.delta.y * 1;
+	step = st_calculate_step(increase);
 	if (step == 0)
 		return ;
-	st_new_increase(&y_increas, &x_increas, step);
+	st_new_increase(&increase, step);
 	while (step--)
 	{
-		print_x += x_increas;
-		print_y += y_increas;
-		mlx_put_pixel(img->scene, round(print_x) + img->pad_x,
-			round(print_y) + img->pad_y, 0xFFeb34db);
+		print.x += increase.x;
+		print.y += increase.y;
+		mlx_put_pixel(img->scene, round(print.x) + img->pad.x,
+			round(print.y) + img->pad.y, 0xFFeb34db);
 	}
 }
