@@ -26,7 +26,7 @@ uint32_t	calc_color(mlx_texture_t *texture, t_tex_var *tex)
 	int	a;
 	int	position;
 
-	position = round(tex->y) * texture->width + tex->x;
+	position = round(tex->base.y) * texture->width + tex->base.x;
 	position *= texture->bytes_per_pixel;
 	r = texture->pixels[position];
 	g = texture->pixels[position + 1];
@@ -37,7 +37,7 @@ uint32_t	calc_color(mlx_texture_t *texture, t_tex_var *tex)
 
 bool	is_mini_map_space(t_exe_info *img, int y, int x)
 {
-	if (y >= img->pad_y && x >= img->pad_x)
+	if (y >= img->pad.y && x >= img->pad.x)
 		return (true);
 	return (false);
 }
@@ -45,7 +45,7 @@ bool	is_mini_map_space(t_exe_info *img, int y, int x)
 void	set_right_ray(t_wall_pos *wall, t_tex_var *tex)
 {
 	if (wall->side == VERTICAL_LEFT || wall->side == VERTICAL_RIGHT)
-		tex->ray = wall->ver_y;
+		tex->ray = wall->ver.y;
 	else
-		tex->ray = wall->hor_x;
+		tex->ray = wall->hor.x;
 }
