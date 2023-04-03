@@ -6,6 +6,16 @@
 # define HEIGHT_WIDTH 512
 
 
+typedef enum e_drc
+{
+	HORIZONTAL,
+	VERTICAL,
+	VERTICAL_LEFT,
+	VERTICAL_RIGHT,
+	HORIZONTAL_UP,
+	HORIZONTAL_DOWN,
+}t_drc;
+
 typedef enum e_num
 {
 	FOV = 60,
