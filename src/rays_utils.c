@@ -17,40 +17,29 @@
 void	set_print(t_exe_info *img, t_print_info *info, t_wall_pos *w_pos)
 {
 	info->img = img->scene;
-	info->start_x = img->player.x;
-	info->start_y = img->player.y;
+	info->start_point.x = img->player.pos.x;
+	info->start_point.y = img->player.pos.y;
 	if (w_pos->side == VERTICAL_LEFT || w_pos->side == VERTICAL_RIGHT)
 	{
-		info->end_x = w_pos->ver_x;
-		info->end_y = w_pos->ver_y;
+		info->end_point.x = w_pos->ver.x;
+		info->end_point.y = w_pos->ver.y;
 		info->color = 0x85b6c1FF;
 	}
 	else
 	{
-		info->end_x = w_pos->hor_x;
-		info->end_y = w_pos->hor_y;
+		info->end_point.x = w_pos->hor.x;
+		info->end_point.y = w_pos->hor.y;
 		info->color = 0x911ef6FF;
 	}
-}
-
-/*
-	you cannot a see a verical wall if you look up/down
-	and you cannot see a horizontal wall if you look left/right
-*/
-void	set_no_wall(t_player *player, t_ray *ray)
-{
-		ray->y = player->y;
-		ray->x = player->x;
-		ray->pg_view = ray->max_pg_view;
 }
 
 /*
     find hypotenuse with pitagora theorem
     this function finds the length of the ray
 */
-double	dist_pg_rayend(double ax, double ay, double bx, double by)
+double	dist_pg_rayend(t_axis a, t_axis b)
 {
-	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
+	return (sqrt((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y)));
 }
 
 t_drc	set_direction(t_drc pos, double angle)
