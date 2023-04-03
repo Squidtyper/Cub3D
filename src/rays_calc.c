@@ -14,6 +14,10 @@
 #include <math.h>
 #define PI 3.1415926535
 
+/*
+	you cannot a see a verical wall if you look up/down
+	and you cannot see a horizontal wall if you look left/right
+*/
 static	void	st_set_no_wall(t_player *player, t_ray *ray)
 {
 		ray->base.y = player->pos.y;
@@ -26,18 +30,18 @@ static void	st_set_ray(t_exe_info *img, t_wall_pos *w_pos, t_ray *ray,
 {
 	double	dist;
 
-	dist = dist_pg_rayend(img->player.x, img->player.y, ray->x, ray->y);
+	dist = dist_pg_rayend(img->player.pos, ray->base);
 	if (pos == HORIZONTAL)
 	{
-		w_pos->hor_x = ray->x;
-		w_pos->hor_y = ray->y;
+		w_pos->hor.x = ray->base.x;
+		w_pos->hor.y = ray->base.y;
 		w_pos->dist = dist;
 		w_pos->side = set_direction(pos, ray->angle);
 	}
 	else
 	{
-		w_pos->ver_x = ray->x;
-		w_pos->ver_y = ray->y;
+		w_pos->ver.x = ray->base.x;
+		w_pos->ver.y = ray->base.y;
 		if (w_pos->dist > dist)
 		{
 			w_pos->dist = dist;
@@ -50,7 +54,7 @@ static void	st_set_ray(t_exe_info *img, t_wall_pos *w_pos, t_ray *ray,
     because we chose the block size
     so the distance of each square is block_size but on the map 
     the distance is 1 (position in the array)
-    we devide by blk_size
+    we devide by size
     then y and x become simply like our height and width in the previous map loop
 */
 static void	st_find_wall_map(t_exe_info *img, t_ray *ray)
@@ -60,8 +64,8 @@ static void	st_find_wall_map(t_exe_info *img, t_ray *ray)
 
 	while (ray->pg_view < ray->max_pg_view)
 	{
-		x = (int)(ray->x) / img->blk_size;
-		y = (int)(ray->y) / img->blk_size;
+		x = (int)(ray->base.x) / img->size;
+		y = (int)(ray->base.y) / img->size;
 		if ((y >= 0 && x >= 0)
 			&& (y < (int)img->map_input->map_height && x
 				< (int)img->map_input->map_width)
@@ -71,8 +75,8 @@ static void	st_find_wall_map(t_exe_info *img, t_ray *ray)
 		}
 		else
 		{
-			ray->y += ray->y_offset;
-			ray->x += ray->x_offset;
+			ray->base.y += ray->offset.y;
+			ray->base.x += ray->offset.x;
 			ray->pg_view++;
 		}
 	}
@@ -86,13 +90,13 @@ static void	st_find_wall_map(t_exe_info *img, t_ray *ray)
     angle > PI looking down
     angle < PI looking up
     angle == 0 || angle == PI left/right no possible horizontal walls
-    the a_tan it's needed to find the position of the x endpoint of
+    the tan it's needed to find the position of the x endpoint of
     the ray (because it can touch every point of the wall)
         _____     _____
         ^            ^
         |            |
-    in the current code to have the precision of 64 (the size of the block)
-    we bitshift right of 6 and then back of 6
+    in the current code to have the precision we devide and multiply
+	the size of the block because
     we want to stop the moment that we hit the starting line of the wall 
     not reach for example the middle;
           ^
@@ -101,48 +105,47 @@ static void	st_find_wall_map(t_exe_info *img, t_ray *ray)
 */
 void	find_horiz_wall(t_exe_info *img, t_wall_pos *w_pos, double angle)
 {
-	t_ray	ray;
+	t_ray	r;
 
-	ray.max_pg_view = calc_max_wall_dist(img);
-	ray.pg_view = 0;
-	ray.tan = -1 / tan (angle);
-	ray.angle = angle;
+	r.max_pg_view = calc_max_wall_dist(img);
+	r.pg_view = 0;
+	r.tan = -1 / tan (angle);
+	r.angle = angle;
 	if (angle > PI)
 	{
-		ray.y = ((int)(img->player.y / img->blk_size) * img->blk_size) - 0.0001;
-		ray.x = (img->player.y - ray.y) * ray.tan + img->player.x;
-		ray.y_offset = -img->blk_size;
-		ray.x_offset = -ray.y_offset * ray.tan;
+		r.base.y = ((int)(img->player.pos.y / img->size) * img->size) - 0.0001;
+		r.base.x = (img->player.pos.y - r.base.y) * r.tan + img->player.pos.x;
+		r.offset.y = -img->size;
+		r.offset.x = -r.offset.y * r.tan;
 	}
 	if (angle < PI)
 	{	
-		ray.y = ((int)(img->player.y / img->blk_size) * img->blk_size)
-			+ img->blk_size;
-		ray.x = (img->player.y - ray.y) * ray.tan + img->player.x;
-		ray.y_offset = img->blk_size;
-		ray.x_offset = -ray.y_offset * ray.tan;
+		r.base.y = ((int)(img->player.pos.y / img->size) * img->size)
+			+ img->size;
+		r.base.x = (img->player.pos.y - r.base.y) * r.tan + img->player.pos.x;
+		r.offset.y = img->size;
+		r.offset.x = -r.offset.y * r.tan;
 	}
 	if (angle == 0 || angle == PI)
-		st_set_no_wall(&(img->player), &ray);
-	st_find_wall_map(img, &ray);
-	st_set_ray(img, w_pos, &ray, HORIZONTAL);
+		st_set_no_wall(&(img->player), &r);
+	st_find_wall_map(img, &r);
+	st_set_ray(img, w_pos, &r, HORIZONTAL);
 }
 
 /*
     This function checks if in front of you
     (depending on which direction are you looking, up down left or right ) 
     there is a vertical wall
-    dof indicates how far a player can see
+    max_pg_view indicates how far a player can see
     angle > PI/2 && angle < 3*PI/2 looking left
     angle < PI/2 || angle > 3*PI/2 looking right
     angle == 0 || angle == PI up/down no possible vertical walls
-    the a_tan it's needed to find the position of the y endpoint of the
+    the tan it's needed to find the position of the y endpoint of the
     ray (because it can touch every point of the wall)
         ->    |       |   
               |    -> | 
 
-    in the current code to have the precision of 64 (the size of the block)
-    we bitshift right of 6 and then back of 6
+    in the current code to have the precision the size of the block
     we want to stop the moment that we hit the starting line of the wall
     not reach for example the middle;
          -|->
@@ -150,29 +153,31 @@ void	find_horiz_wall(t_exe_info *img, t_wall_pos *w_pos, double angle)
 */
 void	find_vert_wall(t_exe_info *img, t_wall_pos *w_pos, double angle)
 {
-	t_ray	ray;
+	t_ray	r;
 
-	ray.max_pg_view = calc_max_wall_dist(img);
-	ray.pg_view = 0;
-	ray.tan = -tan(angle);
-	ray.angle = angle;
+	r.max_pg_view = calc_max_wall_dist(img);
+	r.pg_view = 0;
+	r.tan = -tan(angle);
+	r.angle = angle;
 	if (angle > PI / 2 && angle < 3 * PI / 2)
 	{
-		ray.x = ((int)(img->player.x / img->blk_size) * img->blk_size) - 0.0001;
-		ray.y = (img->player.x - ray.x) * ray.tan + img->player.y;
-		ray.x_offset = -img->blk_size;
-		ray.y_offset = -ray.x_offset * ray.tan;
+		r.base.x = ((int)(img->player.pos.x / img->size) * img->size) - 0.0001;
+		r.base.y = (img->player.pos.x - r.base.x) * r.tan + img->player.pos.y;
+		r.offset.x = -img->size;
+		r.offset.y = -r.offset.x * r.tan;
 	}
 	if (angle < PI / 2 || angle > 3 * PI / 2)
 	{	
-		ray.x = (((int)(img->player.x / img->blk_size)) * img->blk_size)
-			+ img->blk_size;
-		ray.y = (img->player.x - ray.x) * ray.tan + img->player.y;
-		ray.x_offset = img->blk_size;
-		ray.y_offset = -ray.x_offset * ray.tan;
+		r.base.x = (((int)(img->player.pos.x / img->size)) * img->size)
+			+ img->size;
+		r.base.y = (img->player.pos.x - r.base.x) * r.tan + img->player.pos.y;
+		r.offset.x = img->size;
+		r.offset.y = -r.offset.x * r.tan;
 	}
 	if (angle == 0 || angle == 3 * PI / 2)
-		st_set_no_wall(&(img->player), &ray);
-	st_find_wall_map(img, &ray);
-	st_set_ray(img, w_pos, &ray, VERTICAL);
+		st_set_no_wall(&(img->player), &r);
+	st_find_wall_map(img, &r);
+	st_set_ray(img, w_pos, &r, VERTICAL);
 }
+
+
