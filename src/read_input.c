@@ -36,13 +36,13 @@ char	*read_file(char *name)
 	if (ft_strncmp(name + ((ft_strlen(name) - 4)), ".cub", 4) != 0)
 	{
 		printf("Error: %s: file is not .cub format", name);
-		exit(1);
+		return (NULL);
 	}
-	file_fd = open_file(name);
+	file_fd = open(name, O_RDONLY);
 	if (file_fd <= 0)
 	{
 		printf("Error: %s: %s\n", name, strerror(errno));
-		exit(1);
+		return (NULL);
 	}
 	buf = get_next_line(file_fd);
 	while (buf)
@@ -57,7 +57,10 @@ void	pre_fill(t_check *check)
 {
 	check->input = (t_input *)malloc(sizeof(t_input));
 	if (!check->input)
+	{
+		free(check);
 		mallocerr();
+	}
 	check->input->map_points = NULL;
 	check->input->map_width = 0;
 	check->input->map_height = 0;
@@ -100,7 +103,11 @@ t_input	*parse(int ac, char **av)
 	pre_fill(check);
 	lines = file_lines(av[1]);
 	if (!lines)
+	{
+		free(input_r);
+		free(check);
 		mallocerr();
+	}
 	find_color(check, lines);
 	find_texture(check, lines);
 	find_map(check, lines);

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "parsing.h"
-#include <stdio.h>
 
 bool	test_around(char **map, unsigned int i, unsigned int j)
 {
@@ -27,7 +26,7 @@ bool	test_around(char **map, unsigned int i, unsigned int j)
 	return (true);
 }
 
-void	boundary_test(char **m_p, unsigned int height, unsigned int width)
+bool	boundary_test(char **m_p, unsigned int height, unsigned int width)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -44,11 +43,12 @@ void	boundary_test(char **m_p, unsigned int height, unsigned int width)
 				test_around(m_p, i, j) == false)
 				{
 					printf("Error: map is not closed\n");
-					exit (1);
+					return (false);
 				}
 			}
 			j++;
 		}
 		i++;
 	}
+	return (true);
 }

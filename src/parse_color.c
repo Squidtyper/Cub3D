@@ -22,16 +22,16 @@ void	color_double(bool testvalue)
 	}
 }
 
-long long	color_combine(char *r, char *b, char *g)
+long long	color_combine(char *r, char *b, char *g, t_check *check)
 {
 	int			rclr;
 	int			gclr;
 	int			bclr;
 	long long	combined;
 
-	rclr = color_atoi(r);
-	gclr = color_atoi(g);
-	bclr = color_atoi(b);
+	rclr = color_atoi(r, check);
+	gclr = color_atoi(g, check);
+	bclr = color_atoi(b, check);
 	combined = rclr * pow(2, 24) + gclr * pow(2, 16) + bclr * pow(2, 8) + 255;
 	return (combined);
 }
@@ -42,23 +42,26 @@ void	parse_color(char **words, t_check *check)
 
 	frag = ft_space_split(words[0]);
 	if (!frag)
+	{
 		mallocerr();
+		parsing_clean(check);
+	}
 	if (!frag[1] || only_digits(frag[1]) == false || \
 	only_digits(words[1]) == false || only_digits(words[2]) == false)
 	{
 		printf("Error: color codes are not correct\n");
-		exit(1);
+		parsing_clean(check);
 	}
 	if (ft_strncmp(frag[0], "C", 2) == 0)
 	{
 		color_double(check->c_found);
-		check->input->c_color = color_combine(frag[1], words[1], words[2]);
+		check->input->c_color = color_combine(frag[1], words[1], words[2], check);
 		check->c_found = true;
 	}
 	if (ft_strncmp(frag[0], "F", 2) == 0)
 	{
 		color_double(check->f_found);
-		check->input->f_color = color_combine(frag[1], words[1], words[2]);
+		check->input->f_color = color_combine(frag[1], words[1], words[2], check);
 		check->f_found = true;
 	}
 	cleardarray(frag);
@@ -75,7 +78,11 @@ void	find_color(t_check *check, char **lines)
 	{
 		words = ft_split(lines[i], ',');
 		if (!words)
+		{
 			mallocerr();
+			cleardarray(lines);
+			parsing_clean(check);
+		}
 		i2 = 0;
 		while (words[i2])
 			i2++;

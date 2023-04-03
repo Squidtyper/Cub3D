@@ -20,7 +20,6 @@ void	player_error(char c)
 		printf("Error: map contains more than one player\n");
 	else if (c == 'N')
 		printf("Error: player not found in map");
-	exit(1);
 }
 
 double	get_angle(char c)
@@ -39,7 +38,10 @@ double	get_angle(char c)
 void	fill_input(int x, int y, t_check *check, char c)
 {
 	if (check->p_found == true)
+	{
 		player_error('D');
+		parsing_clean(check);
+	}
 	check->input->a_player = get_angle(c);
 	check->input->player_x = x;
 	check->input->player_y = y;
@@ -71,6 +73,6 @@ void	get_player(t_check *check)
 	if (check->p_found == false)
 	{
 		player_error('N');
-		exit(1);
+		parsing_clean(check);
 	}
 }

@@ -37,7 +37,7 @@ char	*join_free(char *str1, char *str2)
 	newstr = ft_strjoin(str1, str2);
 	if (!newstr)
 	{
-		perror("malloc");
+		perror("malloc: ");
 		exit(EXIT_FAILURE);
 	}
 	free(str1);
@@ -94,11 +94,11 @@ char	*rm_vertical_tab(char *str)
 	char	*str2;
 
 	if (!str)
-		return(NULL);
+		return (NULL);
 	i = ft_strlen(str) - 1;
 	if (str[i] == 13)
 		i--;
 	str2 = ft_substr(str, 0, i + 1);
 	free(str);
-	return(str2);
+	return (str2);
 }

@@ -18,20 +18,21 @@ void	test_var(t_check *check)
 	check->f_found == false || check->p_found == false)
 	{
 		printf("Error: information incomplete. Cannot start Cub3D");
-		exit(1);
+		parsing_clean(check);
 	}
 }
 
-void    test_inputs(t_check *check)
+void	test_inputs(t_check *check)
 {
-	unsigned int i;
-	unsigned int j;
+	unsigned int	i;
+	unsigned int	j;
 
 	test_var(check);
-	boundary_test(check->input->map_points, check->input->map_height, \
-	check->input->map_width);
+	if (boundary_test(check->input->map_points, check->input->map_height, \
+	check->input->map_width) == false)
+		parsing_clean(check);
 	i = 0;
-	while(i < check->input->map_height)
+	while (i < check->input->map_height)
 	{
 		j = 0;
 		while (j < check->input->map_width)
@@ -42,6 +43,8 @@ void    test_inputs(t_check *check)
 		printf("\n");
 		i++;
 	}
-	printf("map width: %d, map height: %d\n", check->input->map_width, check->input->map_height);
-	printf("ceiling color: 0x%llX, floor color: 0x%llX\n", check->input->c_color, check->input->f_color);
+	printf("map width: %d, map height: %d\n", check->input->map_width, \
+	check->input->map_height);
+	printf("ceiling color: 0x%llX, floor color: 0x%llX\n", \
+	check->input->c_color, check->input->f_color);
 }

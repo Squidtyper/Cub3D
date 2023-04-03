@@ -25,10 +25,9 @@ void	ac_error(int ac)
 void	mallocerr(void)
 {
 	perror("");
-	exit(EXIT_FAILURE);
 }
 
-int	color_atoi(char *str)
+int	color_atoi(char *str, t_check *check)
 {
 	int		i;
 	char	*str2;
@@ -41,7 +40,7 @@ int	color_atoi(char *str)
 		if (ft_isdigit(str2[i]) != 1)
 		{
 			printf("Unexpected character found in color specification\n");
-			exit(1);
+			parsing_clean(check);
 		}
 		i++;
 	}
@@ -50,7 +49,7 @@ int	color_atoi(char *str)
 	if (color < 0 || color > 255)
 	{
 		printf("Error: rgb color cannot exceed 0 - 255");
-		exit(1);
+		parsing_clean(check);
 	}
 	return (color);
 }
