@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "execution.h"
 #include <math.h>
 #define PI 3.1415926535
@@ -24,50 +25,48 @@
 static void	st_key_left(t_exe_info *info)
 {
 	info->player.angle -= 0.01;
-	if (info->player.angle < 0)
-		info->player.angle += 2 * PI;
-	info->player.delta_y = sin(info->player.angle) * (info->blk_size / 30);
-	info->player.delta_x = cos(info->player.angle) * (info->blk_size / 30);
+	angle_normalizer(&(info->player.angle));
+	info->player.delta.y = sin(info->player.angle) * (info->size / 30);
+	info->player.delta.x = cos(info->player.angle) * (info->size / 30);
 }
 
 static void	st_key_right(t_exe_info *info)
 {
 	info->player.angle += 0.01;
-	if (info->player.angle > 2 * PI)
-		info->player.angle -= 2 * PI;
-	info->player.delta_y = sin(info->player.angle) * (info->blk_size / 30);
-	info->player.delta_x = cos(info->player.angle) * (info->blk_size / 30);
+	angle_normalizer(&(info->player.angle));
+	info->player.delta.y = sin(info->player.angle) * (info->size / 30);
+	info->player.delta.x = cos(info->player.angle) * (info->size / 30);
 }
 
-static void	st_wall_collision(t_exe_info	*info, t_wall_coll *set)
+static void	st_object_seenision(t_exe_info	*info, t_object_seen *set)
 {
-	if (info->player.delta_x < 0)
-		set->x_offset = -(info->blk_size / 3);
+	if (info->player.delta.x < 0)
+		set->offset.x = -(info->size / 3);
 	else
-		set->x_offset = (info->blk_size / 3);
-	if (info->player.delta_y < 0)
-		set->y_offset = -(info->blk_size / 3);
+		set->offset.x = (info->size / 3);
+	if (info->player.delta.y < 0)
+		set->offset.y = -(info->size / 3);
 	else
-		set->y_offset = (info->blk_size / 3);
-	set->ipx = info->player.x / info->blk_size;
-	set->ipx_add_xo = (info->player.x + set->x_offset) / info->blk_size;
-	set->ipx_add_yo = (info->player.x + set->y_offset) / info->blk_size;
-	set->ipx_sub_xo = (info->player.x - set->x_offset) / info->blk_size;
-	set->ipx_sub_yo = (info->player.x - set->y_offset) / info->blk_size;
-	set->ipy = info->player.y / info->blk_size;
-	set->ipy_add_yo = (info->player.y + set->y_offset) / info->blk_size;
-	set->ipy_sub_yo = (info->player.y - set->y_offset) / info->blk_size;
-	set->ipy_add_xo = (info->player.y + set->x_offset) / info->blk_size;
-	set->ipy_sub_xo = (info->player.y - set->x_offset) / info->blk_size;
+		set->offset.y = (info->size / 3);
+	set->ipx = info->player.pos.x / info->size;
+	set->ipx_add_xo = (info->player.pos.x + set->offset.x) / info->size;
+	set->ipx_add_yo = (info->player.pos.x + set->offset.y) / info->size;
+	set->ipx_sub_xo = (info->player.pos.x - set->offset.x) / info->size;
+	set->ipx_sub_yo = (info->player.pos.x - set->offset.y) / info->size;
+	set->ipy = info->player.pos.y / info->size;
+	set->ipy_add_yo = (info->player.pos.y + set->offset.y) / info->size;
+	set->ipy_sub_yo = (info->player.pos.y - set->offset.y) / info->size;
+	set->ipy_add_xo = (info->player.pos.y + set->offset.x) / info->size;
+	set->ipy_sub_xo = (info->player.pos.y - set->offset.x) / info->size;
 }
 
 void	hook(void *param)
 {
 	t_exe_info	*info;
-	t_wall_coll	set;
+	t_object_seen	set;
 
 	info = param;
-	st_wall_collision(info, &set);
+	st_object_seenision(info, &set);
 	if (mlx_is_key_down(info->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(info->mlx);
 	if (mlx_is_key_down(info->mlx, MLX_KEY_W))
