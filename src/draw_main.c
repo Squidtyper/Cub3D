@@ -16,23 +16,22 @@
 
 static void	st_draw_background(t_exe_info *info)
 {
-	int		y;
-	int		x;
+	t_axis screen;
 	int32_t	color;
 
-	y = 0;
+	screen.y = 0;
 	color = info->map_input->c_color;
-	while (y < HEIGHT_WIDTH)
+	while (screen.y < HEIGHT_WIDTH)
 	{
-		if (y > HEIGHT_WIDTH / 2)
+		if (screen.y > HEIGHT_WIDTH / 2)
 			color = info->map_input->f_color;
-		x = 0;
-		while (x < HEIGHT_WIDTH)
+		screen.x = 0;
+		while (screen.x < HEIGHT_WIDTH)
 		{
-			mlx_put_pixel(info->background, x, y, color);
-			x++;
+			mlx_put_pixel(info->background, screen.x, screen.y, color);
+			screen.x++;
 		}
-		y++;
+		screen.y++;
 	}
 }
 
@@ -43,19 +42,19 @@ static void	st_draw_player(t_exe_info *info)
 	size_t	size;
 
 	y = 0;
-	if (info->pad_x == HEIGHT_WIDTH)
+	if (info->pad.x == HEIGHT_WIDTH)
 		return ;
-	size = info->blk_size / 8;
-	if (info->blk_size / 8 < 2)
+	size = info->size / 8;
+	if (info->size / 8 < 2)
 		size = 2;
 	while (y < size)
 	{
 		x = 0;
 		while (x < size)
 		{
-			mlx_put_pixel(info->scene, round(info->player.x - size / 2)
-				+ x + info->pad_x, round(info->player.y - size / 2) + y
-				+ info->pad_y, 0xFF5733FF);
+			mlx_put_pixel(info->scene, round(info->player.pos.x - size / 2)
+				+ x + info->pad.x, round(info->player.pos.y - size / 2) + y
+				+ info->pad.y, 0xFF5733FF);
 			x++;
 		}
 		y++;
@@ -80,27 +79,4 @@ int	draw_cube(t_exe_info *info)
 	draw_player_direction(info);
 	mlx_image_to_window(info->mlx, info->scene, 0, 0);
 	return (MLX_SUCCESS);
-}
-
-void draw_ray_scene(t_exe_info *img)
-{
-	t_wall_pos		w_pos;
-	t_print_info	info;
-	double			ray_angle;
-	int				i;
-
-	i = 0;
-	ray_angle = img->player.angle - (0.0174533 * (FOV / 2));
-	while (i < HEIGHT_WIDTH)
-	{
-		angle_normalizer(&ray_angle);
-		find_horiz_wall(img, &w_pos, ray_angle);
-		find_vert_wall(img, &w_pos, ray_angle);
-		set_print(img, &info, &w_pos);
-		draw_scene(img, &w_pos, i, img->player.angle - ray_angle);
-		if (img->pad.x < HEIGHT_WIDTH)
-			draw_ray(img, &info);
-		ray_angle += (0.0174533 * FOV) / HEIGHT_WIDTH;
-		i++;
-	}
 }
