@@ -96,7 +96,7 @@ void	draw_ray_scene(t_exe_info *info)
 	t_print_info	p_info;
 	double			ray_angle;
 	int				i;
-	double			rays[HEIGHT_WIDTH];
+	//double			rays[HEIGHT_WIDTH];
 
 	i = 0;
 	ray_angle = info->player.angle - (FOV / 2) * PI /180;
@@ -109,10 +109,10 @@ void	draw_ray_scene(t_exe_info *info)
 		draw_scene(info, &w_pos, i, info->player.angle - ray_angle);
 		if (info->pad.x < HEIGHT_WIDTH)
 			draw_ray(info, &p_info);
-		rays[i] = w_pos.dist;
+	//	rays[i] = w_pos.dist;
 		ray_angle += (FOV * PI / 180) / HEIGHT_WIDTH;
 		i++;
 	}
-	look_for_sprite(info);
-	draw_sprite(info, rays);
+	//look_for_sprite(info);
+	//draw_sprite(info, rays);
 }

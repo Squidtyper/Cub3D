@@ -80,3 +80,5 @@ int	draw_cube(t_exe_info *info)
 	mlx_image_to_window(info->mlx, info->scene, 0, 0);
 	return (MLX_SUCCESS);
 }
+
+
