@@ -179,5 +179,3 @@ void	find_vert_wall(t_exe_info *img, t_wall_pos *w_pos, double angle)
 	st_find_wall_map(img, &r);
 	st_set_ray(img, w_pos, &r, VERTICAL);
 }
-
-

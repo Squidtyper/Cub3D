@@ -37,7 +37,7 @@ static void	st_key_right(t_exe_info *info)
 	info->player.delta.x = cos(info->player.angle) * (info->size / 30);
 }
 
-void	door_closing(t_exe_info *info, t_object_seen *door)
+void	door_closing(t_exe_info *info, t_obj_seen *door)
 {
 	if (info->player.delta.x < 0)
 		door->offset.x = -info->size;
@@ -59,7 +59,7 @@ void	door_closing(t_exe_info *info, t_object_seen *door)
 	door->ipy_sub_xo = (info->player.pos.y - door->offset.x) / info->size;
 }
 
-void	wall_collision(t_exe_info *info, t_object_seen *wall)
+void	wall_collision(t_exe_info *info, t_obj_seen *wall)
 {
 	if (info->player.delta.x < 0)
 		wall->offset.x = -(info->size / 3);
@@ -81,7 +81,7 @@ void	wall_collision(t_exe_info *info, t_object_seen *wall)
 	wall->ipy_sub_xo = (info->player.pos.y - wall->offset.x) / info->size;
 }
 
-void	keystroke(t_exe_info *info, t_object_seen *wall,  t_object_seen *door)
+void	keystroke(t_exe_info *info, t_obj_seen *wall, t_obj_seen *door)
 {
 	if (mlx_is_key_down(info->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(info->mlx);

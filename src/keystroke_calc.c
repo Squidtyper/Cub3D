@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "execution.h"
 #include <math.h>
 #define PI 3.1415926535
@@ -38,7 +37,7 @@ static void	st_key_right(t_exe_info *info)
 	info->player.delta.x = cos(info->player.angle) * (info->size / 30);
 }
 
-static void	st_object_seenision(t_exe_info	*info, t_object_seen *set)
+static void	st_obj_seenision(t_exe_info	*info, t_obj_seen *set)
 {
 	if (info->player.delta.x < 0)
 		set->offset.x = -(info->size / 3);
@@ -62,11 +61,11 @@ static void	st_object_seenision(t_exe_info	*info, t_object_seen *set)
 
 void	hook(void *param)
 {
-	t_exe_info	*info;
-	t_object_seen	set;
+	t_exe_info		*info;
+	t_obj_seen	set;
 
 	info = param;
-	st_object_seenision(info, &set);
+	st_obj_seenision(info, &set);
 	if (mlx_is_key_down(info->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(info->mlx);
 	if (mlx_is_key_down(info->mlx, MLX_KEY_W))

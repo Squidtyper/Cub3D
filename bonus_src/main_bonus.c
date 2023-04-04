@@ -1,4 +1,5 @@
 #include "cube3D.h"
+#include "parsing_bonus.h"
 
 // static void	st_clean_input(t_input *input)
 // {

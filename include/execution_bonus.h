@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   execution_bonus.h                                  :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/04/04 11:56:12 by dmonfrin      #+#    #+#                 */
+/*   Updated: 2023/04/04 11:56:14 by dmonfrin      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef EXECUTION_BONUS_H
 # define EXECUTION_BONUS_H
 # include "../MLX42/include/MLX42/MLX42.h"
@@ -42,7 +54,7 @@ typedef struct s_wall_pos
 	t_drc	side;
 }t_wall_pos;
 
-typedef struct s_wall_coll
+typedef struct s_obj_seen
 {
 	t_axis	offset;
 	int		ipx;
@@ -55,7 +67,7 @@ typedef struct s_wall_coll
 	int		ipy_sub_yo;
 	int		ipy_add_xo;
 	int		ipy_sub_xo;
-}t_object_seen;
+}t_obj_seen;
 
 typedef struct s_tex_var
 {
@@ -84,23 +96,15 @@ typedef struct s_exe_info
 	t_input		*map_input;
 	t_axis		pad;
 	double		size;
-	t_axis	sprite;
 }t_exe_info;
-
 
 /* draw_dda.c*/
 void			draw_ray(t_exe_info *img, t_print_info *info);
 void			draw_player_direction(t_exe_info *img);
-
 /* draw_main.c */
 int				draw_cube(t_exe_info *img);
 void			draw_background(t_exe_info *img);
-/* draw_map_bonus.c */
-void			draw_map(t_exe_info *img);
-/* rays_calc.c*/
-void			find_vert_wall(t_exe_info *img, t_wall_pos *w_pos, double angle);
-void			find_horiz_wall(t_exe_info *img, t_wall_pos *w_pos, double angle);
-/* draw_scene_utils_bonus.c */
+/* draw_scene_utils.c */
 uint32_t		calc_color(mlx_texture_t *texture, t_tex_var *tex);
 bool			is_mini_map_space(t_exe_info *img, int y, int x);
 void			set_right_ray(t_wall_pos *wall, t_tex_var *tex);
@@ -112,14 +116,15 @@ t_drc			set_wall_side(t_exe_info *info, t_wall_pos *wall);
 /* hook_loop_bonus.c*/
 void			hook(void *param);
 /* keystroke_calc_bonus.c*/
-void			keystroke(t_exe_info *info, t_object_seen *wall, t_object_seen *door);
-void			wall_collision(t_exe_info *info, t_object_seen *wall);
-void			door_closing(t_exe_info *info, t_object_seen *door);
+void			keystroke(t_exe_info *info, t_obj_seen *wall,
+					t_obj_seen *door);
+void			wall_collision(t_exe_info *info, t_obj_seen *wall);
+void			door_closing(t_exe_info *info, t_obj_seen *door);
 /* keystroke_bonus.c*/
-void			key_w(t_exe_info *img, t_object_seen *waal, t_object_seen *door);
-void			key_s(t_exe_info *img, t_object_seen *wall, t_object_seen *door);
-void			key_a(t_exe_info *img, t_object_seen *wall,  t_object_seen *door);
-void			key_d(t_exe_info *img, t_object_seen *wall,  t_object_seen *door);
+void			key_w(t_exe_info *img, t_obj_seen *waal, t_obj_seen *door);
+void			key_s(t_exe_info *img, t_obj_seen *wall, t_obj_seen *door);
+void			key_a(t_exe_info *img, t_obj_seen *wall, t_obj_seen *door);
+void			key_d(t_exe_info *img, t_obj_seen *wall, t_obj_seen *door);
 void			key_space(t_exe_info *img);
 /* rays_utils.c*/
 void			set_print(t_exe_info *img, t_print_info *info,

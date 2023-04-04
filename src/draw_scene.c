@@ -98,26 +98,3 @@ void	draw_scene(t_exe_info *info, t_wall_pos *wall, int ray, double angle)
 	texture.wall_side = wall->side;
 	st_draw_wall(info, ray, line_offset, &texture);
 }
-
-void draw_ray_scene(t_exe_info *img)
-{
-	t_wall_pos		w_pos;
-	t_print_info	info;
-	double			ray_angle;
-	int				i;
-
-	i = 0;
-	ray_angle = img->player.angle - (0.0174533 * (FOV / 2));
-	while (i < HEIGHT_WIDTH)
-	{
-		angle_normalizer(&ray_angle);
-		find_horiz_wall(img, &w_pos, ray_angle);
-		find_vert_wall(img, &w_pos, ray_angle);
-		set_print(img, &info, &w_pos);
-		draw_scene(img, &w_pos, i, img->player.angle - ray_angle);
-		if (img->pad.x < HEIGHT_WIDTH)
-			draw_ray(img, &info);
-		ray_angle += (0.0174533 * FOV) / HEIGHT_WIDTH;
-		i++;
-	}
-}

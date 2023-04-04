@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   draw_scene_bonus.c                                 :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/04/04 11:40:03 by dmonfrin      #+#    #+#                 */
+/*   Updated: 2023/04/04 11:40:06 by dmonfrin      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "execution_bonus.h"
 #include <math.h>
 #define PI 3.1415926535
@@ -29,7 +41,6 @@ mlx_texture_t	*st_calculate_texture(t_exe_info *img, t_tex_var *tex)
 		return (img->map_input->textures->next->next->content);
 	return (img->map_input->textures->next->next->next->content);
 }
-
 
 static void	st_draw_wall(t_exe_info *info, double start_x, double start_y,
 	t_tex_var *tex)
@@ -88,31 +99,4 @@ void	draw_scene(t_exe_info *info, t_wall_pos *wall, int ray, double angle)
 	set_right_ray(wall, &texture);
 	texture.wall_side = set_wall_side(info, wall);
 	st_draw_wall(info, ray, line_offset, &texture);
-}
-
-void	draw_ray_scene(t_exe_info *info)
-{
-	t_wall_pos		w_pos;
-	t_print_info	p_info;
-	double			ray_angle;
-	int				i;
-	//double			rays[HEIGHT_WIDTH];
-
-	i = 0;
-	ray_angle = info->player.angle - (FOV / 2) * PI /180;
-	while (i < HEIGHT_WIDTH)
-	{
-		angle_normalizer(&ray_angle);
-		find_horiz_wall(info, &w_pos, ray_angle);
-		find_vert_wall(info, &w_pos, ray_angle);
-		set_print(info, &p_info, &w_pos);
-		draw_scene(info, &w_pos, i, info->player.angle - ray_angle);
-		if (info->pad.x < HEIGHT_WIDTH)
-			draw_ray(info, &p_info);
-	//	rays[i] = w_pos.dist;
-		ray_angle += (FOV * PI / 180) / HEIGHT_WIDTH;
-		i++;
-	}
-	//look_for_sprite(info);
-	//draw_sprite(info, rays);
 }
