@@ -125,7 +125,7 @@ void			key_w(t_exe_info *img, t_obj_seen *waal, t_obj_seen *door);
 void			key_s(t_exe_info *img, t_obj_seen *wall, t_obj_seen *door);
 void			key_a(t_exe_info *img, t_obj_seen *wall, t_obj_seen *door);
 void			key_d(t_exe_info *img, t_obj_seen *wall, t_obj_seen *door);
-void			key_space(t_exe_info *img);
+void			key_space(t_exe_info *img, t_obj_seen *door);
 /* rays_utils.c*/
 void			set_print(t_exe_info *img, t_print_info *info,
 					t_wall_pos *w_pos);
