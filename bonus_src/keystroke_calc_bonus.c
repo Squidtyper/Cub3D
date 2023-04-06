@@ -98,5 +98,5 @@ void	keystroke(t_exe_info *info, t_obj_seen *wall, t_obj_seen *door)
 	if (mlx_is_key_down(info->mlx, MLX_KEY_RIGHT))
 		st_key_right(info);
 	if (mlx_is_key_down(info->mlx, MLX_KEY_SPACE))
-		key_space(info);
+		key_space(info, door);
 }
