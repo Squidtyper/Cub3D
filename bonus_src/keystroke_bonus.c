@@ -63,24 +63,8 @@ void	key_d(t_exe_info *img, t_obj_seen *wall, t_obj_seen *door)
 
 void	key_space(t_exe_info *info)
 {
-	t_obj_seen	door;
-
-	door.offset.x = 0;
-	door.offset.y = 0;
-	if (info->player.delta.x < 0)
-		door.offset.x = -(info->size / 2.5);
-	else
-		door.offset.x = (info->size / 2.5);
-	if (info->player.delta.y < 0)
-		door.offset.y = -(info->size / 2.5);
-	else
-		door.offset.y = (info->size / 2.5);
-	door.ipx_add_xo = (info->player.pos.x + door.offset.x) / info->size;
-	door.ipy_add_yo = (info->player.pos.y + door.offset.y) / info->size;
-	door.ipy = info->player.pos.y / info->size;
-	door.ipx = info->player.pos.x / info->size;
-	if (info->map_input->map_points[door.ipy][door.ipx_add_xo] == 'D')
-		info->map_input->map_points[door.ipy][door.ipx_add_xo] = 'O';
-	if (info->map_input->map_points[door.ipy_add_yo][door.ipx] == 'D')
-		info->map_input->map_points[door.ipy_add_yo][door.ipx] = 'O';
+	if (info->map_input->map_points[door->ipy][door->ipx_add_xo] == 'D')
+		info->map_input->map_points[door->ipy][door->ipx_add_xo] = 'O';
+	if (info->map_input->map_points[door->ipy_add_yo][door->ipx] == 'D')
+		info->map_input->map_points[door->ipy_add_yo][door->ipx] = 'O';
 }
