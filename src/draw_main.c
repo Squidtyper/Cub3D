@@ -85,7 +85,8 @@ void	st_draw_ray_scene(t_exe_info *img)
 		draw_scene(img, &w_pos, i, img->player.angle - ray_angle);
 		if (img->pad.x < HEIGHT_WIDTH)
 			draw_ray(img, &info);
-		ray_angle += (0.0174533 * FOV) / HEIGHT_WIDTH;
+		ray_angle = img->player.angle + atan((i - HEIGHT_WIDTH / 2)
+				* (0.0174533 * FOV) / HEIGHT_WIDTH);
 		i++;
 	}
 }
