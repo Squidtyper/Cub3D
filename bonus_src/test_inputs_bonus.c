@@ -12,6 +12,30 @@
 
 #include "parsing_bonus.h"
 
+void	test_ghost(t_check_bonus *checkb)
+{
+	int i;
+	int j;
+	i = 0;
+
+	while (checkb->check->input->map_points[i])
+	{
+		j = 0;
+		while(checkb->check->input->map_points[i][j])
+		{
+			if (checkb->check->input->map_points[i][j] == 'G')
+			{
+				printf("Error: Sprite in map not supported\n");
+				parsing_clean(checkb->check);
+				free(checkb);
+				exit(1);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 void    test_inputs_bonus(t_check_bonus *checkb)
 {
 	unsigned int i;
@@ -20,6 +44,7 @@ void    test_inputs_bonus(t_check_bonus *checkb)
 	test_var(checkb->check);
 	boundary_test_bonus(checkb->check->input->map_points, checkb->check->input->map_height, \
 	checkb->check->input->map_width);
+	test_ghost(checkb);
 	i = 0;
 	while(i < checkb->check->input->map_height)
 	{

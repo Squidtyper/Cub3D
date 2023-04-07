@@ -21,8 +21,8 @@ int	valid_map_line_bonus(char *str)
 	n_digit = 0;
 	while (str[i])
 	{
-		if (str[i] != 'G' && str[i] != '	' && str[i] != 'N' && str[i] != 'S' \
-		&& str[i] != 'W' && str[i] != 'E' && ft_isdigit(str[i]) == 0)
+		if (str[i] != 'G' && str[i] != 45 && str[i] != 'N' && str[i] != 'S' \
+		&& str[i] != 'W' && str[i] != 'E' && str[i]!=' ' && ft_isdigit(str[i]) == 0)
 			return (0);
 		if (ft_isdigit(str[i]) == 1)
 			n_digit++;
@@ -43,7 +43,7 @@ void	find_map_bonus(t_check_bonus *checkb, char **lines)
 	map = NULL;
 	while (lines[i])
 	{
-		if (ft_strlen(lines[i]) > 3 && only_digits(lines[i]) == 1)
+		if (ft_strlen(lines[i]) > 3 && valid_map_line_bonus(lines[i]) == 1)
 			break ;
 		i++;
 	}
@@ -56,6 +56,7 @@ void	find_map_bonus(t_check_bonus *checkb, char **lines)
 	}
 	if (ft_lstsize(map) < 3)
 	{
+		
 		printf("Error: map does not suffice\n");
 		exit(1);
 	}

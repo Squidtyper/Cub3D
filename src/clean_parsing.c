@@ -51,8 +51,7 @@ void	parsing_clean(t_check *check)
 		return ;
 	if (check->input)
 	{
-		if (check->input->map_points)
-			cleardarray(check->input->map_points);
+		clean_input(check->input);
 		tex_clean(check->tex);
 		free(check);
 	}

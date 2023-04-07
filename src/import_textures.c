@@ -106,4 +106,5 @@ void	find_texture(t_check *check, char **lines)
 	}
 	check->input->textures = texture_to_list(check->tex);
 	free(check->tex);
+	check->tex = NULL;
 }

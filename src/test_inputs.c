@@ -14,8 +14,9 @@
 
 void	test_var(t_check *check)
 {
-	if (!check->input->map_points || !check->tex || check->c_found == false || \
-	check->f_found == false || check->p_found == false)
+	if (!check->input->map_points || !check->input->textures || \
+	check->c_found == false || check->f_found == false || \
+	check->p_found == false)
 	{
 		printf("Error: information incomplete. Cannot start Cub3D");
 		parsing_clean(check);
