@@ -99,8 +99,8 @@ t_input	*parse(int ac, char **av)
 	check = (t_check *)malloc(sizeof(t_check));
 	if (!check)
 		mallocerr();
-	input_r = check->input;
 	pre_fill(check);
+	input_r = check->input;
 	lines = file_lines(av[1]);
 	if (!lines)
 	{
