@@ -61,7 +61,7 @@ void	key_d(t_exe_info *img, t_obj_seen *wall, t_obj_seen *door)
 		img->map_input->map_points[door->ipy_sub_xo][door->ipx] = 'D';
 }
 
-void	key_space(t_exe_info *info)
+void	key_space(t_exe_info *info, t_obj_seen *door)
 {
 	if (info->map_input->map_points[door->ipy][door->ipx_add_xo] == 'D')
 		info->map_input->map_points[door->ipy][door->ipx_add_xo] = 'O';
