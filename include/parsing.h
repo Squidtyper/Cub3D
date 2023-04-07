@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/22 14:52:22 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/04/03 17:23:52 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/04/07 20:20:31 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ char			**file_lines(char *path);
 t_input			*parse(int ac, char **av);
 
 //parse_color:
-void			color_double(bool testvalue);
-long long		color_combine(char *r, char *b, char *g, t_check *check);
+void			color_double(bool testvalue, t_check *check);
+void			color_incorrect(t_check *check);
+long long		color_comb(char *r, char *b, char *g, t_check *check);
 void			parse_color(char **words, t_check *check);
 void			find_color(t_check *check, char **lines);
 
@@ -92,7 +93,8 @@ void			test_var(t_check *check);
 void			test_inputs(t_check *check);
 
 //boundary_test:
-bool			boundary_test(char **m_p, unsigned int height, unsigned int width);
+bool			boundary_test(char **m_p, unsigned int height, \
+unsigned int width);
 
 //clean_parsing:
 void			tex_clean(t_tex_all *tex);

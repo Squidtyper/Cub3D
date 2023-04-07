@@ -17,7 +17,6 @@ int	main(int ac, char **av)
 	t_input	*input;
 
 	input = parse(ac, av);
-	
 	execution(input);
 	clean_input(input);
 	return (EXIT_SUCCESS);

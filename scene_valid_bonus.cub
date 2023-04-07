@@ -5,7 +5,7 @@ EA ./textures/sponge.png
 S ./textures/sponge.png
 F 220,100,0
 C 225,30,0
-   1111111
+   111111111
 1111101001
 1000002001
 1000N11111

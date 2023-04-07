@@ -30,7 +30,7 @@ FILES_SHARE	= error_messages.c\
 
 FILES_MAN	= main.c draw_scene.c keystroke.c keystroke_calc.c execution_utils.c 
 
-FILES_B		= read_input_bonus.c import_textures_bonus.c \
+FILES_B		= read_input_bonus.c import_textures_bonus.c clean_parsing_bonus.c \
 			get_map_bonus.c boundary_test_bonus.c main_bonus.c\
 			test_inputs_bonus.c draw_scene_bonus.c execution_utils_bonus.c \
 			keystroke_bonus.c keystroke_calc_bonus.c hook_loop_bonus.c 

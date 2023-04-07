@@ -1,14 +1,16 @@
-#include "cube3D.h"
-#include "parsing_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   main_bonus.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/04/07 19:51:05 by lizhang       #+#    #+#                 */
+/*   Updated: 2023/04/07 19:51:05 by lizhang       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
-// static void	st_clean_input(t_input *input)
-// {
-// 	mlx_delete_texture(input->NO_tex);
-// 	mlx_delete_texture(input->SO_tex);
-// 	mlx_delete_texture(input->WE_tex);
-// 	mlx_delete_texture(input->EA_tex);
-// 	free(input);
-// }
+#include "parsing_bonus.h"
 
 int	main(int ac, char **av)
 {

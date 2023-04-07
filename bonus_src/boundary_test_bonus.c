@@ -37,7 +37,7 @@ void	boundary_test_bonus(char **m_p, unsigned int height, unsigned int width)
 		j = 0;
 		while (j < width)
 		{
-			if (ft_strchr("0NSWGE", m_p[i][j]) != NULL)
+			if (ft_strchr("02NSWGE", m_p[i][j]) != NULL)
 			{
 				if (i == 0 || i == (height - 1) || j == 0 || j == (width) || \
 				test_around_bonus(m_p, i, j) == false)

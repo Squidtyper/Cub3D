@@ -26,6 +26,8 @@ void	find_texture_bonus(t_check_bonus *checkb, char **lines)
 		mallocerr();
 	checkb->tex_bonus->door_found = false;
 	get_texture_bonus(checkb->tex_bonus);
-	ft_lstadd_back(&checkb->check->input->textures, ft_lstnew(checkb->tex_bonus->door_tex));
+	ft_lstadd_back(&checkb->check->input->textures, \
+	ft_lstnew(checkb->tex_bonus->door_tex));
 	free(checkb->tex_bonus);
+	checkb->tex_bonus = NULL;
 }

@@ -61,7 +61,7 @@ static void	st_obj_seenision(t_exe_info	*info, t_obj_seen *set)
 
 void	hook(void *param)
 {
-	t_exe_info		*info;
+	t_exe_info	*info;
 	t_obj_seen	set;
 
 	info = param;

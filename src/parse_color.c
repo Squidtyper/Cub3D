@@ -13,16 +13,22 @@
 #include "parsing.h"
 #include <math.h>
 
-void	color_double(bool testvalue)
+void	color_double(bool testvalue, t_check *check)
 {
 	if (testvalue == true)
 	{
 		printf("Error: double values for ceiling color or floor color found\n");
-		exit(1);
+		parsing_clean(check);
 	}
 }
 
-long long	color_combine(char *r, char *b, char *g, t_check *check)
+void	color_incorrect(t_check *check)
+{
+	printf("Error: color codes are not correct\n");
+	parsing_clean(check);
+}
+
+long long	color_comb(char *r, char *b, char *g, t_check *check)
 {
 	int			rclr;
 	int			gclr;
@@ -48,20 +54,17 @@ void	parse_color(char **words, t_check *check)
 	}
 	if (!frag[1] || only_digits(frag[1]) == false || \
 	only_digits(words[1]) == false || only_digits(words[2]) == false)
-	{
-		printf("Error: color codes are not correct\n");
-		parsing_clean(check);
-	}
+		color_incorrect(check);
 	if (ft_strncmp(frag[0], "C", 2) == 0)
 	{
-		color_double(check->c_found);
-		check->input->c_color = color_combine(frag[1], words[1], words[2], check);
+		color_double(check->c_found, check);
+		check->input->c_color = color_comb(frag[1], words[1], words[2], check);
 		check->c_found = true;
 	}
 	if (ft_strncmp(frag[0], "F", 2) == 0)
 	{
-		color_double(check->f_found);
-		check->input->f_color = color_combine(frag[1], words[1], words[2], check);
+		color_double(check->f_found, check);
+		check->input->f_color = color_comb(frag[1], words[1], words[2], check);
 		check->f_found = true;
 	}
 	cleardarray(frag);

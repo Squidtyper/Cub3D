@@ -10,50 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "parsing_bonus.h"
 
-void	clean_input(t_input *input)
+void	parsing_clean_bonus(t_check_bonus *checkb)
 {
-	t_list	*buf;
+	t_check	*buf;
 
-	buf = input->textures;
-	if (input)
+	buf = checkb->check;
+	if (checkb->tex_bonus)
 	{
-		cleardarray(input->map_points);
-		while (buf)
-		{
-			mlx_delete_texture((mlx_texture_t *)buf->content);
-			buf = buf->next;
-		}
-		free(input->textures);
-		free(input);
+		mlx_delete_texture(checkb->tex_bonus->door_tex);
+		free(checkb->tex_bonus);
 	}
-}
-
-void	tex_clean(t_tex_all *tex)
-{
-	if (!tex)
-		return ;
-	if (tex->no_tex)
-		mlx_delete_texture(tex->no_tex);
-	if (tex->so_tex)
-		mlx_delete_texture(tex->so_tex);
-	if (tex->we_tex)
-		mlx_delete_texture(tex->we_tex);
-	if (tex->ea_tex)
-		mlx_delete_texture(tex->ea_tex);
-	free(tex);
-}
-
-void	parsing_clean(t_check *check)
-{
-	if (!check)
-		return ;
-	if (check->input)
-	{
-		clean_input(check->input);
-		tex_clean(check->tex);
-		free(check);
-	}
-	exit(1);
+	free(checkb);
+	parsing_clean(buf);
 }

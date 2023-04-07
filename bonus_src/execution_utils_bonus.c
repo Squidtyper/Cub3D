@@ -14,7 +14,7 @@
 
 bool	is_wall(char c)
 {
-	return (c == '1' || c == 'D');
+	return (c == '1' || c == '2');
 }
 
 static bool	st_is_door(t_exe_info *img, t_wall_pos *w_pos)
@@ -40,7 +40,7 @@ static bool	st_is_door(t_exe_info *img, t_wall_pos *w_pos)
 		return (false);
 	if (y >= img->map_input->map_height)
 		return (false);
-	if (img->map_input->map_points[y][x] == 'D')
+	if (img->map_input->map_points[y][x] == '2')
 		return (true);
 	return (false);
 }

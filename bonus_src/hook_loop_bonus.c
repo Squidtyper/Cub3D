@@ -6,7 +6,7 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/04 11:43:11 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/04/04 11:55:12 by dmonfrin      ########   odam.nl         */
+/*   Updated: 2023/04/07 19:52:36 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	st_mouse(t_exe_info *info)
 
 void	hook(void *param)
 {
-	t_exe_info		*info;
+	t_exe_info	*info;
 	t_obj_seen	wall;
 	t_obj_seen	door;
 

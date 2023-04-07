@@ -23,9 +23,8 @@ t_check	*man_parse(char **lines)
 	pre_fill(check);
 	find_color(check, lines);
 	find_texture(check, lines);
-	return(check);
+	return (check);
 }
-
 
 t_input	*parse_bonus(int ac, char **av)
 {
