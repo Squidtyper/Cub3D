@@ -39,7 +39,7 @@ bool	boundary_test(char **m_p, unsigned int height, unsigned int width)
 		{
 			if (ft_strchr("0NSWE", m_p[i][j]) != NULL)
 			{
-				if (i == 0 || i == (height - 1) || j == 0 || j == (width) || \
+				if (i == 0 || i == (height - 1) || j == 0 || j == (width - 1) || \
 				test_around(m_p, i, j) == false)
 				{
 					printf("Error: map is not closed\n");

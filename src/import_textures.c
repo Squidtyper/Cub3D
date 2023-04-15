@@ -100,7 +100,8 @@ void	find_texture(t_check *check, char **lines)
 		words = ft_space_split(lines[i]);
 		if (!words)
 			mallocerr();
-		get_texture(check->tex, words);
+		if (words[0])
+			get_texture(check->tex, words);
 		cleardarray(words);
 		i++;
 	}

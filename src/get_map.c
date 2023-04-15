@@ -84,7 +84,7 @@ int	valid_map_line(char *str)
 	n_digit = 0;
 	while (str[i])
 	{
-		if (str[i] != 13 && str[i] != '	' && str[i] != 'N' && str[i] != 'S' \
+		if (str[i] != 13 && str[i] != 32 && str[i] != 'N' && str[i] != 'S' \
 		&& str[i] != 'W' && str[i] != 'E' && ft_isdigit(str[i]) == 0)
 			return (0);
 		if (ft_isdigit(str[i]) == 1)
@@ -106,7 +106,7 @@ void	find_map(t_check *check, char **lines)
 	map = NULL;
 	while (lines[i])
 	{
-		if (ft_strlen(lines[i]) > 3 && only_digits(lines[i]) == 1)
+		if (ft_strlen(lines[i]) > 3 && valid_map_line(lines[i]) == 1)
 			break ;
 		i++;
 	}
