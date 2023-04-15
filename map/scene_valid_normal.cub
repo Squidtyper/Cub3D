@@ -1,4 +1,3 @@
-R 800 400
 WE ./textures/wool_colored_yellow.png
 EA ./textures/wool_colored_light_blue.png
 NO ./textures/wool_colored_lime.png
