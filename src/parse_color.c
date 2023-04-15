@@ -79,6 +79,8 @@ void	find_color(t_check *check, char **lines)
 	i = 0;
 	while (lines[i])
 	{
+		if (ft_strlen(lines[i])>0)
+		{
 		words = ft_split(lines[i], ',');
 		if (!words)
 		{
@@ -91,7 +93,8 @@ void	find_color(t_check *check, char **lines)
 			i2++;
 		if (i2 == 3)
 			parse_color(words, check);
-		i++;
 		cleardarray(words);
+		}
+		i++;
 	}
 }
