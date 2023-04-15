@@ -1,0 +1,12 @@
+R 800 400
+WE ./textures/world.png
+EA ./textures/world.png
+NO ./textures/world.png
+SO ./textures/world.png
+F 220, 100, 0
+C 225,30,0
+111111
+11001111
+100001
+1000N1
+111111
