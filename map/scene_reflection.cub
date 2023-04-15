@@ -1,4 +1,3 @@
-R 800 400
 WE ./textures/world.png
 EA ./textures/world.png
 NO ./textures/world.png
