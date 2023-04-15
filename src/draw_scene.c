@@ -24,7 +24,7 @@ double	st_calculate_x(t_exe_info *info, mlx_texture_t *text,
 		x = (int)(tex->ray / (info->size / text->width)) % (int)text->width;
 	else
 		x = (int)(tex->ray * (text->width / info->size)) % (int)text->width;
-	if (tex->wall_side == HORIZONTAL_DOWN || tex->wall_side == VERTICAL_RIGHT)
+	if (tex->wall_side == HORIZONTAL_DOWN || tex->wall_side == VERTICAL_LEFT)
 		x = (int)text->width - x;
 	return (x);
 }
@@ -32,13 +32,13 @@ double	st_calculate_x(t_exe_info *info, mlx_texture_t *text,
 static mlx_texture_t	*st_calculate_texture(t_exe_info *img, t_tex_var *tex)
 {
 	if (tex->wall_side == VERTICAL_LEFT)
-		return (img->map_input->textures->content);
-	else if (tex->wall_side == VERTICAL_RIGHT)
-		return (img->map_input->textures->next->content);
-	else if (tex->wall_side == HORIZONTAL_UP)
 		return (img->map_input->textures->next->next->content);
-	else
+	else if (tex->wall_side == VERTICAL_RIGHT)
 		return (img->map_input->textures->next->next->next->content);
+	else if (tex->wall_side == HORIZONTAL_UP)
+		return (img->map_input->textures->content);
+	else
+		return (img->map_input->textures->next->content);
 }
 
 static void	st_draw_wall(t_exe_info *info, double start_x, double start_y,
