@@ -52,8 +52,8 @@ t_drc	set_direction(t_drc pos, double angle)
 			return (HORIZONTAL_UP);
 	}
 	if (angle < PI / 2 || angle > 3 * PI / 2)
-		return (VERTICAL_LEFT);
-	return (VERTICAL_RIGHT);
+		return (VERTICAL_RIGHT);
+	return (VERTICAL_LEFT);
 }
 
 int	calc_max_wall_dist(t_exe_info *img)
