@@ -23,18 +23,18 @@
 */
 static void	st_key_left(t_exe_info *info)
 {
-	info->player.angle -= 0.01;
+	info->player.angle -= 0.02;
 	angle_normalizer(&(info->player.angle));
-	info->player.delta.y = sin(info->player.angle) * (info->size / 30);
-	info->player.delta.x = cos(info->player.angle) * (info->size / 30);
+	info->player.delta.y = sin(info->player.angle) * (info->size / 28);
+	info->player.delta.x = cos(info->player.angle) * (info->size / 28);
 }
 
 static void	st_key_right(t_exe_info *info)
 {
-	info->player.angle += 0.01;
+	info->player.angle += 0.02;
 	angle_normalizer(&(info->player.angle));
-	info->player.delta.y = sin(info->player.angle) * (info->size / 30);
-	info->player.delta.x = cos(info->player.angle) * (info->size / 30);
+	info->player.delta.y = sin(info->player.angle) * (info->size / 28);
+	info->player.delta.x = cos(info->player.angle) * (info->size / 28);
 }
 
 static void	st_obj_seenision(t_exe_info	*info, t_obj_seen *set)
