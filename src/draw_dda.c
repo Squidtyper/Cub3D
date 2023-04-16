@@ -12,7 +12,6 @@
 
 #include "execution.h"
 #include <math.h>
-#include <stdio.h>
 
 static int	st_calculate_step(t_axis ax)
 {
