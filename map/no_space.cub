@@ -4,6 +4,6 @@ WE ./textures/sponge.png
 EA ./textures/sponge.png
 F 220,100,0  
 C 225,30,0  
-1 1 1
-1 N 1
-1 1 1
+111
+1N1
+111
