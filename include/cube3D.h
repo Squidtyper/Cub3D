@@ -12,7 +12,6 @@
 
 #ifndef CUBE3D_H
 # define CUBE3D_H
-# define HEIGHT_WIDTH 512
 # include "../libft/libft.h"
 
 typedef struct s_input
