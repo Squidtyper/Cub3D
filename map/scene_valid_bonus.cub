@@ -2,7 +2,7 @@ WE ./textures/world.png
 EA ./textures/magical_forest.png
 NO ./textures/mush.png
 SO ./textures/forest.png
-D ./textures/door.png
+D ./textures/door_wood.png
 F 85,107,47
 C 32,178,170
    111111111
