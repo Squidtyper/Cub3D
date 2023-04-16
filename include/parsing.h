@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/22 14:52:22 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/04/16 13:47:52 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/04/16 13:59:18 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_input			*parse(int ac, char **av);
 //parse_color:
 void			color_double(bool testvalue, t_check *check);
 void			color_incorrect(t_check *check);
-long long		color_comb(char *r, char *b, char *g, t_check *check);
+long long		color_comb(char *r, char *g, char *b, t_check *check);
 void			parse_color(char **words, t_check *check);
 void			find_color(t_check *check, char **lines);
 

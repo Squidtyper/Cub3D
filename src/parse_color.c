@@ -28,7 +28,7 @@ void	color_incorrect(t_check *check)
 	parsing_clean(check);
 }
 
-long long	color_comb(char *r, char *b, char *g, t_check *check)
+long long	color_comb(char *r, char *g, char *b, t_check *check)
 {
 	int			rclr;
 	int			gclr;
