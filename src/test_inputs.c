@@ -22,7 +22,6 @@ void	check_textures(t_check *check)
 	}
 }
 
-
 void	test_var(t_check *check)
 {
 	if (!check->input->map_points || !check->input->textures || \
