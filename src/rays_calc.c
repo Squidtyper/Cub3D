@@ -174,7 +174,7 @@ void	find_vert_wall(t_exe_info *img, t_wall_pos *w_pos, double angle)
 		r.offset.x = img->size;
 		r.offset.y = -r.offset.x * r.tan;
 	}
-	if (angle == 0 || angle == 3 * PI / 2)
+	if (angle == PI / 2 || angle == 3 * PI / 2)
 		st_set_no_wall(&(img->player), &r, &(img->map_info));
 	st_find_wall_map(img, &r);
 	st_set_ray(img, w_pos, &r, VERTICAL);
