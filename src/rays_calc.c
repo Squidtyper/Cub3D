@@ -18,10 +18,10 @@
 	you cannot a see a verical wall if you look up/down
 	and you cannot see a horizontal wall if you look left/right
 */
-static	void	st_set_no_wall(t_player *player, t_ray *ray)
+static	void	st_set_no_wall(t_player *player, t_ray *ray, t_input *map_input)
 {
-		ray->base.y = player->pos.y;
-		ray->base.x = player->pos.x;
+		ray->base.y = player->pos.y * map_input->map_height;
+		ray->base.x = player->pos.x * map_input->map_width;
 		ray->pg_view = ray->max_pg_view;
 }
 
@@ -127,7 +127,7 @@ void	find_horiz_wall(t_exe_info *img, t_wall_pos *w_pos, double angle)
 		r.offset.x = -r.offset.y * r.tan;
 	}
 	if (angle == 0 || angle == PI)
-		st_set_no_wall(&(img->player), &r);
+		st_set_no_wall(&(img->player), &r, &(img->map_info));
 	st_find_wall_map(img, &r);
 	st_set_ray(img, w_pos, &r, HORIZONTAL);
 }
@@ -175,7 +175,7 @@ void	find_vert_wall(t_exe_info *img, t_wall_pos *w_pos, double angle)
 		r.offset.y = -r.offset.x * r.tan;
 	}
 	if (angle == 0 || angle == 3 * PI / 2)
-		st_set_no_wall(&(img->player), &r);
+		st_set_no_wall(&(img->player), &r, &(img->map_info));
 	st_find_wall_map(img, &r);
 	st_set_ray(img, w_pos, &r, VERTICAL);
 }
