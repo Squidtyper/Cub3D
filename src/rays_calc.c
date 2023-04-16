@@ -127,7 +127,7 @@ void	find_horiz_wall(t_exe_info *img, t_wall_pos *w_pos, double angle)
 		r.offset.x = -r.offset.y * r.tan;
 	}
 	if (angle == 0 || angle == PI)
-		st_set_no_wall(&(img->player), &r, &(img->map_info));
+		st_set_no_wall(&(img->player), &r, img->map_input);
 	st_find_wall_map(img, &r);
 	st_set_ray(img, w_pos, &r, HORIZONTAL);
 }
@@ -175,7 +175,7 @@ void	find_vert_wall(t_exe_info *img, t_wall_pos *w_pos, double angle)
 		r.offset.y = -r.offset.x * r.tan;
 	}
 	if (angle == PI / 2 || angle == 3 * PI / 2)
-		st_set_no_wall(&(img->player), &r, &(img->map_info));
+		st_set_no_wall(&(img->player), &r, img->map_input));
 	st_find_wall_map(img, &r);
 	st_set_ray(img, w_pos, &r, VERTICAL);
 }
