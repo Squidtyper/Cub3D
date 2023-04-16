@@ -42,7 +42,7 @@ void	boundary_test_bonus(char **m_p, unsigned int height, unsigned int width)
 				if (i == 0 || i == (height - 1) || j == 0 || j == (width) || \
 				test_around_bonus(m_p, i, j) == false)
 				{
-					printf("Error: map is not closed\n");
+					printf("Error: map is not closed/has unexpected element\n");
 					exit (1);
 				}
 			}
