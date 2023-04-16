@@ -12,7 +12,6 @@
 
 #include "execution.h"
 #include <math.h>
-#include <stdio.h>
 #define PI 3.1415926535
 
 double	st_calculate_x(t_exe_info *info, mlx_texture_t *text,
