@@ -79,21 +79,21 @@ void	find_color(t_check *check, char **lines)
 	i = 0;
 	while (lines[i])
 	{
-		if (ft_strlen(lines[i])>0)
+		if (ft_strlen(lines[i]) > 0)
 		{
-		words = ft_split(lines[i], ',');
-		if (!words)
-		{
-			mallocerr();
-			cleardarray(lines);
-			parsing_clean(check);
-		}
-		i2 = 0;
-		while (words[i2])
-			i2++;
-		if (i2 == 3)
-			parse_color(words, check);
-		cleardarray(words);
+			words = ft_split(lines[i], ',');
+			if (!words)
+			{
+				mallocerr();
+				cleardarray(lines);
+				parsing_clean(check);
+			}
+			i2 = 0;
+			while (words[i2])
+				i2++;
+			if (i2 == 3)
+				parse_color(words, check);
+			cleardarray(words);
 		}
 		i++;
 	}

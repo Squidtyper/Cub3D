@@ -50,6 +50,7 @@ char	*read_file(char *name)
 		content = join_free(content, buf);
 		buf = get_next_line(file_fd);
 	}
+	close(file_fd);
 	return (content);
 }
 
@@ -58,8 +59,8 @@ void	pre_fill(t_check *check)
 	check->input = (t_input *)malloc(sizeof(t_input));
 	if (!check->input)
 	{
-		free(check);
 		mallocerr();
+		parsing_clean(check);
 	}
 	check->input->map_points = NULL;
 	check->input->map_width = 0;

@@ -15,6 +15,7 @@
 void	clean_input(t_input *input)
 {
 	t_list	*buf;
+	t_list	*buf2;
 
 	buf = input->textures;
 	if (input)
@@ -23,9 +24,10 @@ void	clean_input(t_input *input)
 		while (buf)
 		{
 			mlx_delete_texture((mlx_texture_t *)buf->content);
+			buf2 = buf;
 			buf = buf->next;
+			free(buf2);
 		}
-		free(input->textures);
 		free(input);
 	}
 }

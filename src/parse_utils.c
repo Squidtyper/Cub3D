@@ -37,7 +37,7 @@ char	*join_free(char *str1, char *str2)
 	newstr = ft_strjoin(str1, str2);
 	if (!newstr)
 	{
-		perror("malloc: ");
+		mallocerr();
 		exit(EXIT_FAILURE);
 	}
 	free(str1);
