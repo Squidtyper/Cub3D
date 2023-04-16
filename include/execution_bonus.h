@@ -13,7 +13,6 @@
 #ifndef EXECUTION_BONUS_H
 # define EXECUTION_BONUS_H
 # include "../MLX42/include/MLX42/MLX42.h"
-# include "../libft/libft.h"
 # include "cube3D.h"
 # define HEIGHT_WIDTH 1000
 
