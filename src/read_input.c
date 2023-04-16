@@ -86,7 +86,7 @@ char	**file_lines(char *path)
 	if (!lines)
 	{
 		mallocerr();
-		return(NULL);
+		return (NULL);
 	}
 	while (lines[i])
 	{
