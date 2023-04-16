@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/22 14:52:22 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/04/07 20:20:31 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/04/16 13:47:52 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void			find_texture(t_check *check, char **lines);
 //test_inputs:
 void			test_var(t_check *check);
 void			test_inputs(t_check *check);
+void			check_textures(t_check *check);
 
 //boundary_test:
 bool			boundary_test(char **m_p, unsigned int height, \
