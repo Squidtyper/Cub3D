@@ -106,11 +106,11 @@ void	find_map(t_check *check, char **lines)
 	map = NULL;
 	while (lines[i])
 	{
-		if (ft_strlen(lines[i]) > 3 && valid_map_line(lines[i]) == 1)
+		if (ft_strlen(lines[i]) >= 3 && valid_map_line(lines[i]) == 1)
 			break ;
 		i++;
 	}
-	while (lines[i] && ft_strlen(lines[i]) > 3 && \
+	while (lines[i] && ft_strlen(lines[i]) >= 3 && \
 	valid_map_line(lines[i]) == 1)
 	{
 		item = ft_lstnew(ft_strdup(lines[i]));
