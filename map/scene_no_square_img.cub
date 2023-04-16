@@ -1,0 +1,11 @@
+WE ./textures/no_square.png
+EA ./textures/no_square.png
+NO ./textures/no_square_ver.png
+SO ./textures/no_square_ver.png
+F 220, 100, 0
+C 225,30,0
+111111
+11001111
+100001
+1000N1
+111111
