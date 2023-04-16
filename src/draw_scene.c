@@ -24,7 +24,7 @@ double	st_calculate_x(t_exe_info *info, mlx_texture_t *text,
 		x = (int)(tex->ray / (info->size / text->width)) % (int)text->width;
 	else
 		x = (int)(tex->ray * (text->width / info->size)) % (int)text->width;
-	if (tex->wall_side == HORIZONTAL_DOWN || tex->wall_side == VERTICAL_LEFT)
+	if (tex->wall_side == HORIZONTAL_UP || tex->wall_side == VERTICAL_LEFT)
 		x = (int)text->width - x;
 	return (x);
 }
