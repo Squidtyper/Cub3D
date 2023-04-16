@@ -54,11 +54,12 @@ void	tex_clean(t_tex_all *tex)
 void	parsing_clean(t_check *check)
 {
 	if (!check)
-		return ;
+		exit(1);
 	if (check->input)
 	{
 		clean_input(check->input);
-		tex_clean(check->tex);
+		if (check->tex)
+			tex_clean(check->tex);
 		free(check);
 	}
 	exit(1);

@@ -40,6 +40,7 @@ t_check_bonus	*checkb_init(void)
 		exit(EXIT_FAILURE);
 	}
 	checkb->tex_bonus = NULL;
+	checkb->check = NULL;
 	return (checkb);
 }
 
@@ -53,10 +54,7 @@ t_input	*parse_bonus(int ac, char **av)
 	checkb = checkb_init();
 	lines = file_lines(av[1]);
 	if (!lines)
-	{
-		mallocerr();
 		parsing_clean_bonus(checkb);
-	}
 	checkb->check = man_parse(lines);
 	find_texture_bonus(checkb, lines);
 	input_r = checkb->check->input;

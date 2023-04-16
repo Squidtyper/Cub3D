@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/22 14:52:22 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/04/16 15:05:11 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/04/16 15:21:17 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "cube3D.h"
 # include "parsing.h" 
 # include "../MLX42/include/MLX42/MLX42.h"
-# define DOORPNG "textures/door_wood.png"
+# define DOORPNG "textures/door.png"
 
 typedef struct s_tex_bonus
 {

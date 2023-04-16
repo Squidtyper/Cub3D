@@ -24,7 +24,7 @@ void	ac_error(int ac)
 
 void	mallocerr(void)
 {
-	perror("");
+	write(1, "Malloc failed\n", 14);
 }
 
 int	color_atoi(char *str, t_check *check)
