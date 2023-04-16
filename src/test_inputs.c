@@ -12,6 +12,17 @@
 
 #include "parsing.h"
 
+void	check_textures(t_check *check)
+{
+	if (check->tex->no_found == false || check->tex->ea_found == false || \
+	check->tex->so_found == false || check->tex->we_found == false)
+	{
+		printf("Error: textures list incomplete.\n");
+		parsing_clean(check);
+	}
+}
+
+
 void	test_var(t_check *check)
 {
 	if (!check->input->map_points || !check->input->textures || \

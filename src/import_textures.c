@@ -105,6 +105,7 @@ void	find_texture(t_check *check, char **lines)
 		cleardarray(words);
 		i++;
 	}
+	check_textures(check);
 	check->input->textures = texture_to_list(check->tex);
 	free(check->tex);
 	check->tex = NULL;
