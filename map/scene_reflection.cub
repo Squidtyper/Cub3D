@@ -1,6 +1,6 @@
 WE ./textures/world.png
-EA ./textures/world.png
-NO ./textures/world.png
+EA ./textures/magical_forest.png
+NO ./textures/mush.png
 SO ./textures/world.png
 F 220, 100, 0
 C 225,30,0
