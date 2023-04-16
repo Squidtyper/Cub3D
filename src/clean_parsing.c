@@ -19,7 +19,8 @@ void	clean_input(t_input *input)
 
 	if (input)
 	{
-		cleardarray(input->map_points);
+		if (input->map_points)
+			cleardarray(input->map_points);
 		if (input->textures)
 		{
 			buf = input->textures;

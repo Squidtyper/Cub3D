@@ -35,7 +35,7 @@ char	*read_file(char *name)
 	content = NULL;
 	if (ft_strncmp(name + ((ft_strlen(name) - 4)), ".cub", 4) != 0)
 	{
-		printf("Error: %s: file is not .cub format", name);
+		printf("Error: %s: file is not .cub format\n", name);
 		return (NULL);
 	}
 	file_fd = open(name, O_RDONLY);
@@ -80,7 +80,14 @@ char	**file_lines(char *path)
 
 	i = 0;
 	file_content = read_file(path);
+	if (!file_content)
+		return (NULL);
 	lines = ft_split(file_content, '\n');
+	if (!lines)
+	{
+		mallocerr();
+		return(NULL);
+	}
 	while (lines[i])
 	{
 		lines[i] = rm_vertical_tab(lines[i]);
@@ -104,11 +111,7 @@ t_input	*parse(int ac, char **av)
 	input_r = check->input;
 	lines = file_lines(av[1]);
 	if (!lines)
-	{
-		free(input_r);
-		free(check);
-		mallocerr();
-	}
+		parsing_clean(check);
 	find_color(check, lines);
 	find_texture(check, lines);
 	find_map(check, lines);
