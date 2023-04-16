@@ -49,7 +49,7 @@ t_drc	set_wall_side(t_exe_info *info, t_wall_pos *wall)
 {
 	if (st_is_door(info, wall))
 	{
-		if (wall->side == HORIZONTAL_DOWN || wall->side == VERTICAL_RIGHT)
+		if (wall->side == HORIZONTAL_UP || wall->side == VERTICAL_RIGHT)
 			return (OPPOSITE_DOOR);
 		else
 			return (FRONT_DOOR);
