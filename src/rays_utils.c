@@ -47,9 +47,9 @@ t_drc	set_direction(t_drc pos, double angle)
 	if (pos == HORIZONTAL)
 	{
 		if (angle < PI)
-			return (HORIZONTAL_DOWN);
-		else
 			return (HORIZONTAL_UP);
+		else
+			return (HORIZONTAL_DOWN);
 	}
 	if (angle < PI / 2 || angle > 3 * PI / 2)
 		return (VERTICAL_RIGHT);
