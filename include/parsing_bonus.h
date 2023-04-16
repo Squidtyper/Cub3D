@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/22 14:52:22 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/04/16 14:12:27 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/04/16 15:05:11 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void			parsing_clean_bonus(t_check_bonus *checkb);
 
 //read_input_bonus:
 t_check			*man_parse(char **lines);
+t_check_bonus	*checkb_init(void);
 t_input			*parse_bonus(int ac, char **av);
 
 //get_map_bonus:

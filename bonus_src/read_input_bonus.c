@@ -19,11 +19,28 @@ t_check	*man_parse(char **lines)
 
 	check = (t_check *)malloc(sizeof(t_check));
 	if (!check)
+	{
 		mallocerr();
+		cleardarray(lines);
+		exit(EXIT_FAILURE);
+	}
 	pre_fill(check);
 	find_color(check, lines);
-	find_texture(check, lines);
 	return (check);
+}
+
+t_check_bonus	*checkb_init(void)
+{
+	t_check_bonus	*checkb;
+
+	checkb = (t_check_bonus *)malloc(sizeof(t_check_bonus));
+	if (!checkb)
+	{
+		mallocerr();
+		exit(EXIT_FAILURE);
+	}
+	checkb->tex_bonus = NULL;
+	return (checkb);
 }
 
 t_input	*parse_bonus(int ac, char **av)
@@ -33,14 +50,14 @@ t_input	*parse_bonus(int ac, char **av)
 	t_input			*input_r;
 
 	ac_error(ac);
-	checkb = (t_check_bonus *)malloc(sizeof(t_check_bonus));
-	if (!checkb)
-		mallocerr();
+	checkb = checkb_init();
 	lines = file_lines(av[1]);
 	if (!lines)
+	{
 		mallocerr();
+		parsing_clean_bonus(checkb);
+	}
 	checkb->check = man_parse(lines);
-	checkb->tex_bonus = NULL;
 	find_texture_bonus(checkb, lines);
 	input_r = checkb->check->input;
 	find_map_bonus(checkb, lines);

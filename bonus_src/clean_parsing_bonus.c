@@ -19,7 +19,8 @@ void	parsing_clean_bonus(t_check_bonus *checkb)
 	buf = checkb->check;
 	if (checkb->tex_bonus)
 	{
-		mlx_delete_texture(checkb->tex_bonus->door_tex);
+		if (checkb->tex_bonus->door_found == true)
+			mlx_delete_texture(checkb->tex_bonus->door_tex);
 		free(checkb->tex_bonus);
 	}
 	free(checkb);
