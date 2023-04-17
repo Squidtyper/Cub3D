@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "execution.h"
-#include <math.h>
 
 void	key_w(t_exe_info *img, t_obj_seen *set)
 {
