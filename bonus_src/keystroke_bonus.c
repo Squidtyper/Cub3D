@@ -47,8 +47,8 @@ void	key_a(t_exe_info *img, t_obj_seen *wall, t_obj_seen *door)
 		img->map_input->map_points[door->ipy][door->ipx_sub_yo] = '2';
 	if (img->map_input->map_points[door->ipy_add_xo][door->ipx] == 'O')
 		img->map_input->map_points[door->ipy_add_xo][door->ipx] = '2';
-	if (img->map_input->map_points[door->ipy][door->ipx] == 'O')
-		img->map_input->map_points[door->ipy][door->ipx] = '2';
+	if (img->map_input->map_points[door->ipy][door->ipx_sub_xo] == 'O')
+		img->map_input->map_points[door->ipy][door->ipx_sub_xo] = '2';
 }
 
 void	key_d(t_exe_info *img, t_obj_seen *wall, t_obj_seen *door)
