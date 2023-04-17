@@ -1,0 +1,6 @@
+changes before submiting the project:
+
+Stuck in a door
+newline in between the map
+all malloc must be protected
+color codes with multiple commas
