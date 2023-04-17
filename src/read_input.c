@@ -106,7 +106,7 @@ t_input	*parse(int ac, char **av)
 	ac_error(ac);
 	check = (t_check *)malloc(sizeof(t_check));
 	if (!check)
-		mallocerr();
+		parsing_clean(check);
 	pre_fill(check);
 	input_r = check->input;
 	lines = file_lines(av[1]);
