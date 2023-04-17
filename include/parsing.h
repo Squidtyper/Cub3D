@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/22 14:52:22 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/04/16 13:59:18 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/04/17 17:09:07 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char			**ft_space_split(char *str);
 
 //read_input:
 int				open_file(char *name);
-char			*read_file(char *name);
+t_list			*read_file(char *name);
 void			pre_fill(t_check *check);
 char			**file_lines(char *path);
 t_input			*parse(int ac, char **av);

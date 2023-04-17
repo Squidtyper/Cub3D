@@ -26,13 +26,13 @@ int	open_file(char *name)
 	return (fd_file);
 }
 
-char	*read_file(char *name)
+t_list	*read_file(char *name)
 {
 	int		file_fd;
-	char	*content;
+	t_list	*lines;
+	t_list	*new;
 	char	*buf;
 
-	content = NULL;
 	if (ft_strncmp(name + ((ft_strlen(name) - 4)), ".cub", 4) != 0)
 	{
 		printf("Error: %s: file is not .cub format\n", name);
@@ -47,7 +47,7 @@ char	*read_file(char *name)
 	buf = get_next_line(file_fd);
 	while (buf)
 	{
-		content = join_free(content, buf);
+		lines = join_free(content, buf);
 		buf = get_next_line(file_fd);
 	}
 	close(file_fd);
@@ -74,7 +74,7 @@ void	pre_fill(t_check *check)
 
 char	**file_lines(char *path)
 {
-	char	*file_content;
+	t_list	*file_content;
 	char	**lines;
 	int		i;
 
