@@ -21,8 +21,8 @@ int	valid_map_line_bonus(char *str)
 	n_digit = 0;
 	while (str[i])
 	{
-		if (str[i] != 'G' && str[i] != 45 && str[i] != 'N' && str[i] != 'S' \
-		&& str[i] != 'W' && str[i] != 'E' && str[i] != ' ' && \
+		if (str[i] != 'G' && str[i] != 45 && str[i] != '\n' && str[i] != 'N' && \
+		str[i] != 'S' && str[i] != 'W' && str[i] != 'E' && str[i] != ' ' && \
 		ft_isdigit(str[i]) == 0)
 			return (0);
 		if (ft_isdigit(str[i]) == 1)
@@ -32,6 +32,27 @@ int	valid_map_line_bonus(char *str)
 	if (n_digit == 0)
 		return (0);
 	return (1);
+}
+
+void	map_basic_check_bonus(t_list *map, char **lines, int i, \
+t_check_bonus *checkb)
+{
+	while (lines[i])
+	{
+		if (ft_strlen(lines[i]) >= 3 && valid_map_line_bonus(lines[i]) == 1)
+		{
+			printf("Error: multiple maps found\n");
+			ft_lstclear(&map, &free);
+			parsing_clean_bonus(checkb);
+		}
+		i++;
+	}
+	if (ft_lstsize(map) < 3)
+	{
+		printf("Error: map does not suffice\n");
+		ft_lstclear(&map, &free);
+		parsing_clean_bonus(checkb);
+	}
 }
 
 void	find_map_bonus(t_check_bonus *checkb, char **lines)
@@ -51,14 +72,10 @@ void	find_map_bonus(t_check_bonus *checkb, char **lines)
 	while (lines[i] && ft_strlen(lines[i]) >= 3 && \
 	valid_map_line_bonus(lines[i]) == 1)
 	{
-		item = ft_lstnew(ft_strdup(lines[i]));
+		item = ft_lstnew(rm_nl(lines[i]));
 		ft_lstadd_back(&map, item);
 		i++;
 	}
-	if (ft_lstsize(map) < 3)
-	{
-		printf("Error: map does not suffice\n");
-		parsing_clean_bonus(checkb);
-	}
+	map_basic_check_bonus(map, lines, i, checkb);
 	checkb->check->input->map_points = convert_map(map, checkb->check->input);
 }

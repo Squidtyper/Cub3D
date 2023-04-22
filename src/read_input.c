@@ -30,9 +30,9 @@ t_list	*read_file(char *name)
 {
 	int		file_fd;
 	t_list	*lines;
-	t_list	*new;
 	char	*buf;
 
+	lines = NULL;
 	if (ft_strncmp(name + ((ft_strlen(name) - 4)), ".cub", 4) != 0)
 	{
 		printf("Error: %s: file is not .cub format\n", name);
@@ -47,11 +47,11 @@ t_list	*read_file(char *name)
 	buf = get_next_line(file_fd);
 	while (buf)
 	{
-		lines = join_free(content, buf);
+		ft_lstadd_back(&lines, ft_lstnew(buf));
 		buf = get_next_line(file_fd);
 	}
 	close(file_fd);
-	return (content);
+	return (lines);
 }
 
 void	pre_fill(t_check *check)
@@ -77,23 +77,27 @@ char	**file_lines(char *path)
 	t_list	*file_content;
 	char	**lines;
 	int		i;
+	t_list	*buf;
 
 	i = 0;
 	file_content = read_file(path);
 	if (!file_content)
 		return (NULL);
-	lines = ft_split(file_content, '\n');
+	lines = (char **)malloc(sizeof(char *) * (ft_lstsize(file_content) + 1));
 	if (!lines)
 	{
 		mallocerr();
 		return (NULL);
 	}
-	while (lines[i])
+	while (file_content)
 	{
-		lines[i] = rm_vertical_tab(lines[i]);
+		lines[i] = rm_vertical_tab(file_content->content);
+		buf = file_content;
+		file_content = file_content->next;
+		free(buf);
 		i++;
 	}
-	free(file_content);
+	lines[i] = NULL;
 	return (lines);
 }
 

@@ -12,22 +12,6 @@
 
 #include "parsing.h"
 
-void	cleardarray(char **array)
-{
-	int	count;
-
-	count = 0;
-	if (!array || array == NULL)
-		return ;
-	while (array[count])
-	{
-		free(array[count]);
-		count++;
-	}
-	if (array)
-		free(array);
-}
-
 char	*join_free(char *str1, char *str2)
 {
 	char	*newstr;
@@ -56,7 +40,7 @@ bool	only_digits(char *str)
 	if (!str)
 		return (false);
 	str2 = clear_str_space(str);
-	while (str2[i])
+	while (str2[i] && str2[i] != '\n')
 	{
 		if (ft_isdigit(str2[i]) == 0)
 			return (0);
@@ -77,8 +61,8 @@ char	*clear_str_space(char *str)
 	char	*str2;
 
 	i = 0;
-	if (!str)
-		return (NULL);
+	if (!str || str[0] == '\0')
+		return (str);
 	i2 = ft_strlen(str) - 1;
 	while (str[i] == 32 || str[i] == 9 || str[i] == 13)
 		i++;
@@ -100,5 +84,16 @@ char	*rm_vertical_tab(char *str)
 		i--;
 	str2 = ft_substr(str, 0, i + 1);
 	free(str);
+	return (str2);
+}
+
+char	*rm_nl(char *str)
+{
+	char	*str2;
+
+	if (str[ft_strlen(str) - 1] == '\n')
+		str2 = ft_substr(str, 0, ft_strlen(str) - 1);
+	else
+		str2 = ft_strdup(str);
 	return (str2);
 }

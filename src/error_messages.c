@@ -27,6 +27,21 @@ void	mallocerr(void)
 	write(1, "Malloc failed\n", 14);
 }
 
+void	color_incorrect(t_check *check)
+{
+	printf("Error: color codes are not correct\n");
+	parsing_clean(check);
+}
+
+void	color_double(bool testvalue, t_check *check)
+{
+	if (testvalue == true)
+	{
+		printf("Error: double values for ceiling color or floor color found\n");
+		parsing_clean(check);
+	}
+}
+
 int	color_atoi(char *str, t_check *check)
 {
 	int		i;

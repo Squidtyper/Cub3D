@@ -12,6 +12,22 @@
 
 #include "parsing.h"
 
+void	cleardarray(char **array)
+{
+	int	count;
+
+	count = 0;
+	if (!array || array == NULL)
+		return ;
+	while (array[count])
+	{
+		free(array[count]);
+		count++;
+	}
+	if (array)
+		free(array);
+}
+
 void	clean_input(t_input *input)
 {
 	t_list	*buf;

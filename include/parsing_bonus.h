@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/22 14:52:22 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/04/16 15:21:17 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/04/22 18:47:55 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,13 @@ t_input			*parse_bonus(int ac, char **av);
 
 //get_map_bonus:
 int				valid_map_line_bonus(char *str);
+void			map_basic_check_bonus(t_list *map, char **lines, int i, \
+				t_check_bonus *checkb);
 void			find_map_bonus(t_check_bonus *check, char **lines);
 
 //import_texture_bonus:
 void			get_texture_bonus(t_tex_bonus *tex_bonus);
 void			find_texture_bonus(t_check_bonus *check, char **lines);
-
-//test_inputs_bonus:
-void			test_ghost(t_check_bonus *checkb);
-void			test_inputs_bonus(t_check_bonus *check);
 
 //boundary_test:
 void			boundary_test_bonus(char **m_p, unsigned int height, \

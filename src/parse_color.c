@@ -11,88 +11,96 @@
 /* ************************************************************************** */
 
 #include "parsing.h"
-#include <math.h>
 
-void	color_double(bool testvalue, t_check *check)
+char	*combine_lines(char **words)
 {
-	if (testvalue == true)
+	int		i;
+	char	*comb;
+
+	i = 1;
+	if (words[i + 1])
 	{
-		printf("Error: double values for ceiling color or floor color found\n");
-		parsing_clean(check);
+		while (words[i + 1])
+		{
+			comb = ft_strjoin(words[i], words[i + 1]);
+			i++;
+		}
 	}
+	else
+		comb = ft_strdup(words[1]);
+	return (comb);
 }
 
-void	color_incorrect(t_check *check)
+void	color_fill(char **colors, char *colorline, char **lines, t_check *check)
 {
-	printf("Error: color codes are not correct\n");
-	parsing_clean(check);
+	int		i;
+	int		i2;
+	int		i3;
+
+	i = 0;
+	i2 = 0;
+	i3 = 0;
+	while (colorline[i] && i3 < 3)
+	{
+		if (ft_isdigit(colorline[i]) != 1)
+		{
+			free(colorline);
+			cleardarray(lines);
+			color_incorrect(check);
+		}
+		i2 = i;
+		while (ft_isdigit(colorline[i2]) == 1)
+			i2++;
+		colors[i3] = ft_substr(colorline, i, i2 - i);
+		i = i2;
+		if (colorline[i] == ',')
+			i++;
+		i3++;
+	}
+	colors[3] = NULL;
 }
 
-long long	color_comb(char *r, char *g, char *b, t_check *check)
+char	**color_check(char **words, char **lines, t_check *check)
 {
-	int			rclr;
-	int			gclr;
-	int			bclr;
-	long long	combined;
+	char	*colorline;
+	char	**colors;
 
-	rclr = color_atoi(r, check);
-	gclr = color_atoi(g, check);
-	bclr = color_atoi(b, check);
-	combined = rclr * pow(2, 24) + gclr * pow(2, 16) + bclr * pow(2, 8) + 255;
-	return (combined);
-}
-
-void	parse_color(char **words, t_check *check)
-{
-	char		**frag;
-
-	frag = ft_space_split(words[0]);
-	if (!frag)
+	colors = (char **)malloc(sizeof(char *) * 4);
+	if (!colors)
 	{
 		mallocerr();
+		cleardarray(lines);
 		parsing_clean(check);
 	}
-	if (!frag[1] || only_digits(frag[1]) == false || \
-	only_digits(words[1]) == false || only_digits(words[2]) == false)
-		color_incorrect(check);
-	if (ft_strncmp(frag[0], "C", 2) == 0)
-	{
-		color_double(check->c_found, check);
-		check->input->c_color = color_comb(frag[1], words[1], words[2], check);
-		check->c_found = true;
-	}
-	if (ft_strncmp(frag[0], "F", 2) == 0)
-	{
-		color_double(check->f_found, check);
-		check->input->f_color = color_comb(frag[1], words[1], words[2], check);
-		check->f_found = true;
-	}
-	cleardarray(frag);
+	colorline = combine_lines(words);
+	color_fill(colors, colorline, lines, check);
+	free(colorline);
+	return (colors);
 }
 
 void	find_color(t_check *check, char **lines)
 {
 	char	**words;
+	char	**colors;
 	int		i;
-	int		i2;
 
 	i = 0;
 	while (lines[i])
 	{
-		if (ft_strlen(lines[i]) > 0)
+		if (ft_strlen(lines[i]) > 2)
 		{
-			words = ft_split(lines[i], ',');
+			words = ft_space_split(lines[i]);
 			if (!words)
 			{
 				mallocerr();
-				cleardarray(lines);
 				parsing_clean(check);
 			}
-			i2 = 0;
-			while (words[i2])
-				i2++;
-			if (i2 == 3)
-				parse_color(words, check);
+			if ((ft_strncmp(words[0], "F", 2) == 0 || \
+			ft_strncmp(words[0], "C", 2) == 0) && words[1])
+			{
+				colors = color_check(words, lines, check);
+				parse_color(words[0], colors, check);
+			}
 			cleardarray(words);
 		}
 		i++;

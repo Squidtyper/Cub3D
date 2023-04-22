@@ -11,66 +11,26 @@
 /* ************************************************************************** */
 
 #include "parsing.h"
-#include <errno.h>
 
-mlx_texture_t	*open_texture(char *path)
+char	*get_tex_path(char *line)
 {
-	int				fd;
-	mlx_texture_t	*tex;
+	int		i;
+	char	*line2;
+	char	*line3;
+	char	*line4;
 
-	path = clear_str_space(path);
-	fd = open(path, O_RDONLY);
-	if (fd <= 0)
-	{
-		printf("Error: %s: %s\n", path, strerror(errno));
-		exit(1);
-	}
-	close(fd);
-	tex = mlx_load_png(path);
-	if (tex == NULL)
-	{
-		printf("Error: %s: file is not a png file.\n", path);
-		exit(1);
-	}
-	free(path);
-	return (tex);
-}
-
-void	texture_error(bool testvalue, char *what)
-{
-	if (testvalue == true)
-	{
-		printf("Error: double %s texture in input\n", what);
-		exit(1);
-	}
-}
-
-void	get_texture(t_tex_all *col, char **words)
-{
-	if (ft_strncmp(words[0], "NO", 3) == 0)
-	{
-		texture_error(col->no_found, "NO");
-		col->no_tex = open_texture(words[1]);
-		col->no_found = true;
-	}
-	if (ft_strncmp(words[0], "SO", 3) == 0)
-	{
-		texture_error(col->so_found, "SO");
-		col->so_tex = open_texture(words[1]);
-		col->so_found = true;
-	}
-	if (ft_strncmp(words[0], "WE", 3) == 0)
-	{
-		texture_error(col->we_found, "WE");
-		col->we_tex = open_texture(words[1]);
-		col->we_found = true;
-	}
-	if (ft_strncmp(words[0], "EA", 3) == 0)
-	{
-		texture_error(col->ea_found, "EA");
-		col->ea_tex = open_texture(words[1]);
-		col->ea_found = true;
-	}
+	i = 0;
+	line2 = clear_str_space(line);
+	while (line2[i] && ft_isalpha(line2[i]) == 1)
+		i++;
+	while (line2[i] && (line2[i] == 32 || line2[i] == 9 \
+	|| line2[i] == 13))
+		i++;
+	line3 = ft_substr(line2, i, ft_strlen(line2) - i);
+	line4 = rm_nl(line3);
+	free(line2);
+	free(line3);
+	return (line4);
 }
 
 t_list	*texture_to_list(t_tex_all *col)
@@ -84,24 +44,38 @@ t_list	*texture_to_list(t_tex_all *col)
 	return (textures);
 }
 
+void	tex_init(t_check *check)
+{
+	check->tex = (t_tex_all *)malloc(sizeof(t_tex_all));
+	if (!check->tex)
+	{
+		mallocerr();
+		parsing_clean(check);
+	}
+	check->tex->no_found = false;
+	check->tex->ea_found = false;
+	check->tex->so_found = false;
+	check->tex->we_found = false;
+}
+
 void	find_texture(t_check *check, char **lines)
 {
 	int			i;
 	char		**words;
 
 	i = 0;
-	check->tex = (t_tex_all *)malloc(sizeof(t_tex_all));
-	check->tex->no_found = false;
-	check->tex->ea_found = false;
-	check->tex->so_found = false;
-	check->tex->we_found = false;
+	tex_init(check);
 	while (lines[i])
 	{
 		words = ft_space_split(lines[i]);
 		if (!words)
+		{
 			mallocerr();
+			cleardarray(lines);
+			parsing_clean(check);
+		}
 		if (words[0])
-			get_texture(check->tex, words);
+			get_texture(check->tex, words[0], lines[i]);
 		cleardarray(words);
 		i++;
 	}

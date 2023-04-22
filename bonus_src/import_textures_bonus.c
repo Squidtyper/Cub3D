@@ -14,7 +14,7 @@
 
 void	get_texture_bonus(t_tex_bonus *tex_bonus)
 {
-	tex_bonus->door_tex = open_texture(DOORPNG);
+	tex_bonus->door_tex = open_texture(ft_strdup(DOORPNG));
 	tex_bonus->door_found = true;
 }
 
