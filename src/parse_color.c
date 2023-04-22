@@ -31,6 +31,29 @@ char	*combine_lines(char **words)
 	return (comb);
 }
 
+void	too_many_color(char *colorline, char **lines, t_check *check)
+{
+	char	**values;
+	int		len;
+
+	values = ft_split(colorline, ',');
+	if (!values)
+	{
+		free(colorline);
+		cleardarray(lines);
+		parsing_clean(check);
+	}
+	len = 0;
+	while (values[len])
+		len++;
+	if (len != 3)
+	{
+		free(colorline);
+		cleardarray(lines);
+		color_incorrect(check);
+	}
+}
+
 void	color_fill(char **colors, char *colorline, char **lines, t_check *check)
 {
 	int		i;
@@ -65,6 +88,8 @@ char	**color_check(char **words, char **lines, t_check *check)
 	char	*colorline;
 	char	**colors;
 
+	colorline = combine_lines(words);
+	too_many_color(colorline, lines, check);
 	colors = (char **)malloc(sizeof(char *) * 4);
 	if (!colors)
 	{
@@ -72,7 +97,6 @@ char	**color_check(char **words, char **lines, t_check *check)
 		cleardarray(lines);
 		parsing_clean(check);
 	}
-	colorline = combine_lines(words);
 	color_fill(colors, colorline, lines, check);
 	free(colorline);
 	return (colors);
