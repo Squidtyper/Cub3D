@@ -36,12 +36,14 @@ typedef struct s_axix
 	double	x;
 	double	y;
 }t_axis;
+
 typedef struct s_player
 {
 	t_axis	pos;
 	t_axis	delta;
 	double	angle;
 }t_player;
+
 typedef struct s_ray
 {
 	int		max_pg_view;
