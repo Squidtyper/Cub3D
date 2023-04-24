@@ -75,4 +75,4 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:		make all clean fclean re bonus
+.PHONY:		make all clean fclean re bonus libft
