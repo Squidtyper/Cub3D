@@ -73,6 +73,6 @@ clean:
 fclean:		clean 
 			$(RM) $(NAME) $(BNAME) && cd libft && make fclean
 
-re:			fclean $(NAME)
+re:			fclean all
 
 .PHONY:		make all clean fclean re libft bonus

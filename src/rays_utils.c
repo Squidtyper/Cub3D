@@ -12,7 +12,6 @@
 
 #include "execution.h"
 #include <math.h>
-#define PI 3.1415926535
 
 void	set_print(t_exe_info *img, t_print_info *info, t_wall_pos *w_pos)
 {
@@ -46,12 +45,12 @@ t_drc	set_direction(t_drc pos, double angle)
 {
 	if (pos == HORIZONTAL)
 	{
-		if (angle < PI)
+		if (angle < M_PI)
 			return (HORIZONTAL_UP);
 		else
 			return (HORIZONTAL_DOWN);
 	}
-	if (angle < PI / 2 || angle > 3 * PI / 2)
+	if (angle < M_PI_2 || angle > 3 * M_PI_2)
 		return (VERTICAL_RIGHT);
 	return (VERTICAL_LEFT);
 }
@@ -73,7 +72,7 @@ int	calc_max_wall_dist(t_exe_info *img)
 void	angle_normalizer(double *angle)
 {
 	if (*angle < 0)
-			*angle += 2.0 * PI;
-	if (*angle > 2.0 * PI)
-			*angle -= 2.0 * PI;
+			*angle += 2.0 * M_PI;
+	if (*angle > 2.0 * M_PI)
+			*angle -= 2.0 * M_PI;
 }

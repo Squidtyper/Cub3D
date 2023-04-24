@@ -12,7 +12,6 @@
 
 #include "execution.h"
 #include <math.h>
-#define PI 3.1415926535
 
 static void	st_draw_background(t_exe_info *info)
 {

@@ -12,7 +12,7 @@
 
 #include "execution.h"
 #include <math.h>
-#define PI 3.1415926535
+#define PRC 0.000001
 
 /*
 	you cannot a see a verical wall if you look up/down
@@ -111,14 +111,14 @@ void	find_horiz_wall(t_exe_info *img, t_wall_pos *w_pos, double angle)
 	r.pg_view = 0;
 	r.tan = -1 / tan (angle);
 	r.angle = angle;
-	if (angle > PI)
+	if (angle > M_PI)
 	{
-		r.base.y = ((int)(img->player.pos.y / img->size) * img->size) - 0.000001;
+		r.base.y = ((int)(img->player.pos.y / img->size) * img->size) - PRC;
 		r.base.x = (img->player.pos.y - r.base.y) * r.tan + img->player.pos.x;
 		r.offset.y = -img->size;
 		r.offset.x = -r.offset.y * r.tan;
 	}
-	if (angle < PI)
+	if (angle < M_PI)
 	{	
 		r.base.y = ((int)(img->player.pos.y / img->size) * img->size)
 			+ img->size;
@@ -126,7 +126,7 @@ void	find_horiz_wall(t_exe_info *img, t_wall_pos *w_pos, double angle)
 		r.offset.y = img->size;
 		r.offset.x = -r.offset.y * r.tan;
 	}
-	if (angle == 0 || angle == PI)
+	if (angle == 0 || angle == M_PI)
 		st_set_no_wall(&(img->player), &r, img->map_input);
 	st_find_wall_map(img, &r);
 	st_set_ray(img, w_pos, &r, HORIZONTAL);
@@ -159,14 +159,14 @@ void	find_vert_wall(t_exe_info *img, t_wall_pos *w_pos, double angle)
 	r.pg_view = 0;
 	r.tan = -tan(angle);
 	r.angle = angle;
-	if (angle > PI / 2 && angle < 3 * PI / 2)
+	if (angle > M_PI_2 && angle < 3 * M_PI_2)
 	{
-		r.base.x = ((int)(img->player.pos.x / img->size) * img->size) - 0.000001;
+		r.base.x = ((int)(img->player.pos.x / img->size) * img->size) - PRC;
 		r.base.y = (img->player.pos.x - r.base.x) * r.tan + img->player.pos.y;
 		r.offset.x = -img->size;
 		r.offset.y = -r.offset.x * r.tan;
 	}
-	if (angle < PI / 2 || angle > 3 * PI / 2)
+	if (angle < M_PI_2 || angle > 3 * M_PI_2)
 	{	
 		r.base.x = (((int)(img->player.pos.x / img->size)) * img->size)
 			+ img->size;
@@ -174,7 +174,7 @@ void	find_vert_wall(t_exe_info *img, t_wall_pos *w_pos, double angle)
 		r.offset.x = img->size;
 		r.offset.y = -r.offset.x * r.tan;
 	}
-	if (angle == PI / 2 || angle == 3 * PI / 2)
+	if (angle == M_PI_2 || angle == 3 * M_PI_2)
 		st_set_no_wall(&(img->player), &r, img->map_input);
 	st_find_wall_map(img, &r);
 	st_set_ray(img, w_pos, &r, VERTICAL);

@@ -12,7 +12,6 @@
 
 #include "execution_bonus.h"
 #include <math.h>
-#define PI 3.1415926535
 
 double	st_calculate_x(t_exe_info *info, mlx_texture_t *text,
 	t_tex_var *tex)

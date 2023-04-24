@@ -6,13 +6,12 @@
 /*   By: dmonfrin <dmonfrin@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/04 11:43:11 by dmonfrin      #+#    #+#                 */
-/*   Updated: 2023/04/07 19:52:36 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/04/24 15:55:10 by dmonfrin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution_bonus.h"
 #include <math.h>
-#define PI 3.1415926535
 
 static void	st_mouse_left(t_exe_info *info, int x)
 {

@@ -12,7 +12,6 @@
 
 #include "execution_bonus.h"
 #include <math.h>
-#define PI 3.1415926535
 
 /*
     degree start from 0 and reach 360
