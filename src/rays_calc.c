@@ -113,7 +113,7 @@ void	find_horiz_wall(t_exe_info *img, t_wall_pos *w_pos, double angle)
 	r.angle = angle;
 	if (angle > PI)
 	{
-		r.base.y = ((int)(img->player.pos.y / img->size) * img->size) - 0.0001;
+		r.base.y = ((int)(img->player.pos.y / img->size) * img->size) - 0.000001;
 		r.base.x = (img->player.pos.y - r.base.y) * r.tan + img->player.pos.x;
 		r.offset.y = -img->size;
 		r.offset.x = -r.offset.y * r.tan;
@@ -161,7 +161,7 @@ void	find_vert_wall(t_exe_info *img, t_wall_pos *w_pos, double angle)
 	r.angle = angle;
 	if (angle > PI / 2 && angle < 3 * PI / 2)
 	{
-		r.base.x = ((int)(img->player.pos.x / img->size) * img->size) - 0.0001;
+		r.base.x = ((int)(img->player.pos.x / img->size) * img->size) - 0.000001;
 		r.base.y = (img->player.pos.x - r.base.x) * r.tan + img->player.pos.y;
 		r.offset.x = -img->size;
 		r.offset.y = -r.offset.x * r.tan;
