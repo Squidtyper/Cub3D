@@ -40,10 +40,13 @@ SRC			= ${FILES_SHARE:%.c=${SRCDIR}/%.o}${FILES_MAN:%.c=${SRCDIR}/%.c}
 BOBJ		= $(FILES_SHARE:%.c=$(OBJDIR)/%.o) ${FILES_B:%.c=${OBJDIR}/%.o}
 BSRC		= ${FILES_SHARE:%.c=${SRCDIR}/%.c} ${FILES_B:%.c=${BSRCDIR}/%.c} 
 
-all:		$(NAME)
+all:		libft $(NAME)
 
-$(NAME):	$(OBJ) $(LIB_PATH) $(MLX_PATH)
-				$(CC) $(CFLAGS) $(OBJ) $(LIB_PATH)  $(MLX_PATH) $(MLX_FLAG) -o $(NAME)
+libft:
+		$(MAKE) WITBON=1 -C libft
+
+$(NAME):	$(OBJ) $(MLX_PATH) $(LIB_PATH)
+				$(CC) $(CFLAGS) $(OBJ) $(LIB_PATH) $(MLX_PATH) $(MLX_FLAG) -o $(NAME)
 
 $(OBJDIR)/%.o:$(SRCDIR)/%.c
 			$(CC) -c $(CFLAGS) -o $@ $<
@@ -54,10 +57,6 @@ $(OBJDIR)/%.o:$(BSRCDIR)/%.c
 bonus:		$(BNAME)
 $(BNAME):	$(BOBJ) $(LIB_PATH) $(MLX_PATH)
 				$(CC) $(CFLAGS) $(BOBJ) $(LIB_PATH)  $(MLX_PATH) $(MLX_FLAG) -o $(BNAME)
-
-$(LIB_PATH):
-		$(MAKE) WITBON=1 -C libft
-
 $(MLX_PATH):
 		cmake -S MLX42 -B ./MLX42/build 
 				$(MAKE) -C ./MLX42/build 
@@ -76,4 +75,4 @@ fclean:		clean
 
 re:			fclean $(NAME)
 
-.PHONY:		make all clean fclean re bonus
+.PHONY:		make all clean fclean re libft bonus
