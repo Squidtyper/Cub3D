@@ -18,16 +18,12 @@ char	*combine_lines(char **words)
 	char	*comb;
 
 	i = 1;
-	if (words[i + 1])
+	comb = ft_strdup("");
+	while (words[i])
 	{
-		while (words[i + 1])
-		{
-			comb = ft_strjoin(words[i], words[i + 1]);
-			i++;
-		}
+		comb = join_free(comb, ft_strdup(words[i]));
+		i++;
 	}
-	else
-		comb = ft_strdup(words[1]);
 	return (comb);
 }
 
@@ -52,6 +48,7 @@ void	too_many_color(char *colorline, char **lines, t_check *check)
 		cleardarray(lines);
 		color_incorrect(check);
 	}
+	cleardarray(values);
 }
 
 void	color_fill(char **colors, char *colorline, char **lines, t_check *check)

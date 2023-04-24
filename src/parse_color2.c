@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/21 22:08:47 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/04/21 22:27:40 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/04/24 16:53:14 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ void	parse_color(char *ind, char **colors, t_check *check)
 {
 	if (only_digits(colors[0]) == false || \
 	only_digits(colors[1]) == false || only_digits(colors[2]) == false)
+	{
+		cleardarray(colors);
 		color_incorrect(check);
+	}
 	if (ft_strncmp(ind, "C", 2) == 0)
 	{
 		color_double(check->c_found, check);

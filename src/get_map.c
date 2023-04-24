@@ -34,13 +34,13 @@ int	valid_map_line(char *str)
 	return (1);
 }
 
-void	map_basic_check_bonus(t_list *map, char **lines, int i, t_check *check)
+void	map_basic_check(t_list *map, char **lines, int i, t_check *check)
 {
 	while (lines[i])
 	{
 		if (ft_strlen(lines[i]) >= 3 && valid_map_line(lines[i]) == 1)
 		{
-			printf("Error: multiple maps found\n");
+			printf("Error: map contains invalid line\n");
 			ft_lstclear(&map, &free);
 			parsing_clean(check);
 		}
@@ -75,6 +75,6 @@ void	find_map(t_check *check, char **lines)
 		ft_lstadd_back(&map, item);
 		i++;
 	}
-	map_basic_check_bonus(map, lines, i, check);
+	map_basic_check(map, lines, i, check);
 	check->input->map_points = convert_map(map, check->input);
 }

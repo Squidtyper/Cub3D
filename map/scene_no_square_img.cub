@@ -2,7 +2,11 @@ WE ./textures/no_square.png
 EA ./textures/no_square.png
 NO ./textures/no_square_ver.png
 SO ./textures/no_square_ver.png
+<<<<<<< HEAD
 F 0,50,17
+=======
+F 0, 50, 17
+>>>>>>> parsing3
 C 125,196,149
 111111
 11001111

@@ -41,7 +41,7 @@ t_check_bonus *checkb)
 	{
 		if (ft_strlen(lines[i]) >= 3 && valid_map_line_bonus(lines[i]) == 1)
 		{
-			printf("Error: multiple maps found\n");
+			printf("Error: map contains invalid line\n");
 			ft_lstclear(&map, &free);
 			parsing_clean_bonus(checkb);
 		}

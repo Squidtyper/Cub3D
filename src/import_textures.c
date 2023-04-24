@@ -74,8 +74,10 @@ void	find_texture(t_check *check, char **lines)
 			cleardarray(lines);
 			parsing_clean(check);
 		}
-		if (words[0])
-			get_texture(check->tex, words[0], lines[i]);
+		if (words[0] && (ft_strncmp(words[0], "NO", 3) == 0 || \
+		ft_strncmp(words[0], "SO", 3) == 0 || ft_strncmp(words[0], "EA", 3) \
+		== 0 || ft_strncmp(words[0], "WE", 3) == 0))
+			get_texture(check->tex, words[0], get_tex_path(lines[i]));
 		cleardarray(words);
 		i++;
 	}

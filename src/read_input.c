@@ -17,11 +17,16 @@ int	open_file(char *name)
 {
 	int		fd_file;
 
+	if (ft_strncmp(name + ((ft_strlen(name) - 4)), ".cub", 4) != 0)
+	{
+		printf("Error: %s: file is not .cub format\n", name);
+		return (-1);
+	}
 	fd_file = open(name, O_RDONLY);
 	if (fd_file <= 0)
 	{
 		printf("Error: %s: %s\n", name, strerror(errno));
-		exit(1);
+		return (-1);
 	}
 	return (fd_file);
 }
@@ -33,18 +38,17 @@ t_list	*read_file(char *name)
 	char	*buf;
 
 	lines = NULL;
-	if (ft_strncmp(name + ((ft_strlen(name) - 4)), ".cub", 4) != 0)
-	{
-		printf("Error: %s: file is not .cub format\n", name);
+	file_fd = open_file(name);
+	if (file_fd < 0)
 		return (NULL);
-	}
-	file_fd = open(name, O_RDONLY);
-	if (file_fd <= 0)
-	{
-		printf("Error: %s: %s\n", name, strerror(errno));
-		return (NULL);
-	}
 	buf = get_next_line(file_fd);
+	if (!buf)
+	{
+		if (errno == 2)
+			printf("Error: %s: empty file\n", name);
+		else
+			printf("Error: %s: %s\n", name, strerror(errno));
+	}
 	while (buf)
 	{
 		ft_lstadd_back(&lines, ft_lstnew(buf));

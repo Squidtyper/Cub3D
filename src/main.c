@@ -19,6 +19,5 @@ int	main(int ac, char **av)
 	input = parse(ac, av);
 	execution(input);
 	clean_input(input);
-	system("leaks cub3D");
 	return (EXIT_SUCCESS);
 }

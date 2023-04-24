@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/22 18:16:46 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/04/22 18:26:50 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/04/24 16:52:34 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,30 +44,30 @@ void	texture_error(bool testvalue, char *what)
 	}
 }
 
-void	get_texture(t_tex_all *col, char *ind, char *line)
+void	get_texture(t_tex_all *col, char *ind, char *path)
 {
 	if (ft_strncmp(ind, "NO", 3) == 0)
 	{
 		texture_error(col->no_found, "NO");
-		col->no_tex = open_texture(get_tex_path(line));
+		col->no_tex = open_texture(path);
 		col->no_found = true;
 	}
 	if (ft_strncmp(ind, "SO", 3) == 0)
 	{
 		texture_error(col->so_found, "SO");
-		col->so_tex = open_texture(get_tex_path(line));
+		col->so_tex = open_texture(path);
 		col->so_found = true;
 	}
 	if (ft_strncmp(ind, "WE", 3) == 0)
 	{
 		texture_error(col->we_found, "WE");
-		col->we_tex = open_texture(get_tex_path(line));
+		col->we_tex = open_texture(path);
 		col->we_found = true;
 	}
 	if (ft_strncmp(ind, "EA", 3) == 0)
 	{
 		texture_error(col->ea_found, "EA");
-		col->ea_tex = open_texture(get_tex_path(line));
+		col->ea_tex = open_texture(path);
 		col->ea_found = true;
 	}
 }

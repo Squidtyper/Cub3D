@@ -6,7 +6,7 @@
 /*   By: lizhang <lizhang@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/22 14:52:22 by lizhang       #+#    #+#                 */
-/*   Updated: 2023/04/22 18:53:01 by lizhang       ########   odam.nl         */
+/*   Updated: 2023/04/24 16:55:57 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void			parse_color(char *ind, char **colors, t_check *check);
 
 //parse_color:
 char			*combine_lines(char **words);
+void			too_many_color(char *colorline, char **lines, t_check *check);
 void			color_fill(char **colors, char *colorline, char **lines, \
 				t_check *check);
 char			**color_check(char **words, char **lines, t_check *check);
@@ -81,7 +82,7 @@ char			**convert_map(t_list *map, t_input *input);
 
 //get_map:
 int				valid_map_line(char *str);
-void			map_basic_check_bonus(t_list *map, char **lines, int i, \
+void			map_basic_check(t_list *map, char **lines, int i, \
 				t_check *check);
 void			find_map(t_check *check, char **lines);
 
@@ -94,7 +95,7 @@ void			get_player(t_check *check);
 //import texture 2:
 mlx_texture_t	*open_texture(char *path);
 void			texture_error(bool testvalue, char *what);
-void			get_texture(t_tex_all *col, char *ind, char *line);
+void			get_texture(t_tex_all *col, char *ind, char *path);
 
 //import texture:
 char			*get_tex_path(char *line);

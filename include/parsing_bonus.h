@@ -6,7 +6,11 @@
 /*   By: lizhang <lizhang@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/22 14:52:22 by lizhang       #+#    #+#                 */
+<<<<<<< HEAD
 /*   Updated: 2023/04/22 18:47:55 by lizhang       ########   odam.nl         */
+=======
+/*   Updated: 2023/04/23 15:41:16 by lizhang       ########   odam.nl         */
+>>>>>>> parsing3
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +57,8 @@ void			find_texture_bonus(t_check_bonus *check, char **lines);
 //boundary_test:
 void			boundary_test_bonus(char **m_p, unsigned int height, \
 unsigned int width);
+
+//test_input_bonus:
+void			test_inputs_bonus(t_check_bonus *checkb);
+
 #endif

@@ -2,7 +2,11 @@ WE ./textures/wool_colored_yellow.png
 EA ./textures/wool_colored_light_blue.png
 NO ./textures/wool_colored_lime.png
 SO ./textures/wool_colored_red.png
+<<<<<<< HEAD
 F 220,100,0
+=======
+F 220, 100, 0
+>>>>>>> parsing3
 C 225,30,0
 111111
 11001111

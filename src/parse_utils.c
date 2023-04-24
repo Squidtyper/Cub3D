@@ -76,15 +76,24 @@ char	*rm_vertical_tab(char *str)
 {
 	int		i;
 	char	*str2;
+	char	*str3;
 
+	i = 0;
 	if (!str)
 		return (NULL);
-	i = ft_strlen(str) - 1;
-	if (str[i] == 13)
-		i--;
-	str2 = ft_substr(str, 0, i + 1);
-	free(str);
-	return (str2);
+	while (str[i])
+	{
+		if (str[i] == 13)
+		{
+			str2 = ft_substr(str, 0, i);
+			str3 = ft_strjoin(str2, "\n");
+			free(str2);
+			free(str);
+			return (str3);
+		}
+		i++;
+	}
+	return (str);
 }
 
 char	*rm_nl(char *str)
