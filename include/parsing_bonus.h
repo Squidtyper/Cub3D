@@ -6,11 +6,7 @@
 /*   By: lizhang <lizhang@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/22 14:52:22 by lizhang       #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2023/04/22 18:47:55 by lizhang       ########   odam.nl         */
-=======
-/*   Updated: 2023/04/23 15:41:16 by lizhang       ########   odam.nl         */
->>>>>>> parsing3
+/*   Updated: 2023/04/24 16:58:29 by lizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
