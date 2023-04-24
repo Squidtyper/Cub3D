@@ -1,0 +1,11 @@
+WE ./textures/world.png
+EA ./textures/magical_forest.png
+NO ./textures/mush.png
+SO ./textures/forest.png
+F 85,107,47
+C 32,178,170
+111111
+11001111
+100001
+1000N1
+111111
