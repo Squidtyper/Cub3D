@@ -74,7 +74,8 @@ void	st_draw_ray_scene(t_exe_info *img)
 	int				i;
 
 	i = 0;
-	ray_angle = img->player.angle - (0.0174533 * (FOV / 2));
+	ray_angle = img->player.angle + atan((i - HEIGHT_WIDTH / 2)
+				* (0.0174533 * FOV) / HEIGHT_WIDTH);
 	while (i < HEIGHT_WIDTH)
 	{
 		angle_normalizer(&ray_angle);
