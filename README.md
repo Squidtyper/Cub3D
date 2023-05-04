@@ -1,7 +1,7 @@
 # Cub3D
 
 ## **Description**
-This grafichal project introduce to game developement and ray-casting, mimicking a famous old 3D game <br>Wolfenstein 3D<br>
+This grafichal project introduce to game developement and ray-casting, mimicking a famous old 3D game *Wolfenstein 3D*<br>
 It was made by [@squidtyper](https://github.com/squidtyper/squidtyper) (in charge of the parsing) and [@greedymelon](https://github.com/greedymelon/greedymelon) (in charge of the execution)
 
 # **RULES**
@@ -21,31 +21,31 @@ by one or more space(s).
 map and are up to you to handle. You must be able to parse any kind of map,
 as long as it respects the rules of the map
 - Each element (except the map) firsts information is the type identifier (composed by one or two character(s)), 
-followed by all specific informations for each object in a strict order such as :
-∗ North texture:
-NO ./path_to_the_north_texture
-· identifier: NO
-· path to the north texure
-∗ South texture:
-SO ./path_to_the_south_texture
-· identifier: SO
-· path to the south texure
-∗ West texture:
-WE ./path_to_the_west_texture
-· identifier: WE
-· path to the west texure
-∗ East texture:
-EA ./path_to_the_east_texture
-· identifier: EA
-· path to the east texure
-∗ Floor color:
-F 220,100,0
-· identifier: F
-· R,G,B colors in range [0,255]: 0, 255, 255
-∗ Ceiling color:
-C 225,30,0
-· identifier: C
-· R,G,B colors in range [0,255]: 0, 255, 255
+followed by all specific informations for each object in a strict order such as :<br>
+∗ North texture:<br>
+NO ./path_to_the_north_texture<br>
+· identifier: NO<br>
+· path to the north texure<br>
+∗ South texture:<br>
+SO ./path_to_the_south_texture<br>
+· identifier: SO<br>
+· path to the south texure<br>
+∗ West texture:<br>
+WE ./path_to_the_west_texture<br>
+· identifier: WE<br>
+· path to the west texure<br>
+∗ East texture:<br>
+EA ./path_to_the_east_texture<br>
+· identifier: EA<br>
+· path to the east texure<br>
+∗ Floor color:<br>
+F 220,100,0<br>
+· identifier: F<br>
+· R,G,B colors in range [0,255]: 0, 255, 255<br>
+∗ Ceiling color:<br>
+C 225,30,0<br>
+· identifier: C<br>
+· R,G,B colors in range [0,255]: 0, 255, 255<br>
 - If any misconfiguration of any kind is encountered in the file, the program
 must exit properly and return "Error\n" followed by an explicit error message
 
