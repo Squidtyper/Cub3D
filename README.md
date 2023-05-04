@@ -66,7 +66,7 @@ quit the program cleanly.
 ## **How to run**
 First we need to install the grafical libirary
 library and step to install it are listed here 
-https://github.com/codam-coding-college/MLX42
+[MLX42](https://github.com/codam-coding-college/MLX42)
 
 clone this repository in your computer and open it
 ```
