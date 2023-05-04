@@ -50,17 +50,17 @@ C 225,30,0<br>
 must exit properly and return "Error\n" followed by an explicit error message
 
 **The program:**<br>
--The management of your window must remain smooth: changing to another window, minimizing, etc.
--Display different wall textures (the choice is yours) that vary depending on which
+- The management of your window must remain smooth: changing to another window, minimizing, etc.
+- Display different wall textures (the choice is yours) that vary depending on which
 side the wall is facing (North, South, East, West).
--Your program must be able to set the floor and ceiling colors to two different ones.
--The program displays the image in a window
--The left and right arrow keys of the keyboard must allow you to look left and
+- Your program must be able to set the floor and ceiling colors to two different ones.
+- The program displays the image in a window
+- The left and right arrow keys of the keyboard must allow you to look left and
 right in the maze.
--The W, A, S, and D keys must allow you to move the point of view through
+- The W, A, S, and D keys must allow you to move the point of view through
 the maze.
--Pressing ESC must close the window and quit the program cleanly.
--Clicking on the red cross on the window’s frame must close the window and
+- Pressing ESC must close the window and quit the program cleanly.
+- Clicking on the red cross on the window’s frame must close the window and
 quit the program cleanly.
 
 ## **How to run**
