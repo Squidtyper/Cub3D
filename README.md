@@ -51,7 +51,7 @@ must exit properly and return "Error\n" followed by an explicit error message
 
 **The program:**<br>
 -The management of your window must remain smooth: changing to another window, minimizing, etc.
-- Display different wall textures (the choice is yours) that vary depending on which
+-Display different wall textures (the choice is yours) that vary depending on which
 side the wall is facing (North, South, East, West).
 -Your program must be able to set the floor and ceiling colors to two different ones.
 -The program displays the image in a window
