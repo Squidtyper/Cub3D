@@ -5,7 +5,7 @@ This grafichal project introduce to game developement and ray-casting, mimicking
 It was made by [@squidtyper](https://github.com/squidtyper/squidtyper) (in charge of the parsing) and [@greedymelon](https://github.com/greedymelon/greedymelon) (in charge of the execution)
 
 # **RULES**
-*The map has to respect this set of rules:*
+**The map has to respect this set of rules:**
 - The map must be composed of only 6 possible characters: 0 for an empty space,
 1 for a wall, and N,S,E or W for the player’s start position and spawning
 orientation.
@@ -49,7 +49,7 @@ C 225,30,0<br>
 - If any misconfiguration of any kind is encountered in the file, the program
 must exit properly and return "Error\n" followed by an explicit error message
 
-*the program:*
+**The program:**<br>
 -The management of your window must remain smooth: changing to another window, minimizing, etc.
 - Display different wall textures (the choice is yours) that vary depending on which
 side the wall is facing (North, South, East, West).
