@@ -23,7 +23,9 @@ as long as it respects the rules of the map
 - Each element (except the map) firsts information is the type identifier (composed by one or two character(s)), 
 followed by all specific informations for each object in a strict order such as:
 <details>
-             <summary>expand</summary>
+<summary>
+    expand
+</summary>
 ∗ *North texture:*<br>
 NO ./path_to_the_north_texture<br>
 · identifier: NO<br>
@@ -68,28 +70,37 @@ the maze.
 quit the program cleanly.
 
 ## **How to run**
-First we need to install the grafical libirary
-library and step to install it are listed here 
+First we need to install the graphical library <br>
+Library and step to install it are listed here 
 [MLX42](https://github.com/codam-coding-college/MLX42)
 
 clone this repository in your computer and open it
 ```
 git clone https://github.com/Squidtyper/Cub3D.git; cd Cub3D
 ```
-then ```make``` the program
+then ```make``` the program<br>
+````
+make
+````
 run
 ```./cub3D``` with a map in the folder map:
 
 exemple
-```./cub3D /map/scene_normal.cub```
+```
+./cub3D /map/scene_normal.cub
+```
 
 for the bonus part
-```make bonus```
+```
+make bonus
+```
 
 run
 ```./cub3D_bonus``` with a map in the folder map:
 
 exemple
-```./cub3D_bonus /map/scene_bonus.cub```
+```
+./cub3D_bonus /map/scene_bonus.cub
+```
 
 ## **Challenges**
