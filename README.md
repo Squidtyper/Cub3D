@@ -21,9 +21,9 @@ by one or more space(s).
 map and are up to you to handle. You must be able to parse any kind of map,
 as long as it respects the rules of the map
 - Each element (except the map) firsts information is the type identifier (composed by one or two character(s)), 
-followed by all specific informations for each object in a strict order such as :
+followed by all specific informations for each object in a strict order such as:
 <details>
-             <summary>config:</summary>
+             <summary>config</summary>
 ∗ *North texture:*<br>
 NO ./path_to_the_north_texture<br>
 · identifier: NO<br>
