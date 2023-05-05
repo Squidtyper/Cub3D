@@ -23,8 +23,8 @@ as long as it respects the rules of the map
 - Each element (except the map) firsts information is the type identifier (composed by one or two character(s)), 
 followed by all specific informations for each object in a strict order such as :
 <details>
-  <summary>config:</summary>∗ 
-  *North texture:*<br>
+             <summary>config:</summary>
+∗ *North texture:*<br>
 NO ./path_to_the_north_texture<br>
 · identifier: NO<br>
 · path to the north texure<br>
