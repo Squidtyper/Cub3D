@@ -5,7 +5,7 @@ This graphical project introduces game developement and ray-casting, mimicking a
 It was made by [@squidtyper](https://github.com/squidtyper/squidtyper) (in charge of the parsing) and [@greedymelon](https://github.com/greedymelon) (in charge of the execution)<br>
 
 ## **Rules**
-**The map has to respect this set of rules:**
+**The map has to respect the following set of rules:**
 - The map must be composed of only 6 possible characters: 0 for an empty space,
 1 for a wall, and N,S,E or W for the player’s start position and spawning
 orientation.
