@@ -60,7 +60,7 @@ void	color_fill(char **colors, char *colorline, char **lines, t_check *check)
 	i = 0;
 	i2 = 0;
 	i3 = 0;
-	while (colorline[i] && i3 < 3)
+	while (colorline[i] && i3 < 4)
 	{
 		if (ft_isdigit(colorline[i]) != 1)
 		{

@@ -39,9 +39,13 @@ t_check_bonus *checkb)
 {
 	while (lines[i])
 	{
-		if (ft_strlen(lines[i]) >= 3 && valid_map_line_bonus(lines[i]) == 1)
+		if ((ft_strlen(lines[i]) > 1 && !lines[i + 1]) || \
+		valid_map_line(lines[i]) == 1)
 		{
-			printf("Error: map contains invalid line\n");
+			if ((ft_strlen(lines[i]) && !lines[i + 1]))
+				printf("Error: map is not a the end of the file.\n");
+			else if (valid_map_line(lines[i]) == 1)
+				printf("Error: map contains invalid line\n");
 			ft_lstclear(&map, &free);
 			parsing_clean_bonus(checkb);
 		}

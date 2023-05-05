@@ -38,9 +38,13 @@ void	map_basic_check(t_list *map, char **lines, int i, t_check *check)
 {
 	while (lines[i])
 	{
-		if (ft_strlen(lines[i]) >= 3 && valid_map_line(lines[i]) == 1)
+		if ((ft_strlen(lines[i]) > 1 && !lines[i + 1]) || \
+		valid_map_line(lines[i]) == 1)
 		{
-			printf("Error: map contains invalid line\n");
+			if ((ft_strlen(lines[i]) && !lines[i + 1]))
+				printf("Error: map is not a the end of the file.\n");
+			else if (valid_map_line(lines[i]) == 1)
+				printf("Error: map contains invalid line\n");
 			ft_lstclear(&map, &free);
 			parsing_clean(check);
 		}
@@ -64,7 +68,7 @@ void	find_map(t_check *check, char **lines)
 	map = NULL;
 	while (lines[i])
 	{
-		if (ft_strlen(lines[i]) >= 3 && valid_map_line(lines[i]) == 1)
+		if (valid_map_line(lines[i]) == 1)
 			break ;
 		i++;
 	}
