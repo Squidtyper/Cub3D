@@ -2,8 +2,8 @@
 
 ## **Description**
 This grafichal project introduce to game developement and ray-casting, mimicking a famous old 3D game **Wolfenstein 3D**<br>
-It was made by [@squidtyper](https://github.com/squidtyper/squidtyper) (in charge of the parsing) and [@greedymelon](https://github.com/greedymelon) (in charge of the execution)
-<img src="https://github.com/Squidtyper/Cub3D/blob/Norme/cub3Dshow.gif" width="250" height="250"/>
+It was made by [@squidtyper](https://github.com/squidtyper/squidtyper) (in charge of the parsing) and [@greedymelon](https://github.com/greedymelon) (in charge of the execution)<br>
+<img src="https://github.com/Squidtyper/Cub3D/blob/Norme/cub3Dshow.gif" width="250" height="250"/><br>
 
 ## **Rules**
 **The map has to respect this set of rules:**
