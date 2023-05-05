@@ -2,7 +2,7 @@
 
 ## **Description**
 This grafichal project introduce to game developement and ray-casting, mimicking a famous old 3D game **Wolfenstein 3D**<br>
-It was made by [@squidtyper](https://github.com/squidtyper/squidtyper) (in charge of the parsing) and [@greedymelon](https://github.com/greedymelon/greedymelon) (in charge of the execution)
+It was made by [@squidtyper](https://github.com/squidtyper/squidtyper) (in charge of the parsing) and [@greedymelon](https://github.com/greedymelon) (in charge of the execution)
 
 ## **Rules**
 **The map has to respect this set of rules:**
