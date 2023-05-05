@@ -70,11 +70,11 @@ the maze.
 quit the program cleanly.
 
 ## **How to run**
-First we need to install the graphical library <br>
-Library and step to install it are listed here 
+First we need to install the graphical library: <br>
+The steps to install it are listed here 
 [MLX42](https://github.com/codam-coding-college/MLX42)
 
-clone this repository in your computer and open it
+Clone this repository in your computer and open it
 ```
 git clone https://github.com/Squidtyper/Cub3D.git; cd Cub3D
 ```
@@ -85,7 +85,7 @@ make
 run
 ```./cub3D``` with a map in the folder map:
 
-exemple
+example
 ```
 ./cub3D /map/scene_normal.cub
 ```
@@ -95,10 +95,10 @@ for the bonus part
 make bonus
 ```
 
-run
+and run
 ```./cub3D_bonus``` with a map in the folder map:
 
-exemple
+example
 ```
 ./cub3D_bonus /map/scene_bonus.cub
 ```
