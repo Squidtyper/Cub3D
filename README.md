@@ -21,10 +21,9 @@ by one or more space(s).
 map and are up to you to handle. You must be able to parse any kind of map,
 as long as it respects the rules of the map
 - Each element (except the map) firsts information is the type identifier (composed by one or two character(s)), 
-followed by all specific informations for each object in a strict order such as :<br>
+followed by all specific informations for each object in a strict order <br>
 <details>
-  <summary>- Each element (except the map) firsts information is the type identifier (composed by one or two character(s)), 
-followed by all specific informations for each object in a strict order such as :<br></summary>∗ 
+  <summary>such as :<br></summary>∗ 
   *North texture:*<br>
 NO ./path_to_the_north_texture<br>
 · identifier: NO<br>
@@ -49,8 +48,8 @@ F 220,100,0<br>
 C 225,30,0<br>
 · identifier: C<br>
 · R,G,B colors in range [0,255]: 0, 255, 255<br>
-
 </details>
+
 - If any misconfiguration of any kind is encountered in the file, the program
 must exit properly and return "Error\n" followed by an explicit error message
 
