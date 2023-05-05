@@ -102,5 +102,3 @@ example
 ```
 ./cub3D_bonus /map/scene_bonus.cub
 ```
-
-## **Challenges**
