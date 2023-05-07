@@ -74,10 +74,10 @@ void	st_draw_ray_scene(t_exe_info *img)
 	int				i;
 
 	i = 0;
-	ray_angle = img->player.angle + atan((i - HEIGHT_WIDTH / 2)
-				* (0.0174533 * FOV) / HEIGHT_WIDTH);
 	while (i < HEIGHT_WIDTH)
 	{
+		ray_angle = img->player.angle + atan((i - HEIGHT_WIDTH / 2)
+				* (0.0174533 * FOV) / HEIGHT_WIDTH);
 		angle_normalizer(&ray_angle);
 		find_horiz_wall(img, &w_pos, ray_angle);
 		find_vert_wall(img, &w_pos, ray_angle);
@@ -85,8 +85,6 @@ void	st_draw_ray_scene(t_exe_info *img)
 		draw_scene(img, &w_pos, i, img->player.angle - ray_angle);
 		if (img->pad.x < HEIGHT_WIDTH)
 			draw_ray(img, &info);
-		ray_angle = img->player.angle + atan((i - HEIGHT_WIDTH / 2)
-				* (0.0174533 * FOV) / HEIGHT_WIDTH);
 		i++;
 	}
 }
