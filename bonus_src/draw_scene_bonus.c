@@ -32,9 +32,9 @@ mlx_texture_t	*st_calculate_texture(t_exe_info *img, t_tex_var *tex)
 {
 	if (tex->wall_side > 5)
 		return (img->map_input->textures->next->next->next->next->content);
-	else if (tex->wall_side == VERTICAL_LEFT)
-		return (img->map_input->textures->next->next->content);
 	else if (tex->wall_side == VERTICAL_RIGHT)
+		return (img->map_input->textures->next->next->content);
+	else if (tex->wall_side == VERTICAL_LEFT)
 		return (img->map_input->textures->next->next->next->content);
 	else if (tex->wall_side == HORIZONTAL_UP)
 		return (img->map_input->textures->content);
